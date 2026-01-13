@@ -55,7 +55,7 @@ describe('EnvConfigService', () => {
   it('should return DB_PORT as number', () => {
     const result = sut.getDbPort();
 
-    expect(result).toBe(5234);
+    expect(result).toBe(5434);
   });
 
   it('should return DB_DATABASE as number', () => {
@@ -73,7 +73,7 @@ describe('EnvConfigService', () => {
   it('should return DB_PASSWORD as number', () => {
     const result = sut.getDbPassword();
 
-    expect(result).toBe('test_password');
+    expect(result).toBe('test');
   });
 
 	it('should return NODE_ENV as number', () => {
