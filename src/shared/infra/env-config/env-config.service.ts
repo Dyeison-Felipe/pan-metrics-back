@@ -5,6 +5,9 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class EnvConfigService implements EnvConfig {
   constructor(private readonly envConfigService: ConfigService) {}
+  getSchema(): string {
+    return this.envConfigService.get<string>('DB_SCHEMA') as string;
+  }
   getSalts(): number {
     return +(this.envConfigService.get<string>('SALTS') as string);
   }

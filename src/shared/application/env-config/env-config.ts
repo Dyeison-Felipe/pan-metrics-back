@@ -8,4 +8,5 @@ export interface EnvConfig {
   getNodeEnv(): string;
   getAllowedOrigins(): string[]
   getSalts(): number;
+  getSchema(): string;
 }
