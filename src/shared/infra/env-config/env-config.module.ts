@@ -26,7 +26,6 @@ export class EnvConfigModule extends ConfigModule {
     return ConfigModule.forRoot({
       isGlobal: true,
       ...options,
-      envFilePath: `../../../.env.${process.env.NODE_ENV}`,
     });
   }
 }

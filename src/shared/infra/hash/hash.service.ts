@@ -1,16 +1,21 @@
-import { EnvConfig } from "../../application/env-config/env-config";
-import { Hash } from "../../application/hash/hash";
+import { Injectable } from '@nestjs/common';
+import { Hash } from '../../application/hash/hash';
+import * as bcrypt from 'bcrypt';
+import { EnvConfigService } from '../env-config/env-config.service';
 
+@Injectable()
 export class HashService implements Hash {
+  constructor(private readonly configService: EnvConfigService) {}
+  async hash(value: string): Promise<string> {
+    const salts = this.configService.getSalts();
 
-  constructor(private readonly configService: EnvConfig) {
+    const hashed = await bcrypt.hash(value, salts);
 
-  }
-  hash(value: string): string {
-    throw new Error("Method not implemented.");
+    return hashed;
   }
   compareHash(value: string, valueHash: string): boolean {
-    throw new Error("Method not implemented.");
-  }
+    const compare = bcrypt.compareSync(value, valueHash);
 
+    return compare;
+  }
 }

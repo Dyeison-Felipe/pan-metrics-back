@@ -7,4 +7,5 @@ export interface EnvConfig {
   getPort(): number;
   getNodeEnv(): string;
   getAllowedOrigins(): string[]
+  getSalts(): number;
 }

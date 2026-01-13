@@ -1,8 +1,13 @@
 import { ConfigService } from '@nestjs/config';
 import { EnvConfig } from '../../application/env-config/env-config';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class EnvConfigService implements EnvConfig {
   constructor(private readonly envConfigService: ConfigService) {}
+  getSalts(): number {
+    return +(this.envConfigService.get<string>('SALTS') as string);
+  }
   getDbPort(): number {
     return +(this.envConfigService.get<string>('DB_PORT') as string);
   }
