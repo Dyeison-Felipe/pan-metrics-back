@@ -25,4 +25,22 @@ describe('DatabaseModule integration', () => {
     const result = await dataSource.query('SELECT 1');
     expect(result).toBeDefined();
   });
+
+  it('should have created the test schema', async () => {
+    const result = await dataSource.query(`
+      SELECT schema_name
+      FROM information_schema.schemata
+      WHERE schema_name = 'test'
+    `);
+
+    expect(result.length).toBe(1);
+  });
+
+  it('should be using the test schema', async () => {
+    const result = await dataSource.query('SHOW search_path');
+
+    const searchPath = result[0].search_path as string;
+
+    expect(searchPath.startsWith('test')).toBe(true);
+  });
 });

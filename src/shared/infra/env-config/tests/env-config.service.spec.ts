@@ -55,28 +55,28 @@ describe('EnvConfigService', () => {
   it('should return DB_PORT as number', () => {
     const result = sut.getDbPort();
 
-    expect(result).toBe(5434);
+    expect(result).toBe(5433);
   });
 
-  it('should return DB_DATABASE as number', () => {
+  it('should return DB_DATABASE as string', () => {
     const result = sut.getDbName();
 
-    expect(result).toBe('barber_db_dev_test');
+    expect(result).toBe('barber_db_dev');
   });
 
-  it('should return DB_USER as number', () => {
+  it('should return DB_USER as string', () => {
     const result = sut.getDbUser();
 
-    expect(result).toBe('test');
+    expect(result).toBe('root');
   });
 
-  it('should return DB_PASSWORD as number', () => {
+  it('should return DB_PASSWORD as string', () => {
     const result = sut.getDbPassword();
 
-    expect(result).toBe('test');
+    expect(result).toBe('root');
   });
 
-	it('should return NODE_ENV as number', () => {
+	it('should return NODE_ENV as string', () => {
     const result = sut.getNodeEnv();
 
     expect(result).toBe('test');

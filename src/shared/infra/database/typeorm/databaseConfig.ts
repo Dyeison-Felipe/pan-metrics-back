@@ -11,6 +11,10 @@ export const getDatabaseConfig = (
   username: configService.getDbUser(),
   password: configService.getDbPassword(),
   database: configService.getDbName(),
+  schema: configService.getSchema(),
+    extra: {
+    options: `-c search_path=${configService.getSchema()}`,
+  },
   entities: [join(__dirname, '../../../core/**/infra/schema/**.ts')],
   migrations: [join(__dirname, './migrations/**.{ts,js}')],
   migrationsRun: true,
