@@ -15,7 +15,6 @@ export class HashService implements Hash {
   }
   compareHash(value: string, valueHash: string): boolean {
     const compare = bcrypt.compareSync(value, valueHash);
-    
     return compare;
   }
 }
