@@ -84,7 +84,6 @@ describe('EnvConfigService', () => {
 
 	it('should return DB_HOST as string', () => {
 		const result = sut.getDbHost();
-
 		expect(result).toBe('localhost');
 	})
 });
