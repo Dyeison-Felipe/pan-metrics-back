@@ -18,7 +18,7 @@ if [ ${#COMMIT_MSG} -gt 72 ]; then
   echo "❌ Erro: Mensagem muito longa."
   echo "Máximo permitido: 72 caracteres."
   echo ""
-  exit 1
+  exit 1 
 fi
 
 exit 0
