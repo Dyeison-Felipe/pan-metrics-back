@@ -8,7 +8,7 @@ import { EnvConfig } from './shared/application/env-config/env-config';
 
 export default function globalConfig(app: INestApplication, envConfig: EnvConfig) {
   // PREFIX
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('api');
 
   //  CORS
 

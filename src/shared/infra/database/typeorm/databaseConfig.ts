@@ -15,7 +15,7 @@ export const getDatabaseConfig = (
     extra: {
     options: `-c search_path=${configService.getSchema()}`,
   },
-  entities: [join(__dirname, '../../../core/**/infra/schema/**.ts')],
+  entities: [join(__dirname, '../../../../core/**/infra/database/typeorm/schema/*.{ts,js}')],
   migrations: [join(__dirname, './migrations/**.{ts,js}')],
   migrationsRun: true,
   logging: false,

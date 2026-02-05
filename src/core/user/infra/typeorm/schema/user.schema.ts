@@ -1,5 +1,5 @@
 import { Column, Entity } from "typeorm";
-import { BaseSchema } from "../../../../shared/infra/database/typeorm/schema/baseSchema";
+import { BaseSchema } from "../../../../../shared/infra/database/typeorm/schema/baseSchema";
 
 @Entity('users')
 export class UserSchema extends BaseSchema {

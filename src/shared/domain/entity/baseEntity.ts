@@ -25,7 +25,7 @@ export abstract class BaseEntity<Props extends BaseProps> {
   constructor(props: Props & ConstructorEntityProps) {
     this.props = {
       ...props,
-      id: crypto.randomUUID(),
+      id: props.id  ?? crypto.randomUUID(),
       auditable: {
         createdAt: props.auditable?.createdAt ?? new Date(),
         updatedAt: props.auditable?.updatedAt ?? new Date(),
@@ -35,5 +35,26 @@ export abstract class BaseEntity<Props extends BaseProps> {
         deletedBy: props.auditable?.deletedBy ?? null,
       },
     };
+  }
+
+  get id() {
+		return this.props.id;
+	}
+
+  get audit() {
+		return this.props.auditable;
+	}
+
+  toJSON(): Props & EntityProps {
+		return {
+			...this.props,
+		};
+	}
+
+  static with<Props extends BaseProps, Ent extends BaseEntity<Props>>(
+    this: new (props: Props & EntityProps) => Ent,
+    props: Props & EntityProps,
+  ): Ent {
+    return new this(props);
   }
 }
