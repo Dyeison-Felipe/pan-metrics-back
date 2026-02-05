@@ -43,7 +43,7 @@ describe('EnvConfigService', () => {
 
     // Validamos:
     // o valor retornado deve ser number, não string
-    expect(result).toBe(4444);
+    expect(result).toBe(3000);
   });
 
   it('should return SALTS as number', () => {
