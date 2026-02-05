@@ -51,7 +51,7 @@ describe('HashService', () => {
 
     return sut.hash(password).then((hash) => {
       const result = sut.compareHash(password, hash);
-
+      
       expect(result).toBe(true);
     });
   });
