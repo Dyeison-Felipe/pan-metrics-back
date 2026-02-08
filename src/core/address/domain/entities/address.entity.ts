@@ -1,6 +1,6 @@
 import { Data } from '@shared/domain/decorators/data.decorator';
 import { BaseEntity } from '@shared/domain/entity/baseEntity';
-import { CityEntity } from '@shared/domain/entity/city.entity';
+import { CityEntity } from '@core/cities/domain/entities/city.entity';
 
 type AddressProps = {
   cep: string;

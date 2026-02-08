@@ -1,5 +1,5 @@
 import { BaseSchema } from "@shared/infra/database/typeorm/schema/baseSchema/baseSchema";
-import { CitySchema } from "@shared/infra/database/typeorm/schema/city.schema";
+import { CitySchema } from "@core/cities/infra/database/typeorm/schema/city.schema";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity('addresses')

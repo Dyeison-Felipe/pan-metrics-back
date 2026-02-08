@@ -4,10 +4,10 @@ import { AddressSchema } from './database/typeorm/schema/address.schema';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import { AddressRepositoryImpl } from './database/typeorm/repository/address.repository';
 import { AddressRepositoryMapper } from './database/typeorm/repository/mapper/address-repository.mapper';
-import { SharedModule } from '@shared/shared.module';
+import { CityModule } from '@core/cities/infra/city.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AddressSchema]), SharedModule],
+  imports: [TypeOrmModule.forFeature([AddressSchema]), CityModule],
   controllers: [],
   providers: [
     {

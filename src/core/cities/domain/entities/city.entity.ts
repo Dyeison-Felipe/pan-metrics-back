@@ -1,5 +1,5 @@
-import { BaseEntity } from './baseEntity';
-import { StateEntity } from './state.entity';
+import { StateEntity } from '@core/states/domain/entities/state.entity';
+import { BaseEntity } from '../../../../shared/domain/entity/baseEntity';
 
 type CityProps = {
   city: string;

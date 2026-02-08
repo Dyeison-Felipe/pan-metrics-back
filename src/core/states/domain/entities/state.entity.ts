@@ -1,4 +1,4 @@
-import { BaseEntity } from './baseEntity';
+import { BaseEntity } from "@shared/domain/entity/baseEntity";
 
 type StateProps = {
   name: string;

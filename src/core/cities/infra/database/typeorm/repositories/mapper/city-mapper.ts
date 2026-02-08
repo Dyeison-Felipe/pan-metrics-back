@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RepositoryMapper } from './base-mapper/repository-mapper';
+import { RepositoryMapper } from '../../../../../../../shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
 import { CitySchema } from '../../schema/city.schema';
-import { CityEntity } from '@shared/domain/entity/city.entity';
-import { StateMapper } from './state-mapper';
+import { CityEntity } from '@core/cities/domain/entities/city.entity';
+import { StateMapper } from '../../../../../../states/infra/database/typeorm/repositories/mapper/state-mapper';
 import { PROVIDERS } from '@shared/application/constants/providers';
 
 @Injectable()

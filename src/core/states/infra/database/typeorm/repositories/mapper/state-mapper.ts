@@ -1,9 +1,9 @@
-import { StateEntity } from '@shared/domain/entity/state.entity';
 import { StateSchema } from '../../schema/state.schema';
-import { RepositoryMapper } from './base-mapper/repository-mapper';
+import { RepositoryMapper } from '../../../../../../../shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
+import { StateEntity } from '@core/states/domain/entities/state.entity';
 
 @Injectable()
 export class StateMapper implements RepositoryMapper<StateSchema, StateEntity> {

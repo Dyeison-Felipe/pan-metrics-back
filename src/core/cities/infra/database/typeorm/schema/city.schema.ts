@@ -6,9 +6,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { StateSchema } from './state.schema';
-import { AddressSchema } from '../../../../../core/address/infra/database/typeorm/schema/address.schema';
-import { BaseSchema } from './baseSchema/baseSchema';
+import { AddressSchema } from '../../../../../address/infra/database/typeorm/schema/address.schema';
+import { BaseSchema } from '../../../../../../shared/infra/database/typeorm/schema/baseSchema/baseSchema';
+import { StateSchema } from '@core/states/infra/database/typeorm/schema/state.schema';
 
 @Entity('cities')
 export class CitySchema extends BaseSchema {
