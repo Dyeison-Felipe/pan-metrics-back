@@ -9,22 +9,22 @@ export abstract class BaseSchema {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({ name: 'createdAt', nullable: false, type: 'date'})
+  @CreateDateColumn({ name: 'created_at', nullable: false, type: 'date'})
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', nullable: false, type: 'date'})
+  @UpdateDateColumn({ name: 'updated_at', nullable: false, type: 'date'})
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', nullable: true, type: 'date'})
+  @DeleteDateColumn({ name: 'deleted_at', nullable: true, type: 'date'})
   deletedAt: Date | null
 
-  @Column({name: 'createdBy', nullable: false, type: 'varchar'})
+  @Column({name: 'created_by', nullable: false, type: 'varchar'})
   createdBy: string;
 
-  @Column({name: 'updatedBy', nullable: false, type: 'varchar'})
+  @Column({name: 'updated_by', nullable: false, type: 'varchar'})
   updatedBy: string;
 
-   @Column({name: 'deletedBy', nullable: true, type: 'varchar'})
+   @Column({name: 'deleted_by', nullable: true, type: 'varchar'})
   deletedBy: string | null;
 
   static with<T extends BaseSchema>(

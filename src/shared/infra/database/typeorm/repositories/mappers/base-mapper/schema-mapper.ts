@@ -1,3 +1,3 @@
 export interface SchemaMapperRepository<E, Schema> {
-  toSchema(entitie: E): Schema;
+  toSchema(entity: E): Schema;
 }

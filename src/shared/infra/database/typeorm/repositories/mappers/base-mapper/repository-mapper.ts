@@ -1,4 +1,4 @@
-import { BaseEntity, BaseProps } from '../../../../../domain/entity/baseEntity';
+import { BaseEntity, BaseProps } from '../../../../../../domain/entity/baseEntity';
 import { EntityMapperRepository } from './entity-mapper';
 import { SchemaMapperRepository } from './schema-mapper';
 
