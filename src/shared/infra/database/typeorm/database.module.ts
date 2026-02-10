@@ -7,6 +7,7 @@ import { join } from 'path';
 import { getDatabaseConfig } from './databaseConfig';
 import { DataSource } from 'typeorm';
 import { getSchema } from './create-test-schema';
+import { addTransactionalDataSource } from 'typeorm-transactional';
 
 @Module({
   imports: [
@@ -15,6 +16,13 @@ import { getSchema } from './create-test-schema';
       imports: [EnvConfigModule],
       useFactory: (configService: EnvConfigService) =>
         getDatabaseConfig(configService),
+      async dataSourceFactory(options) {
+        if (!options) {
+          throw new Error('Invalid options passed');
+        }
+        return addTransactionalDataSource(new DataSource(options));
+      },
+
       inject: [PROVIDERS.ENV_CONFIG_SERVICE],
     }),
   ],

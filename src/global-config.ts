@@ -1,4 +1,3 @@
-import { INestApplication } from '@nestjs/common';
 import { BadRequestErrorFilter } from './shared/infra/exeption-filters/bad-request-error.filter';
 import { ConflictErrorFilter } from './shared/infra/exeption-filters/conflict-error.filter';
 import { ForbiddenErrorFilter } from './shared/infra/exeption-filters/forbidden-error.filter';
@@ -6,9 +5,10 @@ import { NotFoundErrorFilter } from './shared/infra/exeption-filters/not-found-e
 import { UnauthorizedErrorFilter } from './shared/infra/exeption-filters/unauthorized-error.filter';
 import { EnvConfig } from './shared/application/env-config/env-config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { NestFastifyApplication } from '@nestjs/platform-fastify';
 
 export default function globalConfig(
-  app: INestApplication,
+  app: NestFastifyApplication,
   envConfig: EnvConfig,
 ) {
   // PREFIX

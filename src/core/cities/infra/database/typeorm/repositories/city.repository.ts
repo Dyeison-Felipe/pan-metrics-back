@@ -17,6 +17,7 @@ export class CityRepositoryImpl implements CityRepository {
   async findById(id: string): Promise<CityEntity | null> {
     const citySchema = await this.cityRepository.findOne({
       where: { id },
+      relations: ['state']
     });
 
     if (!citySchema) return null;
