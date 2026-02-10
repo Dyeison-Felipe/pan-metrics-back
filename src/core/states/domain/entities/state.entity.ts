@@ -5,6 +5,6 @@ type StateProps = {
   uf: string;
 };
 
-export interface StateEntity extends BaseEntity<StateProps> {}
+export interface StateEntity extends StateProps {}
 
 export class StateEntity extends BaseEntity<StateProps> {}

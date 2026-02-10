@@ -14,7 +14,7 @@ export class CityMapper implements RepositoryMapper<CitySchema, CityEntity> {
   toEntity(schema: CitySchema): CityEntity {
     return CityEntity.with({
       id: schema.id,
-      city: schema.city,
+      name: schema.name,
       state: this.stateMapper.toEntity(schema.state),
       auditable: {
         createdAt: schema.createdAt,
@@ -29,7 +29,7 @@ export class CityMapper implements RepositoryMapper<CitySchema, CityEntity> {
   toSchema(entitie: CityEntity): CitySchema {
     return CitySchema.with({
       id: entitie.id,
-      city: entitie.props.city,
+      name: entitie.name,
       state: this.stateMapper.toSchema(entitie.props.state),
       createdAt: entitie.audit.createdAt,
       updatedAt: entitie.audit.updatedAt,

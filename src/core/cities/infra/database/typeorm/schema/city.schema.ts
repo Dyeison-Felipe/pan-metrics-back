@@ -14,7 +14,7 @@ import { StateSchema } from '@core/states/infra/database/typeorm/schema/state.sc
 export class CitySchema extends BaseSchema {
 
   @Column({ name: 'city', type: 'varchar', length: 255, nullable: false })
-  city: string;
+  name: string;
 
   @ManyToOne(() => StateSchema, (state) => state.cities, { nullable: false })
   @JoinColumn({

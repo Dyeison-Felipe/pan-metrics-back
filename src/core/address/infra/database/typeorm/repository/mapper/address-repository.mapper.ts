@@ -5,7 +5,7 @@ import { AddressSchema } from '../../schema/address.schema';
 import { CityMapper } from '@core/cities/infra/database/typeorm/repositories/mapper/city-mapper';
 import { PROVIDERS } from '@shared/application/constants/providers';
 
-// @Injectable()
+@Injectable()
 export class AddressRepositoryMapper implements RepositoryMapper<
   AddressSchema,
   AddressEntity
