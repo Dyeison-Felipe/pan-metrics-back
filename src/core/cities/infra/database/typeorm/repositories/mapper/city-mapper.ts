@@ -12,7 +12,7 @@ export class CityMapper implements RepositoryMapper<CitySchema, CityEntity> {
   ) {}
 
   toEntity(schema: CitySchema): CityEntity {
-    return CityEntity.with({
+    return new CityEntity({
       id: schema.id,
       name: schema.name,
       state: this.stateMapper.toEntity(schema.state),

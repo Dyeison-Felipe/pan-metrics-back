@@ -9,7 +9,7 @@ import { StateEntity } from '@core/states/domain/entities/state.entity';
 export class StateMapper implements RepositoryMapper<StateSchema, StateEntity> {
 
   toEntity(schema: StateSchema): StateEntity {
-    return StateEntity.with({
+    return new StateEntity({
       id: schema.id,
       name: schema.name,
       uf: schema.uf,

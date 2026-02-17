@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HashService } from '../hash.service';
+import { HashServiceImpl } from '../hash.service';
 import { HashModule } from '../hash.module';
 import { PROVIDERS } from '../../../application/constants/providers';
 import { EnvConfigService } from '../../env-config/env-config.service';
 
 describe('HashService', () => {
-  let sut: HashService;
+  let sut: HashServiceImpl;
   let envConfigService: EnvConfigService;
 
   beforeEach(async () => {
@@ -15,14 +15,14 @@ describe('HashService', () => {
         {
           provide: PROVIDERS.HASH_SERVICE,
           useFactory: (configService: EnvConfigService) => {
-            return new HashService(configService);
+            return new HashServiceImpl(configService);
           },
           inject: [PROVIDERS.ENV_CONFIG_SERVICE],
         },
       ],
     }).compile();
 
-    sut = module.get<HashService>(PROVIDERS.HASH_SERVICE);
+    sut = module.get<HashServiceImpl>(PROVIDERS.HASH_SERVICE);
     envConfigService = module.get<EnvConfigService>(
       PROVIDERS.ENV_CONFIG_SERVICE,
     );

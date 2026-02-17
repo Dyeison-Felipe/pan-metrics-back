@@ -5,9 +5,18 @@ import { HashModule } from './shared/infra/hash/hash.module';
 import { AddressModule } from '@core/address/infra/address.module';
 import { StateModule } from '@core/states/infra/state.module';
 import { CityModule } from '@core/cities/infra/city.module';
+import { UserModule } from '@core/user/infra/user.module';
 
 @Module({
-  imports: [EnvConfigModule, DatabaseModule, HashModule, AddressModule, StateModule, CityModule],
+  imports: [
+    EnvConfigModule,
+    DatabaseModule,
+    HashModule,
+    AddressModule,
+    StateModule,
+    CityModule,
+    UserModule,
+  ],
   controllers: [],
   providers: [],
 })

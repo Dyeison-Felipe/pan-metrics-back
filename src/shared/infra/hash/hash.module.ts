@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { EnvConfigModule } from '../env-config/env-config.module';
 import { PROVIDERS } from '../../application/constants/providers';
-import { HashService } from './hash.service';
+import { HashServiceImpl } from './hash.service';
 import { EnvConfigService } from '../env-config/env-config.service';
 import { ConfigService } from '@nestjs/config/dist/config.service';
 
@@ -10,10 +10,7 @@ import { ConfigService } from '@nestjs/config/dist/config.service';
   providers: [
     {
       provide: PROVIDERS.HASH_SERVICE,
-      useFactory: (configService: EnvConfigService) => {
-        return new HashService(configService);
-      },
-      inject: [PROVIDERS.ENV_CONFIG_SERVICE],
+      useClass: HashServiceImpl,
     },
   ],
   exports: [PROVIDERS.HASH_SERVICE],

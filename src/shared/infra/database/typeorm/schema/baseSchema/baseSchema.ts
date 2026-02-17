@@ -18,11 +18,11 @@ export abstract class BaseSchema {
   @DeleteDateColumn({ name: 'deleted_at', nullable: true, type: 'date'})
   deletedAt: Date | null
 
-  @Column({name: 'created_by', nullable: false, type: 'varchar'})
-  createdBy: string;
+  @Column({name: 'created_by', nullable: true, type: 'varchar'})
+  createdBy: string | null;;
 
-  @Column({name: 'updated_by', nullable: false, type: 'varchar'})
-  updatedBy: string;
+  @Column({name: 'updated_by', nullable: true, type: 'varchar'})
+  updatedBy: string | null;;
 
    @Column({name: 'deleted_by', nullable: true, type: 'varchar'})
   deletedBy: string | null;

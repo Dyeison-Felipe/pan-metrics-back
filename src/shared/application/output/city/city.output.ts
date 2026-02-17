@@ -1,4 +1,4 @@
-import { StateOutput } from "./state.output";
+import { StateOutput } from "../state/state.output";
 
 export type CityOutput = {
   id: string;

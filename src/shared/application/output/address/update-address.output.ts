@@ -1,4 +1,4 @@
-import { CityOutput } from "../city.output";
+import { CityOutput } from "../city/city.output";
 
 export type UpdateAddressOutput = {
   id: string;

@@ -81,7 +81,7 @@ export class CreateTableAddresses1770560255393 implements MigrationInterface {
           },
           {
             name: 'created_by',
-            type: 'string',
+            type: 'varchar',
             isNullable: true,
           },
           {

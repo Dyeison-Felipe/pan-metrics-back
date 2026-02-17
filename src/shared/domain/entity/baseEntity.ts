@@ -2,8 +2,8 @@ type AuditableProps = {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date | null;
-  createdBy?: string;
-  updatedBy?: string;
+  createdBy?: string | null;
+  updatedBy?: string | null;
   deletedBy?: string | null;
 };
 
@@ -30,8 +30,8 @@ export abstract class BaseEntity<Props extends BaseProps> {
         createdAt: props.auditable?.createdAt ?? new Date(),
         updatedAt: props.auditable?.updatedAt ?? new Date(),
         deletedAt: props.auditable?.deletedAt ?? null,
-        createdBy: props.auditable?.createdBy ?? 'system',
-        updatedBy: props.auditable?.updatedBy ?? 'system',
+        createdBy: props.auditable?.createdBy ?? null,
+        updatedBy: props.auditable?.updatedBy ?? null,
         deletedBy: props.auditable?.deletedBy ?? null,
       },
     };

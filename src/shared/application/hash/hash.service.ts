@@ -1,4 +1,4 @@
-export interface Hash {
+export interface HashService {
   hash(value: string): Promise<string>;
   compareHash(value: string, valueHash: string): boolean;
 }
