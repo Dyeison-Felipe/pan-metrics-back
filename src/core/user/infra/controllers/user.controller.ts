@@ -1,5 +1,5 @@
 import { CreateUserUseCase } from '@core/user/application/usecase/create-user.usecase';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UserPresenter } from '@shared/infra/presenter/user/user.presenter';
 import { ConvertPresenter } from '@shared/infra/presenter/converter/converter.presenter';
@@ -11,7 +11,9 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { AuthGuard } from '@core/auth/infra/guard/auth.guard';
 
+@UseGuards(AuthGuard)
 @ApiTags('Users')
 @Controller('/user/v1')
 export class UserController {

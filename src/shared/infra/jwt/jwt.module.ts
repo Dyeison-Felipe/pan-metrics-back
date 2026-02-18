@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { EnvConfigModule } from '../env-config/env-config.module';
 import { JwtServiceImpl } from './jwt.service';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import { EnvConfig } from '@shared/application/env-config/env-config';
 
+// @Global()
 @Module({
   imports: [
     EnvConfigModule,

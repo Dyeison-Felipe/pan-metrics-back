@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AuthController } from './controllers/auth.controller';
 import { UserModule } from '@core/user/infra/user.module';
 import { HashModule } from '@shared/infra/hash/hash.module';
@@ -10,11 +10,14 @@ import { HashService } from '@shared/application/hash/hash.service';
 import { EnvConfig } from '@shared/application/env-config/env-config';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import { JwtConfigModule } from '@shared/infra/jwt/jwt.module';
+import { AuthGuard } from './guard/auth.guard';
 
+@Global()
 @Module({
   imports: [UserModule, HashModule, JwtConfigModule, EnvConfigModule],
   controllers: [AuthController],
   providers: [
+    AuthGuard,
     {
       provide: LoginUseCase,
       useFactory: (
