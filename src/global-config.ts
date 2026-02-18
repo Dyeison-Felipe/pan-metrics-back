@@ -8,8 +8,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { GlobalStringLengthPipe } from '@shared/infra/pipes/globalmax-lenght.pipe';
 import { ValidationPipe } from '@nestjs/common';
+import fastifyCookie from '@fastify/cookie';
 
-export default function globalConfig(
+export async function globalConfig(
   app: NestFastifyApplication,
   envConfig: EnvConfig,
 ) {
@@ -34,6 +35,11 @@ export default function globalConfig(
     methods: 'GET,PUT,POST,DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
+  });
+
+  // Cookies
+    await app.register(fastifyCookie, {
+    secret: envConfig.getCookieSecret(),
   });
 
   // Global Pipes

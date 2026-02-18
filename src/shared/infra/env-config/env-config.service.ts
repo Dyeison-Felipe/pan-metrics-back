@@ -5,6 +5,25 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class EnvConfigService implements EnvConfig {
   constructor(private readonly envConfigService: ConfigService) {}
+
+  getCookieSecret(): string {
+    return this.envConfigService.get<string>('COOKIE_SECRET') as string;
+  }
+  getCookieSameSite(): string {
+    return this.envConfigService.get<string>('COOKIE_SAME_SITE') as string;
+  }
+  getCookieSecure(): boolean {
+    return this.envConfigService.get<string>('COOKIE_SECURE') === 'true';
+  }
+  getCookieDomain(): string {
+    return this.envConfigService.get<string>('COOKIE_DOMAIN') as string;
+  }
+  getJwtSecret(): string {
+    return this.envConfigService.get<string>('JWT_SECRET') as string;
+  }
+  getJwtExpiresInSeconds(): number {
+    return +(this.envConfigService.get<string>('JWT_EXPIRES_IN') as string);
+  }
   getSchema(): string {
     return this.envConfigService.get<string>('DB_SCHEMA') as string;
   }

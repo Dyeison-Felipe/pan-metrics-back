@@ -1,17 +1,24 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from "@nestjs/common";
-import { Request, Response } from "express";
-import { BadRequestError } from "../../application/errors/bad-request-error";
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpStatus,
+} from '@nestjs/common';
+
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { BadRequestError } from '../../application/errors/bad-request-error';
 
 @Catch(BadRequestError)
 export class BadRequestErrorFilter implements ExceptionFilter {
   catch(exception: BadRequestError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
 
-    response.status(HttpStatus.BAD_REQUEST).send({
+    const reply = ctx.getResponse<FastifyReply>();
+    const request = ctx.getRequest<FastifyRequest>();
+
+    reply.status(HttpStatus.BAD_REQUEST).send({
       statusCode: HttpStatus.BAD_REQUEST,
-      error: 'Bad request Error',
+      error: 'Bad Request',
       message: exception.message,
       path: request.url,
     });

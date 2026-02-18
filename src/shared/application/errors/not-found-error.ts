@@ -1,6 +1,7 @@
-export class NotFoundError extends Error {
-  constructor(readonly message: string) {
-    super(message);
-    this.name = 'Not-Found Error';
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class NotFoundError extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.NOT_FOUND);
   }
 }

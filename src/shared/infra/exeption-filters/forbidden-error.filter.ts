@@ -1,17 +1,24 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from "@nestjs/common";
-import { ForbiddenExceptionError } from "../../application/errors/forbidden-error";
-import { Request, Response } from "express";
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpStatus,
+} from '@nestjs/common';
 
-@Catch(ForbiddenExceptionError)
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { ForbiddenError } from '../../application/errors/forbidden-error';
+
+@Catch(ForbiddenError)
 export class ForbiddenErrorFilter implements ExceptionFilter {
-  catch(exception: ForbiddenExceptionError, host: ArgumentsHost) {
+  catch(exception: ForbiddenError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
 
-    response.status(HttpStatus.FORBIDDEN).send({
+    const reply = ctx.getResponse<FastifyReply>();
+    const request = ctx.getRequest<FastifyRequest>();
+
+    reply.status(HttpStatus.FORBIDDEN).send({
       statusCode: HttpStatus.FORBIDDEN,
-      error: 'Forbidden Error',
+      error: 'Forbidden',
       message: exception.message,
       path: request.url,
     });

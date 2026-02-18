@@ -1,6 +1,7 @@
-export class ForbiddenExceptionError extends Error {
-  constructor(readonly message: string) {
-    super(message);
-    this.name = 'BadRequestError';
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class ForbiddenError extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.FORBIDDEN);
   }
 }

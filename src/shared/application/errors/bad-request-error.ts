@@ -1,6 +1,7 @@
-export class BadRequestError extends Error {
-  constructor(readonly message: string) {
-    super(message);
-    this.name = 'BadRequestError';
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class BadRequestError extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.BAD_REQUEST);
   }
 }

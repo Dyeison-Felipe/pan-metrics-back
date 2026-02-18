@@ -1,6 +1,7 @@
-export class UnauthorizedError extends Error {
-  constructor(readonly message: string) {
-    super(message);
-    this.name = 'Unauthorized Error';
+import { HttpException, HttpStatus } from '@nestjs/common';
+
+export class UnauthorizedError extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.UNAUTHORIZED);
   }
 }

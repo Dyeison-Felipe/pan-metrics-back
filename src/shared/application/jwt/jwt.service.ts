@@ -1,7 +1,23 @@
+import { UserEntity } from "@core/user/domain/entities/user.entity";
+
+export type GenerateJwtToken = {
+  token: string;
+};
+
+export type Options = {
+  secret?: string;
+  expiresIn?: number;
+};
+
 export type Payload = {
-  
-}
+  sub: number;
+  login: string;
+  iat: number;
+  exp: number;
+};
 
 export interface JwtService {
-  generateToken(): Promise<string>;
+  generateJwt(user: UserEntity, options?: Options): Promise<GenerateJwtToken>;
+  decodeJwt(jwt: string): Payload;
+  verifyJwt(jwt: string): Promise<Payload | null>;
 }

@@ -6,6 +6,8 @@ import { AddressModule } from '@core/address/infra/address.module';
 import { StateModule } from '@core/states/infra/state.module';
 import { CityModule } from '@core/cities/infra/city.module';
 import { UserModule } from '@core/user/infra/user.module';
+import { AuthModule } from '@core/auth/infra/auth.module';
+import { JwtConfigModule } from '@shared/infra/jwt/jwt.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { UserModule } from '@core/user/infra/user.module';
     StateModule,
     CityModule,
     UserModule,
+    AuthModule,
+    JwtConfigModule,
   ],
   controllers: [],
   providers: [],
