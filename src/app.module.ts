@@ -8,6 +8,7 @@ import { CityModule } from '@core/cities/infra/city.module';
 import { UserModule } from '@core/user/infra/user.module';
 import { AuthModule } from '@core/auth/infra/auth.module';
 import { JwtConfigModule } from '@shared/infra/jwt/jwt.module';
+import { PermissionModule } from '@core/permissions/infra/permission.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { JwtConfigModule } from '@shared/infra/jwt/jwt.module';
     UserModule,
     AuthModule,
     JwtConfigModule,
+    PermissionModule,
   ],
   controllers: [],
   providers: [],
