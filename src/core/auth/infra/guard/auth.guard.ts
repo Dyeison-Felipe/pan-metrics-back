@@ -9,11 +9,13 @@ import { FastifyRequest } from 'fastify';
 import { UnauthorizedError } from '@shared/application/errors/unauthorized-error';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import type { JwtService, Payload } from '@shared/application/jwt/jwt.service';
+import type { UserRepository } from '@core/user/domain/repositories/user.repository';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     @Inject(PROVIDERS.JWT_SERVICE) private readonly jwtService: JwtService,
+    @Inject(PROVIDERS.USER_REPOSITORY) private readonly userRepository: UserRepository
   ) {}
 
   async canActivate(
@@ -21,16 +23,28 @@ export class AuthGuard implements CanActivate {
   ): Promise<boolean> {
     const request = context.switchToHttp().getRequest<FastifyRequest>();
 
-    const token = request.headers['authorization']?.split(' ')[1];
+    const token = request.cookies?.developAuthToken;
+    // const token = request.headers['authorization']?.split(' ')[1];
 
     if (!token) {
-      throw new UnauthorizedError('Token not fond');
+      throw new UnauthorizedError('Invalid token');
     }
 
     try {
       const payload = await this.jwtService.verifyJwt(token);
       console.log("🚀 ~ AuthGuard ~ canActivate ~ payload:", payload)
       // pegar o usuário e colcoar na request
+
+      if(!payload) return false
+
+      const user = await this.userRepository.findById(payload?.sub);
+
+      if(!user) {
+        throw new UnauthorizedError(`user NotFound`);
+      }
+
+      request.user = user;
+      
       return true;
     } catch (error) {
       console.error(error)

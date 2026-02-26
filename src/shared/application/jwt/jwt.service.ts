@@ -10,8 +10,9 @@ export type Options = {
 };
 
 export type Payload = {
-  sub: number;
-  login: string;
+  sub: string;
+  username: string;
+  email: string;
   iat: number;
   exp: number;
 };

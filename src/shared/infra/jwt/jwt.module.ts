@@ -5,7 +5,7 @@ import { JwtServiceImpl } from './jwt.service';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import { EnvConfig } from '@shared/application/env-config/env-config';
 
-// @Global()
+@Global()
 @Module({
   imports: [
     EnvConfigModule,

@@ -27,6 +27,17 @@ export class PermissionRepositoryImpl implements PermissionRepository {
     return permissionEntity;
   }
 
+  async findAll(): Promise<PermissionEntity[] | null> {
+    const permissionsSchema = await this.permissionRepository.find();
+
+    if(!permissionsSchema || permissionsSchema.length === 0) return null;
+
+    const permissionEntity = permissionsSchema.map((permission) => this.permissionRepositoryMapper.toEntity(permission));
+
+    return permissionEntity;
+
+  }
+
   async findById(id: string): Promise<PermissionEntity | null> {
     const permissionSchema = await this.permissionRepository.findOne({
       where: { id },

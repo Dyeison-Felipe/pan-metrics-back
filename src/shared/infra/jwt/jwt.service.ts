@@ -26,7 +26,8 @@ export class JwtServiceImpl implements JwtService {
   ): Promise<GenerateJwtToken> {
     const payload = {
       sub: user.id,
-      login: user.username,
+      usrname: user.username,
+      email: user.email,
     };
 
     const token = await this.jwtService.signAsync(payload, { ...options });
