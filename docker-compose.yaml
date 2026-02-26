@@ -1,19 +1,19 @@
 services:
-  bs_postgres:
+  pan_metrics:
     image: postgres:16
-    container_name: bs_postgres
+    container_name: pan_metrics
     restart: always
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: barber_db_dev
-      TZ: America/Sao_Paulo
-      PGTZ: America/Sao_Paulo
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      TZ: ${TZ}
+      PGTZ: ${PGTZ}
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data
+      - db_data_pan_metrics:/var/lib/postgresql/data
       
   
 volumes:
-  postgres_data_dev:
+  db_data_pan_metrics:
