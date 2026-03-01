@@ -4,6 +4,7 @@ import { AddressEntity } from '@core/address/domain/entities/address.entity';
 import { AddressSchema } from '../../schema/address.schema';
 import { CityMapper } from '@core/cities/infra/database/typeorm/repositories/mapper/city-mapper';
 import { PROVIDERS } from '@shared/application/constants/providers';
+import { UserSchema } from '@core/user/infra/database/typeorm/schema/user.schema';
 
 @Injectable()
 export class AddressRepositoryMapper implements RepositoryMapper<
@@ -27,9 +28,9 @@ export class AddressRepositoryMapper implements RepositoryMapper<
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
         deletedAt: schema.deletedAt,
-        createdBy: schema.createdBy,
-        updatedBy: schema.updatedBy,
-        deletedBy: schema.deletedBy,
+        createdBy: schema.createdBy?.id,
+        updatedBy: schema.updatedBy?.id,
+        deletedBy: schema.deletedBy?.id,
       },
       city: this.cityMapper.toEntity(schema.city),
     });
@@ -47,9 +48,15 @@ export class AddressRepositoryMapper implements RepositoryMapper<
       createdAt: entity.audit.createdAt,
       updatedAt: entity.audit.updatedAt,
       deletedAt: entity.audit.deletedAt,
-      createdBy: entity.audit.createdBy,
-      updatedBy: entity.audit.updatedBy,
-      deletedBy: entity.audit.deletedBy,
+      createdBy: entity.audit.createdBy
+        ? UserSchema.from({ id: entity.audit.createdBy })
+        : null,
+      updatedBy: entity.audit.updatedBy
+        ? UserSchema.from({ id: entity.audit.updatedBy })
+        : null,
+      deletedBy: entity.audit.deletedBy
+        ? UserSchema.from({ id: entity.audit.deletedBy })
+        : null,
       city: this.cityMapper.toSchema(entity.props.city),
     });
   }

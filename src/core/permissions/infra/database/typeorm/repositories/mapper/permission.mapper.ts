@@ -1,6 +1,7 @@
 import { RepositoryMapper } from '@shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
 import { PermissionSchema } from '../../schema/permission.schema';
 import { PermissionEntity } from '@core/permissions/domain/entity/permission.entity';
+import { UserSchema } from '@core/user/infra/database/typeorm/schema/user.schema';
 
 export class PermissionRepositoryMappper implements RepositoryMapper<
   PermissionSchema,
@@ -14,9 +15,9 @@ export class PermissionRepositoryMappper implements RepositoryMapper<
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
         deletedAt: schema.deletedAt,
-        createdBy: schema.createdBy,
-        updatedBy: schema.updatedBy,
-        deletedBy: schema.deletedBy,
+        createdBy: schema.createdBy?.id,
+        updatedBy: schema.updatedBy?.id,
+        deletedBy: schema.deletedBy?.id,
       },
     });
   }
@@ -27,9 +28,15 @@ export class PermissionRepositoryMappper implements RepositoryMapper<
       createdAt: entity.audit.createdAt,
       updatedAt: entity.audit.updatedAt,
       deletedAt: entity.audit.deletedAt,
-      createdBy: entity.audit.createdBy,
-      updatedBy: entity.audit.updatedBy,
-      deletedBy: entity.audit.deletedBy,
+      createdBy: entity.audit.createdBy
+        ? UserSchema.from({ id: entity.audit.createdBy })
+        : null,
+      updatedBy: entity.audit.updatedBy
+        ? UserSchema.from({ id: entity.audit.updatedBy })
+        : null,
+      deletedBy: entity.audit.deletedBy
+        ? UserSchema.from({ id: entity.audit.deletedBy })
+        : null,
     });
   }
 }

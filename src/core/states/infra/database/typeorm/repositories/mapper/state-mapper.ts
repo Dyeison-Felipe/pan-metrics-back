@@ -4,10 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { StateEntity } from '@core/states/domain/entities/state.entity';
+import { UserSchema } from '@core/user/infra/database/typeorm/schema/user.schema';
 
 @Injectable()
 export class StateMapper implements RepositoryMapper<StateSchema, StateEntity> {
-
   toEntity(schema: StateSchema): StateEntity {
     return new StateEntity({
       id: schema.id,
@@ -17,23 +17,29 @@ export class StateMapper implements RepositoryMapper<StateSchema, StateEntity> {
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
         deletedAt: schema.deletedAt,
-        createdBy: schema.createdBy,
-        updatedBy: schema.updatedBy,
-        deletedBy: schema.deletedBy,
+        createdBy: schema.createdBy?.id,
+        updatedBy: schema.updatedBy?.id,
+        deletedBy: schema.deletedBy?.id,
       },
     });
   }
-  toSchema(entitie: StateEntity): StateSchema {
+  toSchema(entity: StateEntity): StateSchema {
     return StateSchema.with({
-        id: entitie.id,
-        name: entitie.props.name,
-        uf: entitie.props.uf, 
-        createdAt: entitie.audit.createdAt,
-        updatedAt: entitie.audit.updatedAt,
-        deletedAt: entitie.audit.deletedAt,
-        createdBy: entitie.audit.createdBy,
-        updatedBy: entitie.audit.updatedBy,
-        deletedBy: entitie.audit.deletedBy,
-    })
+      id: entity.id,
+      name: entity.props.name,
+      uf: entity.props.uf,
+      createdAt: entity.audit.createdAt,
+      updatedAt: entity.audit.updatedAt,
+      deletedAt: entity.audit.deletedAt,
+      createdBy: entity.audit.createdBy
+        ? UserSchema.from({ id: entity.audit.createdBy })
+        : null,
+      updatedBy: entity.audit.updatedBy
+        ? UserSchema.from({ id: entity.audit.updatedBy })
+        : null,
+      deletedBy: entity.audit.deletedBy
+        ? UserSchema.from({ id: entity.audit.deletedBy })
+        : null,
+    });
   }
 }

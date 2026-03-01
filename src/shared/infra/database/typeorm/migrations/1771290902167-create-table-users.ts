@@ -42,12 +42,12 @@ export class CreateTableUsers1771290902167 implements MigrationInterface {
           {
             name: 'created_at',
             type: 'timestamp',
-             default: 'now()',
+            default: 'now()',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-             default: 'now()',
+            default: 'now()',
           },
           {
             name: 'deleted_at',
@@ -72,6 +72,21 @@ export class CreateTableUsers1771290902167 implements MigrationInterface {
         ],
       }),
     );
+
+    const systemUserId = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+
+    await queryRunner.query(`
+    INSERT INTO users (id, username, email, password, active, created_at, updated_at)
+    VALUES (
+      '${systemUserId}',
+      'system',
+      'system@system.com',
+      'system',
+      true,
+      now(),
+      now()
+    )
+  `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
