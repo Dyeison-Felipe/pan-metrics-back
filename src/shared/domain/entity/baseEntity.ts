@@ -1,20 +1,10 @@
-type AuditableProps = {
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date | null;
-  createdBy?: string | null;
-  updatedBy?: string | null;
-  deletedBy?: string | null;
-};
 
 type EntityProps = {
   id: string;
-  auditable: AuditableProps;
 };
 
 type ConstructorEntityProps = {
   id?: string;
-  auditable?: Partial<AuditableProps>;
 };
 
 export type BaseProps = Record<string, unknown>;
@@ -26,23 +16,11 @@ export abstract class BaseEntity<Props extends BaseProps> {
     this.props = {
       ...props,
       id: props.id  ?? crypto.randomUUID(),
-      auditable: {
-        createdAt: props.auditable?.createdAt ?? new Date(),
-        updatedAt: props.auditable?.updatedAt ?? new Date(),
-        deletedAt: props.auditable?.deletedAt ?? null,
-        createdBy: props.auditable?.createdBy ?? null,
-        updatedBy: props.auditable?.updatedBy ?? null,
-        deletedBy: props.auditable?.deletedBy ?? null,
-      },
     };
   }
 
   get id() {
 		return this.props.id;
-	}
-
-  get audit() {
-		return this.props.auditable;
 	}
 
   toJSON(): Props & EntityProps {

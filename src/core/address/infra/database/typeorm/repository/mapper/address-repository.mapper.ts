@@ -24,6 +24,7 @@ export class AddressRepositoryMapper implements RepositoryMapper<
       complement: schema.complement,
       latitude: schema.latitude,
       longitude: schema.longitude,
+      city: this.cityMapper.toEntity(schema.city),
       auditable: {
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
@@ -32,7 +33,6 @@ export class AddressRepositoryMapper implements RepositoryMapper<
         updatedBy: schema.updatedBy?.id,
         deletedBy: schema.deletedBy?.id,
       },
-      city: this.cityMapper.toEntity(schema.city),
     });
   }
   toSchema(entity: AddressEntity): AddressSchema {
@@ -45,17 +45,13 @@ export class AddressRepositoryMapper implements RepositoryMapper<
       complement: entity.props.complement,
       latitude: entity.props.latitude,
       longitude: entity.props.longitude,
-      createdAt: entity.audit.createdAt,
-      updatedAt: entity.audit.updatedAt,
-      deletedAt: entity.audit.deletedAt,
-      createdBy: entity.audit.createdBy
-        ? UserSchema.from({ id: entity.audit.createdBy })
-        : null,
-      updatedBy: entity.audit.updatedBy
-        ? UserSchema.from({ id: entity.audit.updatedBy })
-        : null,
-      deletedBy: entity.audit.deletedBy
-        ? UserSchema.from({ id: entity.audit.deletedBy })
+      createdAt: entity.auditable.createdAt,
+      updatedAt: entity.auditable.updatedAt,
+      deletedAt: entity.auditable.deletedAt,
+      createdBy: UserSchema.from({ id: entity.auditable.createdBy }),
+      updatedBy: UserSchema.from({ id: entity.auditable.updatedBy }),
+      deletedBy: entity.auditable.deletedBy
+        ? UserSchema.from({ id: entity.auditable.deletedBy })
         : null,
       city: this.cityMapper.toSchema(entity.props.city),
     });

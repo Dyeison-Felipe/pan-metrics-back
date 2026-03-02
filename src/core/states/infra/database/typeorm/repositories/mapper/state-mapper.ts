@@ -13,14 +13,6 @@ export class StateMapper implements RepositoryMapper<StateSchema, StateEntity> {
       id: schema.id,
       name: schema.name,
       uf: schema.uf,
-      auditable: {
-        createdAt: schema.createdAt,
-        updatedAt: schema.updatedAt,
-        deletedAt: schema.deletedAt,
-        createdBy: schema.createdBy?.id,
-        updatedBy: schema.updatedBy?.id,
-        deletedBy: schema.deletedBy?.id,
-      },
     });
   }
   toSchema(entity: StateEntity): StateSchema {
@@ -28,18 +20,6 @@ export class StateMapper implements RepositoryMapper<StateSchema, StateEntity> {
       id: entity.id,
       name: entity.props.name,
       uf: entity.props.uf,
-      createdAt: entity.audit.createdAt,
-      updatedAt: entity.audit.updatedAt,
-      deletedAt: entity.audit.deletedAt,
-      createdBy: entity.audit.createdBy
-        ? UserSchema.from({ id: entity.audit.createdBy })
-        : null,
-      updatedBy: entity.audit.updatedBy
-        ? UserSchema.from({ id: entity.audit.updatedBy })
-        : null,
-      deletedBy: entity.audit.deletedBy
-        ? UserSchema.from({ id: entity.audit.deletedBy })
-        : null,
     });
   }
 }

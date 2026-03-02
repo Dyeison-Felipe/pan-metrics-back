@@ -1,6 +1,8 @@
 import { Data } from '@shared/domain/decorators/data.decorator';
 import { BaseEntity } from '@shared/domain/entity/baseEntity';
 import { CityEntity } from '@core/cities/domain/entities/city.entity';
+import { AuditableProps } from '@shared/domain/entity/audit-entity-props';
+import { ID_USER_DEFAULT } from '@shared/application/constants/id-user-default';
 
 type AddressProps = {
   cep: string;
@@ -11,6 +13,7 @@ type AddressProps = {
   latitude?: number;
   longitude?: number;
   city: CityEntity;
+  auditable : AuditableProps
 };
 
 type CreateAddressProps = AddressProps;
@@ -32,6 +35,14 @@ export class AddressEntity extends BaseEntity<AddressProps> {
       latitude: props.latitude,
       longitude: props.longitude,
       city: props.city,
+      auditable: {
+        createdAt: props.auditable.createdAt ?? new Date(),
+        updatedAt: props.auditable.updatedAt ?? new Date(),
+        deletedAt: props.auditable.deletedAt ?? null,
+        createdBy: props.auditable.createdBy ?? ID_USER_DEFAULT,
+        updatedBy: props.auditable.updatedBy ?? ID_USER_DEFAULT,
+        deletedBy: props.auditable.deletedBy ?? null
+      }
     })
   }
 }
