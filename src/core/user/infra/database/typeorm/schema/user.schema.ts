@@ -37,8 +37,8 @@ export class UserSchema extends BaseSchema {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'fk_user_created_by',
   })
-  @ManyToOne(() => UserSchema, { nullable: false })
-  createdBy: UserSchema;
+  @ManyToOne(() => UserSchema, { nullable: true })
+  createdBy: UserSchema | null;
 
   @JoinColumn({
     name: 'updated_by',
@@ -46,7 +46,7 @@ export class UserSchema extends BaseSchema {
     foreignKeyConstraintName: 'fk_user_updated_by',
   })
   @ManyToOne(() => UserSchema, { nullable: true })
-  updatedBy: UserSchema;
+  updatedBy: UserSchema | null;
 
   @JoinColumn({
     name: 'deleted_by',

@@ -2,6 +2,7 @@ import { AddressEntity } from '@core/address/domain/entities/address.entity';
 import type { AddressRepository } from '@core/address/domain/repositories/address.repository';
 import type { CityRepository } from '@core/cities/domain/repositories/city.repository';
 import { Inject } from '@nestjs/common';
+import { ID_USER_DEFAULT } from '@shared/application/constants/id-user-default';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import { NotFoundError } from '@shared/application/errors/not-found-error';
 import { CreateAddressInput } from '@shared/application/input/address/create-address.input';
@@ -38,6 +39,10 @@ export class CreateAddressUseCase implements UseCase<Input, Output> {
       latitude: input.latitude,
       longitude: input.longitude,
       city: city,
+      auditable: {
+        createdBy: ID_USER_DEFAULT,
+        updatedBy: ID_USER_DEFAULT,
+      }
     })
 
     const createAddress = await this.addressRepository.save(address);

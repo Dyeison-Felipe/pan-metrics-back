@@ -15,7 +15,7 @@ type CreateUserProps = {
   username: string;
   password: string;
   email: string;
-  auditable: AuditableProps;
+  auditable: Partial<AuditableProps>;
 };
 
 export interface UserEntity extends UserProps {}
@@ -30,12 +30,12 @@ export class UserEntity extends BaseEntity<UserProps> {
       password: props.password,
       active: true,
       auditable: {
-        createdAt: props.auditable.createdAt ?? new Date(),
-        updatedAt: props.auditable.updatedAt ?? new Date(),
-        deletedAt: props.auditable.deletedAt ?? null,
-        createdBy: props.auditable.createdBy ?? ID_USER_DEFAULT,
-        updatedBy: props.auditable.updatedBy ?? ID_USER_DEFAULT,
-        deletedBy: props.auditable.deletedBy ?? null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: null,
+        createdBy: props.auditable?.createdBy ?? ID_USER_DEFAULT,
+        updatedBy: props.auditable?.updatedBy ?? ID_USER_DEFAULT,
+        deletedBy: null,
       },
     });
   }

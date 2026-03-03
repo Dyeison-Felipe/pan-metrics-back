@@ -19,8 +19,8 @@ export class UserRepositoryMapper implements RepositoryMapper<
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
         deletedAt: schema.deletedAt,
-        createdBy: schema.createdBy?.id,
-        updatedBy: schema.updatedBy?.id,
+        createdBy: schema.createdBy?.id!,
+        updatedBy: schema.updatedBy?.id!,
         deletedBy: schema.deletedBy?.id,
       },
     });
@@ -35,8 +35,12 @@ export class UserRepositoryMapper implements RepositoryMapper<
       createdAt: entity.auditable.createdAt,
       updatedAt: entity.auditable.updatedAt,
       deletedAt: entity.auditable.deletedAt,
-      createdBy: UserSchema.from({ id: entity.auditable.createdBy }),
-      updatedBy: UserSchema.from({ id: entity.auditable.updatedBy }),
+      createdBy: entity.auditable?.createdBy
+        ? UserSchema.from({ id: entity.auditable.createdBy })
+        : null,
+      updatedBy: entity.auditable?.updatedBy
+        ? UserSchema.from({ id: entity.auditable.updatedBy })
+        : null,
       deletedBy: entity.auditable.deletedBy
         ? UserSchema.from({ id: entity.auditable.deletedBy })
         : null,

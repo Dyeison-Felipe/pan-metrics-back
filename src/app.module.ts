@@ -9,9 +9,11 @@ import { UserModule } from '@core/user/infra/user.module';
 import { AuthModule } from '@core/auth/infra/auth.module';
 import { JwtConfigModule } from '@shared/infra/jwt/jwt.module';
 import { PermissionModule } from '@core/permissions/infra/permission.module';
+import { LoggedUserModule } from '@shared/infra/logged-user/logged-user.module';
 
 @Module({
   imports: [
+    LoggedUserModule,
     EnvConfigModule,
     DatabaseModule,
     HashModule,

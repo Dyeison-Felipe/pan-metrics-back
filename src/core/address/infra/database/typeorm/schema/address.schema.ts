@@ -76,7 +76,7 @@ export class AddressSchema extends BaseSchema {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'fk_addresses_updated_by',
   })
-  @ManyToOne(() => UserSchema, { nullable: true })
+  @ManyToOne(() => UserSchema, { nullable: false })
   updatedBy: UserSchema;
 
   @JoinColumn({

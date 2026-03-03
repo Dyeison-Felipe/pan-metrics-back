@@ -27,5 +27,6 @@
       "@core/*": ["core/*"],
       "@shared/*": ["shared/*"]
     },
-  }
+    "types": ["node", "jest"]
+  },
 }

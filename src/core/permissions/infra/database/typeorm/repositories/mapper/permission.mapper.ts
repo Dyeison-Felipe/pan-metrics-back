@@ -11,32 +11,12 @@ export class PermissionRepositoryMappper implements RepositoryMapper<
     return new PermissionEntity({
       id: schema.id,
       resource: schema.resource,
-      auditable: {
-        createdAt: schema.createdAt,
-        updatedAt: schema.updatedAt,
-        deletedAt: schema.deletedAt,
-        createdBy: schema.createdBy?.id,
-        updatedBy: schema.updatedBy?.id,
-        deletedBy: schema.deletedBy?.id,
-      },
     });
   }
   toSchema(entity: PermissionEntity): PermissionSchema {
     return PermissionSchema.with({
       id: entity.id,
       resource: entity.resource,
-      createdAt: entity.audit.createdAt,
-      updatedAt: entity.audit.updatedAt,
-      deletedAt: entity.audit.deletedAt,
-      createdBy: entity.audit.createdBy
-        ? UserSchema.from({ id: entity.audit.createdBy })
-        : null,
-      updatedBy: entity.audit.updatedBy
-        ? UserSchema.from({ id: entity.audit.updatedBy })
-        : null,
-      deletedBy: entity.audit.deletedBy
-        ? UserSchema.from({ id: entity.audit.deletedBy })
-        : null,
     });
   }
 }

@@ -9,13 +9,15 @@ import { FastifyRequest } from 'fastify';
 import { UnauthorizedError } from '@shared/application/errors/unauthorized-error';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import type { JwtService, Payload } from '@shared/application/jwt/jwt.service';
+import type { LoggedUserService } from '@shared/application/logged-user/logged-user.service';
 import type { UserRepository } from '@core/user/domain/repositories/user.repository';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     @Inject(PROVIDERS.JWT_SERVICE) private readonly jwtService: JwtService,
-    @Inject(PROVIDERS.USER_REPOSITORY) private readonly userRepository: UserRepository
+    @Inject(PROVIDERS.USER_REPOSITORY) private readonly userRepository: UserRepository,
+    @Inject(PROVIDERS.LOGGED_USER_SERVICE) private readonly loggedUserService: LoggedUserService,
   ) {}
 
   async canActivate(
@@ -44,6 +46,8 @@ export class AuthGuard implements CanActivate {
       }
 
       request.user = user;
+
+      this.loggedUserService.setLoggedUser(user);
       
       return true;
     } catch (error) {

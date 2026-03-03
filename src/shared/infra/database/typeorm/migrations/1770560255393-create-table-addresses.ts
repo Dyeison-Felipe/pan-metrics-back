@@ -18,7 +18,7 @@ export class CreateTableAddresses1770560255393 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
-            default: 'uuid_generate_v4()',
+           default: "public.uuid_generate_v4()"
           },
           {
             name: 'cep',

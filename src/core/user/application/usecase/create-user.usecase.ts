@@ -1,6 +1,7 @@
 import { UserEntity } from '@core/user/domain/entities/user.entity';
 import type { UserRepository } from '@core/user/domain/repositories/user.repository';
 import { Inject } from '@nestjs/common';
+import { ID_USER_DEFAULT } from '@shared/application/constants/id-user-default';
 import { PROVIDERS } from '@shared/application/constants/providers';
 import { ConflictError } from '@shared/application/errors/conflict-error';
 import type { HashService } from '@shared/application/hash/hash.service';
@@ -32,6 +33,10 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
     const userEntity = UserEntity.create({
       ...input,
       password: hashedPassword,
+      auditable: {
+        createdBy: ID_USER_DEFAULT,
+        updatedBy: ID_USER_DEFAULT,
+      },
     });
 
     const savedUser = await this.userRepository.save(userEntity);

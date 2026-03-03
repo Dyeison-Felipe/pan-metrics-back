@@ -14,7 +14,7 @@ export class CreateTableCities1770555972208 implements MigrationInterface {
             name: "id",
             type: "uuid",
             isPrimary: true,
-            default: "uuid_generate_v4()",
+           default: "public.uuid_generate_v4()"
           },
           {
             name: "city",

@@ -15,6 +15,7 @@ export class CreateTablePermissions1771381250707 implements MigrationInterface {
                     isPrimary: true,
                     isGenerated: true,
                     generationStrategy: 'uuid',
+                    default: "public.uuid_generate_v4()"
                   },
                   {
                     name: 'resource',

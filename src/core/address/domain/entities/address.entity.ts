@@ -13,10 +13,20 @@ type AddressProps = {
   latitude?: number;
   longitude?: number;
   city: CityEntity;
-  auditable : AuditableProps
+  auditable: AuditableProps
 };
 
-type CreateAddressProps = AddressProps;
+type CreateAddressProps = {
+  cep: string;
+  neighborhood: string;
+  street: string;
+  number: string;
+  complement?: string;
+  latitude?: number;
+  longitude?: number;
+  city: CityEntity;
+  auditable?: Partial<AuditableProps>;
+};
 
 type UpdateAddressProps = Partial<AddressProps>;
 
@@ -36,12 +46,12 @@ export class AddressEntity extends BaseEntity<AddressProps> {
       longitude: props.longitude,
       city: props.city,
       auditable: {
-        createdAt: props.auditable.createdAt ?? new Date(),
-        updatedAt: props.auditable.updatedAt ?? new Date(),
-        deletedAt: props.auditable.deletedAt ?? null,
-        createdBy: props.auditable.createdBy ?? ID_USER_DEFAULT,
-        updatedBy: props.auditable.updatedBy ?? ID_USER_DEFAULT,
-        deletedBy: props.auditable.deletedBy ?? null
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: null,
+        createdBy: props.auditable?.createdBy ?? ID_USER_DEFAULT,
+        updatedBy: props.auditable?.updatedBy ?? ID_USER_DEFAULT,
+        deletedBy: null
       }
     })
   }

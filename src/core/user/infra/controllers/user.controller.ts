@@ -13,7 +13,6 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@core/auth/infra/guard/auth.guard';
 
-@UseGuards(AuthGuard)
 @ApiTags('Users')
 @Controller('/user/v1')
 export class UserController {
