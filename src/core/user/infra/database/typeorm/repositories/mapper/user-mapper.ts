@@ -35,12 +35,8 @@ export class UserRepositoryMapper implements RepositoryMapper<
       createdAt: entity.auditable.createdAt,
       updatedAt: entity.auditable.updatedAt,
       deletedAt: entity.auditable.deletedAt,
-      createdBy: entity.auditable?.createdBy
-        ? UserSchema.from({ id: entity.auditable.createdBy })
-        : null,
-      updatedBy: entity.auditable?.updatedBy
-        ? UserSchema.from({ id: entity.auditable.updatedBy })
-        : null,
+      createdBy: UserSchema.from({ id: entity.auditable.createdBy }),
+      updatedBy: UserSchema.from({ id: entity.auditable.updatedBy }),
       deletedBy: entity.auditable.deletedBy
         ? UserSchema.from({ id: entity.auditable.deletedBy })
         : null,
