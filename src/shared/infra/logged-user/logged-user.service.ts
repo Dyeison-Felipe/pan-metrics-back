@@ -1,6 +1,6 @@
-import { UserEntity } from "@core/user/domain/entities/user.entity";
+import { UserEntity } from "@/core/user/domain/entities/user.entity";
 import { Injectable, Scope } from "@nestjs/common";
-import { LoggedUserService } from "@shared/application/logged-user/logged-user.service";
+import { LoggedUserService } from "@/shared/application/logged-user/logged-user.service";
 
 @Injectable({ scope: Scope.REQUEST })
 export class LoggedUserServiceImpl implements LoggedUserService {

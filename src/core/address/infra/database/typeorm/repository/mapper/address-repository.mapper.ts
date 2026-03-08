@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RepositoryMapper } from '@shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
-import { AddressEntity } from '@core/address/domain/entities/address.entity';
 import { AddressSchema } from '../../schema/address.schema';
-import { CityMapper } from '@core/cities/infra/database/typeorm/repositories/mapper/city-mapper';
-import { PROVIDERS } from '@shared/application/constants/providers';
-import { UserSchema } from '@core/user/infra/database/typeorm/schema/user.schema';
+import { RepositoryMapper } from '@/shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { CityMapper } from '@/core/cities/infra/database/typeorm/repositories/mapper/city-mapper';
+import { AddressEntity } from '@/core/address/domain/entities/address.entity';
+import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
 
 @Injectable()
 export class AddressRepositoryMapper implements RepositoryMapper<

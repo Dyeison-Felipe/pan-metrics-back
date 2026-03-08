@@ -1,8 +1,8 @@
-import { RepositoryMapper } from '@shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
+import { RepositoryMapper } from '@/shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
 import { PlanSchema } from '../../schema/plan.schema';
-import { PlanEntity } from '@core/plan/domain/entity/plan.entity';
+import { PlanEntity } from '@/core/plan/domain/entity/plan.entity';
 import { Injectable } from '@nestjs/common';
-import { UserSchema } from '@core/user/infra/database/typeorm/schema/user.schema';
+import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
 
 @Injectable()
 export class PlanMapper implements RepositoryMapper<PlanSchema, PlanEntity> {

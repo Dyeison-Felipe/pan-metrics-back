@@ -1,8 +1,8 @@
 
 import { JwtService as NestJwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
-import { GenerateJwtToken, JwtService, Options, Payload } from '@shared/application/jwt/jwt.service';
-import { UserEntity } from '@core/user/domain/entities/user.entity';
+import { GenerateJwtToken, JwtService, Options, Payload } from '@/shared/application/jwt/jwt.service';
+import { UserEntity } from '@/core/user/domain/entities/user.entity';
 
 @Injectable()
 export class JwtServiceImpl implements JwtService {

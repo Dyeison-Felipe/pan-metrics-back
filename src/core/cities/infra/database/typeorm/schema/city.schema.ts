@@ -1,3 +1,6 @@
+import { AddressSchema } from '@/core/address/infra/database/typeorm/schema/address.schema';
+import { StateSchema } from '@/core/states/infra/database/typeorm/schema/state.schema';
+import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
 import {
   Column,
   Entity,
@@ -5,9 +8,6 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { AddressSchema } from '../../../../../address/infra/database/typeorm/schema/address.schema';
-import { BaseSchema } from '../../../../../../shared/infra/database/typeorm/schema/baseSchema/baseSchema';
-import { StateSchema } from '@core/states/infra/database/typeorm/schema/state.schema';
 
 @Entity('cities')
 export class CitySchema extends BaseSchema {

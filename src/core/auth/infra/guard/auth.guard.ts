@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { FastifyRequest } from 'fastify';
-import { UnauthorizedError } from '@shared/application/errors/unauthorized-error';
-import { PROVIDERS } from '@shared/application/constants/providers';
-import type { JwtService, Payload } from '@shared/application/jwt/jwt.service';
-import type { LoggedUserService } from '@shared/application/logged-user/logged-user.service';
-import type { UserRepository } from '@core/user/domain/repositories/user.repository';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { JwtService } from '@/shared/application/jwt/jwt.service';
+import { UserRepository } from '@/core/user/domain/repositories/user.repository';
+import { LoggedUserService } from '@/shared/application/logged-user/logged-user.service';
+import { UnauthorizedError } from '@/shared/application/errors/unauthorized-error';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -1,5 +1,5 @@
-import { UserSchema } from '@core/user/infra/database/typeorm/schema/user.schema';
-import { BaseSchema } from '@shared/infra/database/typeorm/schema/baseSchema/baseSchema';
+import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
+import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
 import {
   Column,
   CreateDateColumn,

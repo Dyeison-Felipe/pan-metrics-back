@@ -1,8 +1,8 @@
-import type { PermissionRepository } from "@core/permissions/domain/repositories/permission.repository";
+import { PROVIDERS } from "@/shared/application/constants/providers";
+import { FindAllPermissionsOutput } from "@/shared/application/output/permissions/find-all-permissions.output";
+import { UseCase } from "@/shared/application/usecase/usecase";
+import { PermissionRepository } from "../../domain/repositories/permission.repository";
 import { Inject } from "@nestjs/common";
-import { PROVIDERS } from "@shared/application/constants/providers";
-import { FindAllPermissionsOutput } from "@shared/application/output/permissions/find-all-permissions.output";
-import { UseCase } from "@shared/application/usecase/usecase";
 
 type Input = void;
 

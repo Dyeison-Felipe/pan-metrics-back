@@ -1,4 +1,4 @@
-import { BaseSchema } from '@shared/infra/database/typeorm/schema/baseSchema/baseSchema';
+import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
 import {
   Column,
   CreateDateColumn,

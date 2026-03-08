@@ -1,4 +1,3 @@
-import { UserEntity } from '@core/user/domain/entities/user.entity';
 
 export type AuditableProps = {
   createdAt: Date;

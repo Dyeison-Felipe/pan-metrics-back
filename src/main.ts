@@ -7,7 +7,7 @@ import {
   StorageDriver,
 } from 'typeorm-transactional';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import { globalConfig } from 'global-config';
+import { globalConfig } from './global-config';
 
 async function bootstrap() {
   initializeTransactionalContext({ storageDriver: StorageDriver.AUTO });

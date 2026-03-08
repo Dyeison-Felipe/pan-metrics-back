@@ -1,11 +1,11 @@
-import { CityRepository } from '@core/cities/domain/repositories/city.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CitySchema } from '../schema/city.schema';
 import { Repository } from 'typeorm';
 import { Inject } from '@nestjs/common';
-import { PROVIDERS } from '@shared/application/constants/providers';
 import { CityMapper } from './mapper/city-mapper';
-import { CityEntity } from '@core/cities/domain/entities/city.entity';
+import { CityRepository } from '@/core/cities/domain/repositories/city.repository';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { CityEntity } from '@/core/cities/domain/entities/city.entity';
 
 export class CityRepositoryImpl implements CityRepository {
   constructor(

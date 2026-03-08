@@ -1,4 +1,4 @@
-import { Pagination } from '@shared/domain/pagination/pagination';
+import { Pagination } from '@/shared/domain/pagination/pagination';
 import { PaginationPresenter } from '../pagination/pagination.presenter';
 
 export class ConvertPresenter {

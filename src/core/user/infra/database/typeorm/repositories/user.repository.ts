@@ -1,11 +1,11 @@
-import { UserRepository } from '@core/user/domain/repositories/user.repository';
+import { UserRepository } from '@/core/user/domain/repositories/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserSchema } from '../schema/user.schema';
 import { Repository } from 'typeorm';
 import { UserRepositoryMapper } from './mapper/user-mapper';
-import { UserEntity } from '@core/user/domain/entities/user.entity';
+import { UserEntity } from '@/core/user/domain/entities/user.entity';
 import { Inject } from '@nestjs/common';
-import { PROVIDERS } from '@shared/application/constants/providers';
+import { PROVIDERS } from '@/shared/application/constants/providers';
 
 export class UserRepositoryImpl implements UserRepository {
   constructor(

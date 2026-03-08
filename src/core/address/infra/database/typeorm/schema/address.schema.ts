@@ -1,5 +1,6 @@
-import { BaseSchema } from '@shared/infra/database/typeorm/schema/baseSchema/baseSchema';
-import { CitySchema } from '@core/cities/infra/database/typeorm/schema/city.schema';
+import { CitySchema } from '@/core/cities/infra/database/typeorm/schema/city.schema';
+import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
+import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
 import {
   Column,
   CreateDateColumn,
@@ -9,7 +10,6 @@ import {
   ManyToOne,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserSchema } from '@core/user/infra/database/typeorm/schema/user.schema';
 
 @Entity('addresses')
 export class AddressSchema extends BaseSchema {

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { HashService } from '../../application/hash/hash.service';
 import * as bcrypt from 'bcrypt';
 import { EnvConfigService } from '../env-config/env-config.service';
-import { PROVIDERS } from '@shared/application/constants/providers';
+import { PROVIDERS } from '@/shared/application/constants/providers';
 
 export class HashServiceImpl implements HashService {
   constructor(

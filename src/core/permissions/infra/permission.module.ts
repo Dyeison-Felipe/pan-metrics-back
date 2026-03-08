@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PROVIDERS } from '@shared/application/constants/providers';
+import { PROVIDERS } from '@/shared/application/constants/providers';
 import { PermissionRepositoryImpl } from './database/typeorm/repositories/permission.repository';
 import { PermissionRepositoryMappper } from './database/typeorm/repositories/mapper/permission.mapper';
 import { TypeOrmModule } from '@nestjs/typeorm';

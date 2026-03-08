@@ -1,11 +1,6 @@
-import { CreateAddressUseCase } from '@core/address/application/usecase/create-address.usecase';
-import { UpdateAddressUseCase } from '@core/address/application/usecase/update-address.usecase';
 import { Body, Controller, Post, Put } from '@nestjs/common';
 import { UpdateAddressDto } from '../dtos/update-address.dto';
-import { UpdateAddressPresenter } from '@shared/infra/presenter/address/update.presenter';
-import { ConvertPresenter } from '@shared/infra/presenter/converter/converter.presenter';
 import { CreateAddressDto } from '../dtos/create-address.dto';
-import { CreateAddressPresenter } from '@shared/infra/presenter/address/create.presenter';
 import {
   ApiBody,
   ApiCreatedResponse,
@@ -14,6 +9,11 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+import { CreateAddressUseCase } from '../../application/usecase/create-address.usecase';
+import { UpdateAddressUseCase } from '../../application/usecase/update-address.usecase';
+import { CreateAddressPresenter } from '@/shared/infra/presenter/address/create.presenter';
+import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
+import { UpdateAddressPresenter } from '@/shared/infra/presenter/address/update.presenter';
 
 @ApiTags('Address')
 @Controller('/addresses/v1')

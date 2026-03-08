@@ -1,13 +1,13 @@
-import { UserEntity } from '@core/user/domain/entities/user.entity';
-import type { UserRepository } from '@core/user/domain/repositories/user.repository';
 import { Inject } from '@nestjs/common';
-import { ID_USER_DEFAULT } from '@shared/application/constants/id-user-default';
-import { PROVIDERS } from '@shared/application/constants/providers';
-import { ConflictError } from '@shared/application/errors/conflict-error';
-import type { HashService } from '@shared/application/hash/hash.service';
-import { CreateUserInput } from '@shared/application/input/users/create-user.input';
-import { CreateUserOutput } from '@shared/application/output/users/create-user.output';
-import { UseCase } from '@shared/application/usecase/usecase';
+import { UserEntity } from '@/core/user/domain/entities/user.entity';
+import type { UserRepository } from '@/core/user/domain/repositories/user.repository';
+import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { ConflictError } from '@/shared/application/errors/conflict-error';
+import type { HashService } from '@/shared/application/hash/hash.service';
+import { CreateUserInput } from '@/shared/application/input/users/create-user.input';
+import { CreateUserOutput } from '@/shared/application/output/users/create-user.output';
+import { UseCase } from '@/shared/application/usecase/usecase';
 
 type Input = CreateUserInput;
 

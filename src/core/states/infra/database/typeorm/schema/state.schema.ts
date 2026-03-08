@@ -1,6 +1,6 @@
-import { CitySchema } from '@core/cities/infra/database/typeorm/schema/city.schema';
-import { BaseSchema } from '@shared/infra/database/typeorm/schema/baseSchema/baseSchema';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CitySchema } from '@/core/cities/infra/database/typeorm/schema/city.schema';
+import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
+import { Column, Entity, OneToMany} from 'typeorm';
 
 @Entity('states')
 export class StateSchema extends BaseSchema {

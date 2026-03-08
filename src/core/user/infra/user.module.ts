@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { UserRepositoryMapper } from './database/typeorm/repositories/mapper/user-mapper';
-import { PROVIDERS } from '@shared/application/constants/providers';
+import { PROVIDERS } from '@/shared/application/constants/providers';
 import { UserRepositoryImpl } from './database/typeorm/repositories/user.repository';
-import { HashModule } from '@shared/infra/hash/hash.module';
+import { HashModule } from '@/shared/infra/hash/hash.module';
 import { CreateUserUseCase } from '../application/usecase/create-user.usecase';
 import { UserRepository } from '../domain/repositories/user.repository';
-import { HashService } from '@shared/application/hash/hash.service';
+import { HashService } from '@/shared/application/hash/hash.service';
 import { UserController } from './controllers/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserSchema } from './database/typeorm/schema/user.schema';

@@ -1,11 +1,11 @@
-import { PermissionRepository } from '@core/permissions/domain/repositories/permission.repository';
+import { PermissionRepository } from '@/core/permissions/domain/repositories/permission.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PermissionSchema } from '../schema/permission.schema';
 import { Inject } from '@nestjs/common';
 import { PermissionRepositoryMappper } from './mapper/permission.mapper';
-import { PermissionEntity } from '@core/permissions/domain/entity/permission.entity';
-import { PROVIDERS } from '@shared/application/constants/providers';
+import { PermissionEntity } from '@/core/permissions/domain/entity/permission.entity';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { PermissionSchema } from '../schema/permission.schema';
 
 export class PermissionRepositoryImpl implements PermissionRepository {
   constructor(

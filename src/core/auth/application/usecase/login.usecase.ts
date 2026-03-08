@@ -1,15 +1,15 @@
-import type { UserRepository } from '@core/user/domain/repositories/user.repository';
-import { Inject } from '@nestjs/common';
-import { AuthConstants } from '@shared/application/constants/auth-constants';
-import { PROVIDERS } from '@shared/application/constants/providers';
-import { CookieOptions } from '@shared/application/cookies/cookies';
-import type { EnvConfig } from '@shared/application/env-config/env-config';
-import { UnauthorizedError } from '@shared/application/errors/unauthorized-error';
-import type { HashService } from '@shared/application/hash/hash.service';
-import { LoginInput } from '@shared/application/input/auth/login.input';
-import type { JwtService } from '@shared/application/jwt/jwt.service';
-import { LoginOutput } from '@shared/application/output/auth/login.output';
-import { UseCase } from '@shared/application/usecase/usecase';
+import { UserRepository } from "@/core/user/domain/repositories/user.repository";
+import { AuthConstants } from "@/shared/application/constants/auth-constants";
+import { PROVIDERS } from "@/shared/application/constants/providers";
+import { CookieOptions } from "@/shared/application/cookies/cookies";
+import { EnvConfig } from "@/shared/application/env-config/env-config";
+import { UnauthorizedError } from "@/shared/application/errors/unauthorized-error";
+import { HashService } from "@/shared/application/hash/hash.service";
+import { LoginInput } from "@/shared/application/input/auth/login.input";
+import { JwtService } from "@/shared/application/jwt/jwt.service";
+import { LoginOutput } from "@/shared/application/output/auth/login.output";
+import { UseCase } from "@/shared/application/usecase/usecase";
+import { Inject } from "@nestjs/common";
 
 type Input = LoginInput;
 

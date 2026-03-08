@@ -1,5 +1,5 @@
-import { Data } from "@shared/domain/decorators/data.decorator"
-import { BaseEntity } from "@shared/domain/entity/baseEntity"
+import { Data } from "@/shared/domain/decorators/data.decorator"
+import { BaseEntity } from "@/shared/domain/entity/baseEntity"
 
 type PermissionProps = {
   resource: string

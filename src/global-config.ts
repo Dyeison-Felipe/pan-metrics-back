@@ -6,7 +6,7 @@ import { UnauthorizedErrorFilter } from './shared/infra/exeption-filters/unautho
 import { EnvConfig } from './shared/application/env-config/env-config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import { GlobalStringLengthPipe } from '@shared/infra/pipes/globalmax-lenght.pipe';
+import { GlobalStringLengthPipe } from '@/shared/infra/pipes/globalmax-lenght.pipe';
 import { ValidationPipe } from '@nestjs/common';
 import fastifyCookie from '@fastify/cookie';
 

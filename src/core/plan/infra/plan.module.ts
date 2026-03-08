@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PlanSchema } from "./database/typeorm/schema/plan.schema";
-import { PROVIDERS } from "@shared/application/constants/providers";
+import { PROVIDERS } from "@/shared/application/constants/providers";
 import { PlanMapper } from "./database/typeorm/repositories/mapper/plan-mapper";
 import { PlanRespositoryImpl } from "./database/typeorm/repositories/plan.repository";
 

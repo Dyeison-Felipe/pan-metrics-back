@@ -1,11 +1,11 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { StateSchema } from '../schema/state.schema';
 import { Repository } from 'typeorm';
-import { StateRepository } from '@core/states/domain/repositories/state.repository';
-import { StateEntity } from '@core/states/domain/entities/state.entity';
 import { Inject } from '@nestjs/common';
-import { PROVIDERS } from '@shared/application/constants/providers';
 import { StateMapper } from './mapper/state-mapper';
+import { StateRepository } from '@/core/states/domain/repositories/state.repository';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { StateEntity } from '@/core/states/domain/entities/state.entity';
 
 export class StateRepositoryImpl implements StateRepository {
   constructor(

@@ -1,16 +1,17 @@
-import { AddressEntity } from '@core/address/domain/entities/address.entity';
-import type { AddressRepository } from '@core/address/domain/repositories/address.repository';
-import { CityEntity } from '@core/cities/domain/entities/city.entity';
-import type { CityRepository } from '@core/cities/domain/repositories/city.repository';
-import { Inject } from '@nestjs/common';
-import { PROVIDERS } from '@shared/application/constants/providers';
-import { NotFoundError } from '@shared/application/errors/not-found-error';
-import { UpdateAddressInput } from '@shared/application/input/address/update-address.input';
-import { UpdateAddressOutput } from '@shared/application/output/address/update-address.output';
-import { UseCase } from '@shared/application/usecase/usecase';
-import { Transactional } from '@shared/infra/database/typeorm/decorators/transactional.decorator';
+import { PROVIDERS } from "@/shared/application/constants/providers";
+import { UpdateAddressInput } from "@/shared/application/input/address/update-address.input";
+import { UpdateAddressOutput } from "@/shared/application/output/address/update-address.output";
+import { UseCase } from "@/shared/application/usecase/usecase";
+import { AddressRepository } from "../../domain/repositories/address.repository";
+import { CityRepository } from "@/core/cities/domain/repositories/city.repository";
+import { Inject } from "@nestjs/common";
+import { Transactional } from "@/shared/infra/database/typeorm/decorators/transactional.decorator";
+import { NotFoundError } from "@/shared/application/errors/not-found-error";
+import { AddressEntity } from "../../domain/entities/address.entity";
+import { CityEntity } from "@/core/cities/domain/entities/city.entity";
 
 type Input = UpdateAddressInput;
+
 type Output = UpdateAddressOutput;
 
 

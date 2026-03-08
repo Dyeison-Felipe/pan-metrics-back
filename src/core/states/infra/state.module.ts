@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { StateSchema } from "./database/typeorm/schema/state.schema";
-import { PROVIDERS } from "@shared/application/constants/providers";
+import { PROVIDERS } from "@/shared/application/constants/providers";
 import { StateMapper } from "./database/typeorm/repositories/mapper/state-mapper";
 import { StateRepositoryImpl } from "./database/typeorm/repositories/state.repository";
 

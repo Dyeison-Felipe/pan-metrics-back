@@ -1,8 +1,8 @@
-import { CreateUserUseCase } from '@core/user/application/usecase/create-user.usecase';
+import { CreateUserUseCase } from '@/core/user/application/usecase/create-user.usecase';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
-import { UserPresenter } from '@shared/infra/presenter/user/user.presenter';
-import { ConvertPresenter } from '@shared/infra/presenter/converter/converter.presenter';
+import { UserPresenter } from '@/shared/infra/presenter/user/user.presenter';
+import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
 import {
   ApiBody,
   ApiConflictResponse,
@@ -11,7 +11,6 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard } from '@core/auth/infra/guard/auth.guard';
 
 @ApiTags('Users')
 @Controller('/user/v1')

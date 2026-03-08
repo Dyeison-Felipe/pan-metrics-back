@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { RepositoryMapper } from '@shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
+import { RepositoryMapper } from '@/shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
 import { UserSchema } from '../../schema/user.schema';
-import { UserEntity } from '@core/user/domain/entities/user.entity';
+import { UserEntity } from '@/core/user/domain/entities/user.entity';
 
 @Injectable()
 export class UserRepositoryMapper implements RepositoryMapper<

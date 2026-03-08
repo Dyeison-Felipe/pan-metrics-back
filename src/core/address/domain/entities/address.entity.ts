@@ -1,8 +1,8 @@
-import { Data } from '@shared/domain/decorators/data.decorator';
-import { BaseEntity } from '@shared/domain/entity/baseEntity';
-import { CityEntity } from '@core/cities/domain/entities/city.entity';
-import { AuditableProps } from '@shared/domain/entity/audit-entity-props';
-import { ID_USER_DEFAULT } from '@shared/application/constants/id-user-default';
+import { CityEntity } from "@/core/cities/domain/entities/city.entity";
+import { ID_USER_DEFAULT } from "@/shared/application/constants/id-user-default";
+import { Data } from "@/shared/domain/decorators/data.decorator";
+import { AuditableProps } from "@/shared/domain/entity/audit-entity-props";
+import { BaseEntity } from "@/shared/domain/entity/baseEntity";
 
 type AddressProps = {
   cep: string;

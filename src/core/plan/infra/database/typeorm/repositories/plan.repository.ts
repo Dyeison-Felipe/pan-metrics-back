@@ -1,10 +1,10 @@
-import { PlanRespository } from '@core/plan/domain/repositories/plan.repository';
+import { PlanRespository } from '@/core/plan/domain/repositories/plan.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PlanSchema } from '../schema/plan.schema';
 import { Repository } from 'typeorm';
-import { PlanEntity } from '@core/plan/domain/entity/plan.entity';
+import { PlanEntity } from '@/core/plan/domain/entity/plan.entity';
 import { Inject } from '@nestjs/common';
-import { PROVIDERS } from '@shared/application/constants/providers';
+import { PROVIDERS } from '@/shared/application/constants/providers';
 import { PlanMapper } from './mapper/plan-mapper';
 
 export class PlanRespositoryImpl implements PlanRespository {

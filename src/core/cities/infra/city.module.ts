@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { CitySchema } from "./database/typeorm/schema/city.schema";
-import { PROVIDERS } from "@shared/application/constants/providers";
 import { CityMapper } from "./database/typeorm/repositories/mapper/city-mapper";
-import { StateModule } from "@core/states/infra/state.module";
+import { StateModule } from "@/core/states/infra/state.module";
+import { PROVIDERS } from "@/shared/application/constants/providers";
 import { CityRepositoryImpl } from "./database/typeorm/repositories/city.repository";
 
 @Module({

@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
+      "verbatimModuleSyntax": false,
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -22,10 +23,9 @@
     "noFallthroughCasesInSwitch": false,
     "strict": true,
     "strictPropertyInitialization": false,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@core/*": ["core/*"],
-      "@shared/*": ["shared/*"]
+      "@/*": ["src/*"]
     },
     "types": ["node", "jest"]
   },

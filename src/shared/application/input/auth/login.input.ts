@@ -1,4 +1,4 @@
-import { CookieOptions } from "@shared/application/cookies/cookies";
+import { CookieOptions } from "@/shared/application/cookies/cookies";
 
 export type LoginInput = {
     email: string;

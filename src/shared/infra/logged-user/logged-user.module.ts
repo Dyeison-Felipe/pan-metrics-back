@@ -1,5 +1,5 @@
 import { Global, Module } from "@nestjs/common";
-import { PROVIDERS } from "@shared/application/constants/providers";
+import { PROVIDERS } from "@/shared/application/constants/providers";
 import { LoggedUserServiceImpl } from "./logged-user.service";
 
 @Global()

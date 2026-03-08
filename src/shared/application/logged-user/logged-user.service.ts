@@ -1,4 +1,4 @@
-import { UserEntity } from "@core/user/domain/entities/user.entity";
+import { UserEntity } from "@/core/user/domain/entities/user.entity";
 
 export interface LoggedUserService {
   getLoggedUser(): UserEntity;

@@ -1,14 +1,14 @@
-import { AddressEntity } from '@core/address/domain/entities/address.entity';
-import type { AddressRepository } from '@core/address/domain/repositories/address.repository';
-import type { CityRepository } from '@core/cities/domain/repositories/city.repository';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { CreateAddressInput } from '@/shared/application/input/address/create-address.input';
+import { CreateAddressOutput } from '@/shared/application/output/address/create-address.output';
+import { UseCase } from '@/shared/application/usecase/usecase';
 import { Inject } from '@nestjs/common';
-import { ID_USER_DEFAULT } from '@shared/application/constants/id-user-default';
-import { PROVIDERS } from '@shared/application/constants/providers';
-import { NotFoundError } from '@shared/application/errors/not-found-error';
-import { CreateAddressInput } from '@shared/application/input/address/create-address.input';
-import { CreateAddressOutput } from '@shared/application/output/address/create-address.output';
-import { UseCase } from '@shared/application/usecase/usecase';
-import { Transactional } from '@shared/infra/database/typeorm/decorators/transactional.decorator';
+import { AddressRepository } from '../../domain/repositories/address.repository';
+import { CityRepository } from '@/core/cities/domain/repositories/city.repository';
+import { Transactional } from '@/shared/infra/database/typeorm/decorators/transactional.decorator';
+import { NotFoundError } from '@/shared/application/errors/not-found-error';
+import { AddressEntity } from '../../domain/entities/address.entity';
+import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
 
 type Input = CreateAddressInput;
 
@@ -26,7 +26,7 @@ export class CreateAddressUseCase implements UseCase<Input, Output> {
   async execute(input: Input): Promise<Output> {
     const city = await this.cityRepository.findById(input.cityId);
 
-    if(!city) {
+    if (!city) {
       throw new NotFoundError(`Cidade não encontrada`);
     }
 
@@ -42,8 +42,8 @@ export class CreateAddressUseCase implements UseCase<Input, Output> {
       auditable: {
         createdBy: ID_USER_DEFAULT,
         updatedBy: ID_USER_DEFAULT,
-      }
-    })
+      },
+    });
 
     const createAddress = await this.addressRepository.save(address);
 
@@ -63,9 +63,9 @@ export class CreateAddressUseCase implements UseCase<Input, Output> {
           id: createAddress.city.state.id,
           name: createAddress.city.state.name,
           uf: createAddress.city.state.uf,
-        }
-      }
-    }
+        },
+      },
+    };
     return output;
   }
 }

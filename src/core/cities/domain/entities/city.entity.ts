@@ -1,6 +1,6 @@
-import { StateEntity } from '@core/states/domain/entities/state.entity';
-import { BaseEntity } from '../../../../shared/domain/entity/baseEntity';
-import { Data } from '@shared/domain/decorators/data.decorator';
+import { StateEntity } from "@/core/states/domain/entities/state.entity";
+import { Data } from "@/shared/domain/decorators/data.decorator";
+import { BaseEntity } from "@/shared/domain/entity/baseEntity";
 
 type CityProps = {
   name: string;

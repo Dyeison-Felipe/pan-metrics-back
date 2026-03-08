@@ -1,7 +1,7 @@
-import { FindAllPermissionsUseCase } from '@core/permissions/application/usecase/find-all-permissions';
+import { FindAllPermissionsUseCase } from '@/core/permissions/application/usecase/find-all-permissions';
 import { Controller, Get } from '@nestjs/common';
-import { ConvertPresenter } from '@shared/infra/presenter/converter/converter.presenter';
-import { FindAllPermission } from '@shared/infra/presenter/permission/find-all-permission.presenter';
+import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
+import { FindAllPermission } from '@/shared/infra/presenter/permission/find-all-permission.presenter';
 
 @Controller('permission/v1')
 export class PermissionController {

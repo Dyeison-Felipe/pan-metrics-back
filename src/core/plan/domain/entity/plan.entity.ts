@@ -1,7 +1,7 @@
-import { ID_USER_DEFAULT } from '@shared/application/constants/id-user-default';
-import { Data } from '@shared/domain/decorators/data.decorator';
-import { AuditableProps } from '@shared/domain/entity/audit-entity-props';
-import { BaseEntity } from '@shared/domain/entity/baseEntity';
+import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
+import { Data } from '@/shared/domain/decorators/data.decorator';
+import { AuditableProps } from '@/shared/domain/entity/audit-entity-props';
+import { BaseEntity } from '@/shared/domain/entity/baseEntity';
 
 type PlanProps = {
   name: string;
