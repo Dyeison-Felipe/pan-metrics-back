@@ -1,36 +1,21 @@
 export class MetaPresenter {
-  totalItems: number;
-
-  itemCount: number;
-
-  itemsPerPage: number;
-
-  totalPages: number;
-
-  currentPage: number;
-
   constructor(
-    totalItems: number,
-    itemCount: number,
-    itemsPerPage: number,
-    totalPages: number,
-    currentPage: number,
-  ) {
-    this.totalItems = totalItems;
-    this.itemCount = itemCount;
-    this.itemsPerPage = itemsPerPage;
-    this.totalPages = totalPages;
-    this.currentPage = currentPage;
-  }
+    readonly totalItems: number,
+    readonly itemCount: number,
+    readonly itemsPerPage: number,
+    readonly totalPages: number,
+    readonly currentPage: number,
+  ) {}
 }
 
-export class PaginationPresenter<Item> {
-  items: Item[];
+export class PaginationPresenter<T> {
+  readonly items: T[];
+  readonly meta: MetaPresenter;
 
-  meta: MetaPresenter;
-
-  constructor(items: Item[], meta: MetaPresenter) {
+  constructor(items: T[], meta: MetaPresenter) {
     this.items = items;
     this.meta = meta;
   }
 }
+
+export type Pagination<T> = PaginationPresenter<T>;
