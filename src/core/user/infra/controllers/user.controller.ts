@@ -13,7 +13,7 @@ import {
 } from '@nestjs/swagger';
 
 @ApiTags('Users')
-@Controller('/user/v1')
+@Controller('/v1/user')
 export class UserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 

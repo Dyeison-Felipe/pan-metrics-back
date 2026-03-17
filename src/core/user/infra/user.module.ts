@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { UserRepositoryMapper } from './database/typeorm/repositories/mapper/user-mapper';
 import { PROVIDERS } from '@/shared/application/constants/providers';
 import { UserRepositoryImpl } from './database/typeorm/repositories/user.repository';
@@ -10,6 +10,7 @@ import { UserController } from './controllers/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserSchema } from './database/typeorm/schema/user.schema';
 
+@Global()
 @Module({
   imports: [TypeOrmModule.forFeature([UserSchema]), HashModule],
   controllers: [UserController],

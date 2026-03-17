@@ -1,7 +1,7 @@
 {
 	"configurations": [
 		{
-			"name": "BS debug",
+			"name": "PanMetrics debug",
 			"type": "node",
 			"request": "attach",
 			"port": 9229,

@@ -6,7 +6,7 @@ import { LoginUseCase } from '../../application/usecase/login.usecase';
 import { LoginPresenter } from '@/shared/infra/presenter/login/login.presenter';
 
 @ApiTags('Auth')
-@Controller('/auth/v1')
+@Controller('/v1/auth')
 export class AuthController {
   constructor(private readonly loginUseCase: LoginUseCase) {}
 
@@ -14,7 +14,6 @@ export class AuthController {
   async login(
     @Res({ passthrough: true }) reply: FastifyReply,
     @Body() loginRequestDto: LoginDto,
-    @Query('page') page?: string,
   ): Promise<LoginPresenter> {
     return await this.loginUseCase.execute({
       ...loginRequestDto,

@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
   ): Promise<boolean> {
     const request = context.switchToHttp().getRequest<FastifyRequest>();
 
-    const token = request.cookies?.developAuthToken;
+    const token = request.cookies?.developmentAuthToken;
     // const token = request.headers['authorization']?.split(' ')[1];
 
     if (!token) {

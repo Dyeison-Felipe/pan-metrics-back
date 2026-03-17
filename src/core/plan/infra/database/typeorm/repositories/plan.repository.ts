@@ -13,6 +13,17 @@ export class PlanRespositoryImpl implements PlanRespository {
     private readonly planRepository: Repository<PlanSchema>,
     @Inject(PROVIDERS.PLAN_MAPPER) private readonly planMapper: PlanMapper,
   ) {}
+  async findByName(name: string): Promise<PlanEntity | null> {
+    const planSchema = await this.planRepository.findOne({
+      where: {name},
+    })
+
+    if(!planSchema) return null;
+
+    const planEntity = this.planMapper.toEntity(planSchema);
+
+    return planEntity;
+  }
 
   async save(entity: PlanEntity): Promise<PlanEntity> {
     const planSchema = this.planMapper.toSchema(entity);
@@ -48,6 +59,6 @@ export class PlanRespositoryImpl implements PlanRespository {
   }
 
   async delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    await this.planRepository.softDelete(id);
   }
 }

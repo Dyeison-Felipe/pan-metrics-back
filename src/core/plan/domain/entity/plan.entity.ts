@@ -7,7 +7,7 @@ type PlanProps = {
   name: string;
   description: string;
   price: number;
-  duration: number;
+  duration: string;
   auditable: AuditableProps
 };
 
@@ -15,7 +15,7 @@ type CreatePlanProps = {
   name: string;
   description: string;
   price: number;
-  duration: number;
+  duration: string;
   auditable?: Partial<AuditableProps>;
 };
 

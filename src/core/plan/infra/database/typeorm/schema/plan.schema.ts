@@ -10,27 +10,48 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('plans')
+@Entity('plan')
 export class PlanSchema extends BaseSchema {
-  @Column()
+  @Column({ name: 'name', nullable: false, type: 'varchar', length: 255 })
   name: string;
 
-  @Column()
+  @Column({
+    name: 'description',
+    nullable: false,
+    type: 'varchar',
+    length: 255,
+  })
   description: string;
 
-  @Column()
+  @Column({
+    name: 'price',
+    nullable: false,
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+  })
   price: number;
 
-  @Column()
-  duration: number;
+  @Column({ name: 'duration', nullable: false, type: 'varchar', length: 255 })
+  duration: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp',
+    default: 'now()',
+    nullable: false,
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: 'now()',
+    nullable: false,
+  })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
   deletedAt: Date | null;
 
   @JoinColumn({
