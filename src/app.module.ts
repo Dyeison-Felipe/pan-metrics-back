@@ -10,7 +10,6 @@ import { AuthModule } from '@/core/auth/infra/auth.module';
 import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
 import { PermissionModule } from '@/core/permissions/infra/permission.module';
 import { LoggedUserModule } from '@/shared/infra/logged-user/logged-user.module';
-import { PlanModule } from '@/core/plan/infra/plan.module';
 
 @Module({
   imports: [
@@ -25,7 +24,6 @@ import { PlanModule } from '@/core/plan/infra/plan.module';
     AuthModule,
     JwtConfigModule,
     PermissionModule,
-    PlanModule,
   ],
   controllers: [],
   providers: [],
