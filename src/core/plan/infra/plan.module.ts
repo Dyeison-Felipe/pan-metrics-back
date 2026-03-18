@@ -8,6 +8,7 @@ import { CreatePlanUseCase } from '../application/usecase/create-plan.usecase';
 import { PlanRespository } from '../domain/repositories/plan.repository';
 import { LoggedUserService } from '@/shared/application/logged-user/logged-user.service';
 import { PlanController } from './controller/plan.controller';
+import { UpdatePlanUseCase } from '../application/usecase/update-plan.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([PlanSchema])],
@@ -29,6 +30,16 @@ import { PlanController } from './controller/plan.controller';
         loggedUser: LoggedUserService,
       ) => {
         return new CreatePlanUseCase(planRepository, loggedUser);
+      },
+      inject: [PROVIDERS.PLAN_REPOSITORY, PROVIDERS.LOGGED_USER_SERVICE],
+    },
+    {
+      provide: UpdatePlanUseCase,
+      useFactory: (
+        planRepository: PlanRespository,
+        loggedUser: LoggedUserService,
+      ) => {
+        return new UpdatePlanUseCase(planRepository, loggedUser);
       },
       inject: [PROVIDERS.PLAN_REPOSITORY, PROVIDERS.LOGGED_USER_SERVICE],
     },

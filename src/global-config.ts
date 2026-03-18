@@ -19,16 +19,15 @@ export async function globalConfig(
 
   // SWAGGER
   const config = new DocumentBuilder()
-    .setTitle('Barber-Shop')
-    .setDescription('Api Barber-Shop')
+    .setTitle('Pan-Metrics')
+    .setDescription('Api Pan-Metrics')
     .setVersion('1.0')
-    .addTag('Barber')
+    .addTag('Panificação, Padaria, Panificadora, Metricas, Pan-Metrics')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, documentFactory);
 
   //  CORS
-
   const origins = envConfig.getAllowedOrigins();
   app.enableCors({
     origin: origins,

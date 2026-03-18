@@ -1,11 +1,15 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNumber, IsString } from 'class-validator';
 
-export class CreatePlanDto {
+export class UpdatePlanDto {
+  @ApiProperty({ description: 'Id do plano' })
+  @IsString()
+  id: string;
+
   @ApiProperty({ description: 'Nome do plano' })
   @IsString()
   name: string;
-  
+
   @ApiProperty({ description: 'Descrição do plano' })
   @IsString()
   description: string;

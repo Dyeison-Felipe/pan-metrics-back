@@ -17,22 +17,33 @@ export class CityRepositoryImpl implements CityRepository {
     @Inject(PROVIDERS.CITY_MAPPER) private readonly cityMapper: CityMapper,
   ) {}
 
-  async search(name: string, pagination: PaginationDto): Promise<Pagination<CityEntity>> {
-    const queryBuilder = this.cityRepository.createQueryBuilder('city')
-    .leftJoinAndSelect('city.state', 'state');
+  async search(
+    state: string,
+    pagination: PaginationDto,
+    search?: string,
+  ): Promise<Pagination<CityEntity>> {
+    const queryBuilder = this.cityRepository
+      .createQueryBuilder('city')
+      .leftJoinAndSelect('city.state', 'state')
+      .where('state.uf = :state', { state: state });
 
-    if(name){
-      queryBuilder.where('city.name ILIKE :name', { name: `%${name}%` });
+    if (search) {
+      queryBuilder
+        .andWhere('city.name ILIKE :name', { name: `%${search}%` })
+        .addSelect(
+          `CASE WHEN city.name ILIKE :startsWith THEN 0 ELSE 1 END`,
+          'priority',
+        )
+        .setParameter('startsWith', `${search}%`)
+        .orderBy('priority', 'ASC')
+        .addOrderBy('city.name', 'ASC');
     }
 
-    const result = await paginateQuery(
-      queryBuilder,
-      pagination,
-    );
- 
+    const result = await paginateQuery(queryBuilder, pagination);
+
     // Mapeia schemas para entities de domínio
     const cities = result.items.map((city) => this.cityMapper.toEntity(city));
- 
+
     return {
       items: cities,
       meta: result.meta,
@@ -42,7 +53,7 @@ export class CityRepositoryImpl implements CityRepository {
   async findById(id: string): Promise<CityEntity | null> {
     const citySchema = await this.cityRepository.findOne({
       where: { id },
-      relations: ['state']
+      relations: ['state'],
     });
 
     if (!citySchema) return null;

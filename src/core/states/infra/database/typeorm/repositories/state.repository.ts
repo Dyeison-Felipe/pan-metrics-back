@@ -17,19 +17,36 @@ export class StateRepositoryImpl implements StateRepository {
 
   async findById(id: string): Promise<StateEntity | null> {
     const stateSchema = await this.stateRepository.findOne({
-      where: {id},
-    })
+      where: { id },
+    });
 
-    if(!stateSchema) return null;
+    if (!stateSchema) return null;
 
     const stateEntity = this.stateMapper.toEntity(stateSchema);
 
     return stateEntity;
   }
-  async findAll(): Promise<StateEntity[]> {
-    const statesSchema = await this.stateRepository.find();
+  async search(search: string): Promise<StateEntity[]> {
+    const queryBuilder = this.stateRepository.createQueryBuilder('state');
 
-    const statesEntity = statesSchema.map(state => this.stateMapper.toEntity(state));
+    if (search) {
+      queryBuilder
+        .where('state.name ILIKE :search OR state.uf ILIKE :search', {
+          search: `%${search}%`,
+        })
+        .orderBy(
+          `CASE WHEN state.name ILIKE :startsWith OR state.uf ILIKE :startsWith THEN 0 ELSE 1 END`,
+          'ASC',
+        )
+        .addOrderBy('state.name', 'ASC')
+        .setParameter('startsWith', `${search}%`);
+    }
+
+    const statesSchema = await queryBuilder.getMany();
+
+    const statesEntity = statesSchema.map((state) =>
+      this.stateMapper.toEntity(state),
+    );
 
     return statesEntity;
   }
