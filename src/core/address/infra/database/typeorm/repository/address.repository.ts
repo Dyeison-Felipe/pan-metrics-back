@@ -38,9 +38,12 @@ export class AddressRepositoryImpl implements AddressRepository {
   }
 
   async update(entity: AddressEntity): Promise<AddressEntity> {
-    const addressSchema = await this.addressRepository.save(entity);
 
-    const addressEntity = this.addressRepositoryMapper.toEntity(addressSchema);
+    const addressSchema = this.addressRepositoryMapper.toSchema(entity);
+
+    const updateAddres = await this.addressRepository.save(addressSchema);
+
+    const addressEntity = this.addressRepositoryMapper.toEntity(updateAddres);
 
     return addressEntity;
   }

@@ -8,6 +8,7 @@ import type { HashService } from '@/shared/application/hash/hash.service';
 import { CreateUserInput } from '@/shared/application/input/users/create-user.input';
 import { CreateUserOutput } from '@/shared/application/output/users/create-user.output';
 import { UseCase } from '@/shared/application/usecase/usecase';
+import { LoggedUserService } from '@/shared/application/logged-user/logged-user.service';
 
 type Input = CreateUserInput;
 
@@ -19,9 +20,14 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
     private readonly userRepository: UserRepository,
     @Inject(PROVIDERS.HASH_SERVICE)
     private readonly hashService: HashService,
+    @Inject(PROVIDERS.LOGGED_USER_SERVICE)
+    private readonly loggedUserService: LoggedUserService
   ) {}
 
   async execute(input: Input): Promise<Output> {
+
+    const loggedUser = this.loggedUserService.getLoggedUser()
+
     const existUser = await this.userRepository.findByEmail(input.email);
 
     if (existUser) {
@@ -33,10 +39,8 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
     const userEntity = UserEntity.create({
       ...input,
       password: hashedPassword,
-      auditable: {
-        createdBy: ID_USER_DEFAULT,
-        updatedBy: ID_USER_DEFAULT,
-      },
+      createdBy: loggedUser.id ?? ID_USER_DEFAULT,
+      updatedBy: loggedUser.id ?? ID_USER_DEFAULT,
     });
 
     const savedUser = await this.userRepository.save(userEntity);

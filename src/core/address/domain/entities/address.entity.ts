@@ -1,8 +1,7 @@
-import { CityEntity } from "@/core/cities/domain/entities/city.entity";
-import { ID_USER_DEFAULT } from "@/shared/application/constants/id-user-default";
-import { Data } from "@/shared/domain/decorators/data.decorator";
-import { AuditableProps } from "@/shared/domain/entity/audit-entity-props";
-import { BaseEntity } from "@/shared/domain/entity/baseEntity";
+import { CityEntity } from '@/core/cities/domain/entities/city.entity';
+import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
+import { Data } from '@/shared/domain/decorators/data.decorator';
+import { BaseEntity } from '@/shared/domain/entity/baseEntity';
 
 type AddressProps = {
   cep: string;
@@ -13,7 +12,9 @@ type AddressProps = {
   latitude?: number;
   longitude?: number;
   city: CityEntity;
-  auditable: AuditableProps
+  createdBy: string;
+  updatedBy: string;
+  deletedBy?: string | null;
 };
 
 type CreateAddressProps = {
@@ -25,12 +26,13 @@ type CreateAddressProps = {
   latitude?: number;
   longitude?: number;
   city: CityEntity;
-  auditable?: Partial<AuditableProps>;
+  createdBy: string;
+  updatedBy: string;
 };
 
 type UpdateAddressProps = Partial<AddressProps>;
 
-export interface AddressEntity extends AddressProps {};
+export interface AddressEntity extends AddressProps {}
 
 @Data()
 export class AddressEntity extends BaseEntity<AddressProps> {
@@ -49,10 +51,9 @@ export class AddressEntity extends BaseEntity<AddressProps> {
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
-        createdBy: props.auditable?.createdBy ?? ID_USER_DEFAULT,
-        updatedBy: props.auditable?.updatedBy ?? ID_USER_DEFAULT,
-        deletedBy: null
-      }
-    })
+      },
+      createdBy: props?.createdBy ?? ID_USER_DEFAULT,
+      updatedBy: props?.updatedBy ?? ID_USER_DEFAULT,
+    });
   }
 }

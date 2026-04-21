@@ -39,10 +39,8 @@ export class CreateAddressUseCase implements UseCase<Input, Output> {
       latitude: input.latitude,
       longitude: input.longitude,
       city: city,
-      auditable: {
-        createdBy: ID_USER_DEFAULT,
-        updatedBy: ID_USER_DEFAULT,
-      },
+      createdBy: ID_USER_DEFAULT,
+      updatedBy: ID_USER_DEFAULT,
     });
 
     const createAddress = await this.addressRepository.save(address);

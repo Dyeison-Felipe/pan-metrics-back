@@ -1,10 +1,12 @@
+type AuditableProps = {
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date | null;
+};
 
 type EntityProps = {
   id: string;
-};
-
-type ConstructorEntityProps = {
-  id?: string;
+  auditable?: AuditableProps;
 };
 
 export type BaseProps = Record<string, unknown>;
@@ -12,22 +14,43 @@ export type BaseProps = Record<string, unknown>;
 export abstract class BaseEntity<Props extends BaseProps> {
   readonly props: Props & EntityProps;
 
-  constructor(props: Props & ConstructorEntityProps) {
+  constructor(props: Props & EntityProps) {
     this.props = {
       ...props,
-      id: props.id  ?? crypto.randomUUID(),
+      id: props.id ?? crypto.randomUUID(),
+      auditable: {
+        createdAt: props.auditable?.createdAt ?? new Date(),
+        updatedAt: props.auditable?.updatedAt ?? new Date(),
+        deletedAt: props.auditable?.deletedAt ?? null,
+      },
     };
   }
 
   get id() {
-		return this.props.id;
+    return this.props.id;
+  }
+
+  get auditable() {
+    return this.props.auditable;
+  }
+
+  protected markAsDeleted() {
+  if (this.props.auditable) {
+    this.props.auditable.deletedAt = new Date();
+  }
+}
+
+  protected updateTimestamp() {
+		if (this.props.auditable) {
+			this.props.auditable.updatedAt = new Date();
+		}
 	}
 
   toJSON(): Props & EntityProps {
-		return {
-			...this.props,
-		};
-	}
+    return {
+      ...this.props,
+    };
+  }
 
   static with<Props extends BaseProps, Ent extends BaseEntity<Props>>(
     this: new (props: Props & EntityProps) => Ent,

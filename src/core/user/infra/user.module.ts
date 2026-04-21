@@ -9,6 +9,7 @@ import { HashService } from '@/shared/application/hash/hash.service';
 import { UserController } from './controllers/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserSchema } from './database/typeorm/schema/user.schema';
+import { LoggedUserService } from '@/shared/application/logged-user/logged-user.service';
 
 @Global()
 @Module({
@@ -28,10 +29,11 @@ import { UserSchema } from './database/typeorm/schema/user.schema';
       useFactory: (
         userRepository: UserRepository,
         hashService: HashService,
+        loggedUserService: LoggedUserService
       ) => {
-        return new CreateUserUseCase(userRepository, hashService);
+        return new CreateUserUseCase(userRepository, hashService, loggedUserService);
       },
-      inject: [PROVIDERS.USER_REPOSITORY, PROVIDERS.HASH_SERVICE],
+      inject: [PROVIDERS.USER_REPOSITORY, PROVIDERS.HASH_SERVICE, PROVIDERS.LOGGED_USER_SERVICE],
     },
   ],
   exports: [PROVIDERS.USER_MAPPER, PROVIDERS.USER_REPOSITORY],

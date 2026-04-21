@@ -1,6 +1,5 @@
 import { ID_USER_DEFAULT } from "@/shared/application/constants/id-user-default";
 import { Data } from "@/shared/domain/decorators/data.decorator";
-import { AuditableProps } from "@/shared/domain/entity/audit-entity-props";
 import { BaseEntity } from "@/shared/domain/entity/baseEntity";
 
 export type UserProps = {
@@ -8,14 +7,17 @@ export type UserProps = {
   password: string;
   email: string;
   active: boolean;
-  auditable: AuditableProps;
+  createdBy: string;
+  updatedBy: string;
+  deletedBy?: string | null;
 };
 
 type CreateUserProps = {
   username: string;
   password: string;
   email: string;
-  auditable: Partial<AuditableProps>;
+  createdBy: string;
+  updatedBy: string;
 };
 
 export interface UserEntity extends UserProps {}
@@ -33,10 +35,9 @@ export class UserEntity extends BaseEntity<UserProps> {
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
-        createdBy: props.auditable?.createdBy ?? ID_USER_DEFAULT,
-        updatedBy: props.auditable?.updatedBy ?? ID_USER_DEFAULT,
-        deletedBy: null,
       },
+      createdBy: props.createdBy ?? ID_USER_DEFAULT,
+      updatedBy: props.updatedBy ?? ID_USER_DEFAULT,
     });
   }
 }

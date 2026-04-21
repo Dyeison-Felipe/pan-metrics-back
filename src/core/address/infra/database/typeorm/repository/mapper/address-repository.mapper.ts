@@ -29,10 +29,10 @@ export class AddressRepositoryMapper implements RepositoryMapper<
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
         deletedAt: schema.deletedAt,
-        createdBy: schema.createdBy?.id,
-        updatedBy: schema.updatedBy?.id,
-        deletedBy: schema.deletedBy?.id,
       },
+      createdBy: schema.createdBy?.id,
+      updatedBy: schema.updatedBy?.id,
+      deletedBy: schema.deletedBy?.id,
     });
   }
   toSchema(entity: AddressEntity): AddressSchema {
@@ -45,13 +45,13 @@ export class AddressRepositoryMapper implements RepositoryMapper<
       complement: entity.complement,
       latitude: entity.latitude,
       longitude: entity.longitude,
-      createdAt: entity.auditable.createdAt,
-      updatedAt: entity.auditable.updatedAt,
-      deletedAt: entity.auditable.deletedAt,
-      createdBy: UserSchema.from({ id: entity.auditable.createdBy }),
-      updatedBy: UserSchema.from({ id: entity.auditable.updatedBy }),
-      deletedBy: entity.auditable.deletedBy
-        ? UserSchema.from({ id: entity.auditable.deletedBy })
+      createdAt: entity.auditable?.createdAt,
+      updatedAt: entity.auditable?.updatedAt,
+      deletedAt: entity.auditable?.deletedAt,
+      createdBy: UserSchema.from({ id: entity.createdBy }),
+      updatedBy: UserSchema.from({ id: entity.updatedBy }),
+      deletedBy: entity.deletedBy
+        ? UserSchema.from({ id: entity.deletedBy })
         : null,
       city: this.cityMapper.toSchema(entity.props.city),
     });
