@@ -9,6 +9,7 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { GlobalStringLengthPipe } from '@/shared/infra/pipes/globalmax-lenght.pipe';
 import { ValidationPipe } from '@nestjs/common';
 import fastifyCookie from '@fastify/cookie';
+import { EntityValidationErrorFilter } from './shared/infra/exeption-filters/validation-error.filter';
 
 export async function globalConfig(
   app: NestFastifyApplication,
@@ -57,5 +58,6 @@ export async function globalConfig(
     new ForbiddenErrorFilter(),
     new NotFoundErrorFilter(),
     new UnauthorizedErrorFilter(),
+    new EntityValidationErrorFilter()
   );
 }
