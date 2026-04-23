@@ -40,9 +40,9 @@ export function Data() {
 						get: function () {
 							return this.props[key];
 						},
-						set: function (value: unknown) {
-							this.props[key] = value;
-						},
+						// set: function (value: unknown) {
+						// 	this.props[key] = value;
+						// },
 						enumerable: true,
 						configurable: true,
 					});

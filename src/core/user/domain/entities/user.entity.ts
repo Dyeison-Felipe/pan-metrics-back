@@ -18,7 +18,6 @@ type CreateUserProps = {
   username: string;
   password: string;
   email: string;
-  active: boolean;
   createdBy: string;
   updatedBy: string;
 };
@@ -29,9 +28,7 @@ export interface UserEntity extends UserProps {}
 export class UserEntity extends BaseEntity<UserProps> {
   static create(props: CreateUserProps): UserEntity {
 
-    UserEntity.validate(props);
-
-    return new UserEntity({
+    const entity = new UserEntity({
       id: crypto.randomUUID(),
       username: props.username,
       email: props.email,
@@ -45,12 +42,14 @@ export class UserEntity extends BaseEntity<UserProps> {
       createdBy: props.createdBy ?? ID_USER_DEFAULT,
       updatedBy: props.updatedBy ?? ID_USER_DEFAULT,
     });
+
+       return entity;
   }
 
-  static validate(props: UserProps) {
+  protected validate() {
     const validator = UserValidatorFactory.create();
 
-    const isValid = validator.validate(props);
+    const isValid = validator.validate(this);
 
     if (!isValid) {
       throw new EntityValidationError(validator.errors);

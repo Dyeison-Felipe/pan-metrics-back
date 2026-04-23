@@ -46,6 +46,8 @@ export abstract class BaseEntity<Props extends BaseProps> {
 		}
 	}
 
+  protected abstract validate(): void
+
   toJSON(): Props & EntityProps {
     return {
       ...this.props,
