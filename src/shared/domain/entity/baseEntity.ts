@@ -24,6 +24,7 @@ export abstract class BaseEntity<Props extends BaseProps> {
         deletedAt: props.auditable?.deletedAt ?? null,
       },
     };
+    this.validate()
   }
 
   get id() {

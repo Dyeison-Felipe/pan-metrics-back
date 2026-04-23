@@ -22,7 +22,15 @@ type CreateUserProps = {
   updatedBy: string;
 };
 
-export interface UserEntity extends UserProps {}
+type UpdateUserProps = {
+  username: string;
+  password: string;
+  email: string;
+  active: boolean;
+  updatedBy: string;
+}
+
+export interface UserEntity extends UserProps { }
 
 @Data()
 export class UserEntity extends BaseEntity<UserProps> {
@@ -34,16 +42,27 @@ export class UserEntity extends BaseEntity<UserProps> {
       email: props.email,
       password: props.password,
       active: true,
-      auditable: {
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        deletedAt: null,
-      },
       createdBy: props.createdBy ?? ID_USER_DEFAULT,
       updatedBy: props.updatedBy ?? ID_USER_DEFAULT,
     });
 
-       return entity;
+    return entity;
+  }
+
+  update(props: UpdateUserProps): void {
+    this.username = props.username;
+    this.password = props.password;
+    this.email = props.email;
+    this.active = props.active;
+    this.updatedBy = props.updatedBy;
+
+    this.updateTimestamp();
+
+    this.validate();
+  }
+
+  markAsDeletedBy(userId: string): void {
+    this.deletedBy = userId;
   }
 
   protected validate() {
