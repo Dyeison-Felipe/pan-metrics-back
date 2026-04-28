@@ -16,13 +16,28 @@ export abstract class BaseSchema {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  static with<T extends BaseSchema>(this: Constructor<T>, props: Partial<T>): T {
+  @CreateDateColumn({ name: 'created_at', nullable: false, type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', nullable: false, type: 'timestamp' })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at', nullable: true, type: 'timestamp' })
+  deletedAt?: Date | null;
+
+  static with<T extends BaseSchema>(
+    this: Constructor<T>,
+    props: Partial<T>,
+  ): T {
     const schemaInstance = new this();
     Object.assign(schemaInstance, props);
     return schemaInstance;
   }
 
-  static from<T extends BaseSchema>(this: Constructor<T>, props?: Partial<T>): T {
+  static from<T extends BaseSchema>(
+    this: Constructor<T>,
+    props?: Partial<T>,
+  ): T {
     const schemaInstance = new this();
     if (props) Object.assign(schemaInstance, props);
     return schemaInstance;

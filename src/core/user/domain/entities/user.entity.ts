@@ -1,3 +1,4 @@
+import { UserPersmissionEntity } from "@/core/user-permissions/domain/entities/user-permission.entity";
 import { ID_USER_DEFAULT } from "@/shared/application/constants/id-user-default";
 import { Data } from "@/shared/domain/decorators/data.decorator";
 import { BaseEntity } from "@/shared/domain/entity/baseEntity";
@@ -10,6 +11,7 @@ export type UserProps = {
   createdBy: string;
   updatedBy: string;
   deletedBy?: string | null;
+  userPermissions?: UserPersmissionEntity[];
 };
 
 type CreateUserProps = {

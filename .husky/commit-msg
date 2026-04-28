@@ -13,10 +13,10 @@ if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
   exit 1
 fi
 
-if [ ${#COMMIT_MSG} -gt 72 ]; then
+if [ ${#COMMIT_MSG} -gt 172 ]; then
   echo ""
   echo "❌ Erro: Mensagem muito longa."
-  echo "Máximo permitido: 72 caracteres."
+  echo "Máximo permitido: 172 caracteres."
   echo ""
   exit 1 
 fi

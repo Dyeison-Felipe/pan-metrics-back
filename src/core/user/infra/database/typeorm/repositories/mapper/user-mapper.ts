@@ -8,6 +8,7 @@ export class UserRepositoryMapper implements RepositoryMapper<
   UserSchema,
   UserEntity
 > {
+  
   toEntity(schema: UserSchema): UserEntity {
     return new UserEntity({
       id: schema.id,
