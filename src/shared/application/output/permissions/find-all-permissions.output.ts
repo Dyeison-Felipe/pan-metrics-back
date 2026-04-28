@@ -1,4 +1,5 @@
 export type FindAllPermissionsOutput = {
   id: string;
-  resource: string;
+  action: string;
+  subject: string
 }

@@ -5,14 +5,19 @@ import { BaseEntity } from '@/shared/domain/entity/baseEntity';
 
 export type UserPermissionProps = {
   user: UserEntity;
-  permission: PermissionEntity
+  permission: PermissionEntity;
+};
+
+export type CreatePermissionProps = {
+  user: UserEntity;
+  permission: PermissionEntity;
 };
 
 export interface UserPersmissionEntity extends UserPermissionProps {}
 
 @Data()
 export class UserPersmissionEntity extends BaseEntity<UserPermissionProps> {
-  static create(props: UserPermissionProps): UserPersmissionEntity {
+  static create(props: CreatePermissionProps): UserPersmissionEntity {
     return new UserPersmissionEntity({
       id: crypto.randomUUID(),
       user: props.user,

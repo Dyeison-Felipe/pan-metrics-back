@@ -8,7 +8,7 @@ export class UserPermissionSchema extends BaseSchema {
   @ManyToOne(() => UserSchema, (user) => user.userPermissions, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user' })
   user: UserSchema;
 
   @ManyToOne(
@@ -16,6 +16,6 @@ export class UserPermissionSchema extends BaseSchema {
     (permission) => permission.userPermissions,
     { onDelete: 'CASCADE' },
   )
-  @JoinColumn({ name: 'permission_id' })
+  @JoinColumn({ name: 'permission' })
   permission: PermissionSchema;
 }

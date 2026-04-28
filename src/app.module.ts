@@ -10,6 +10,7 @@ import { AuthModule } from '@/core/auth/infra/auth.module';
 import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
 import { PermissionModule } from '@/core/permissions/infra/permission.module';
 import { LoggedUserModule } from '@/shared/infra/logged-user/logged-user.module';
+import { UserPermissionModule } from './core/user-permissions/infra/user-permission.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { LoggedUserModule } from '@/shared/infra/logged-user/logged-user.module'
     AuthModule,
     JwtConfigModule,
     PermissionModule,
+    UserPermissionModule,
   ],
   controllers: [],
   providers: [],
