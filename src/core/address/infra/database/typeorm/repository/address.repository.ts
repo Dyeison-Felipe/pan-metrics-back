@@ -11,16 +11,14 @@ export class AddressRepositoryImpl implements AddressRepository {
   constructor(
     @InjectRepository(AddressSchema)
     private readonly addressRepository: Repository<AddressSchema>,
-    @Inject(PROVIDERS.ADDRESS_MAPPER)
-    private readonly addressRepositoryMapper: AddressRepositoryMapper,
   ) {}
 
   async save(entity: AddressEntity): Promise<AddressEntity> {
-    const addressSchema = this.addressRepositoryMapper.toSchema(entity);
+    const addressSchema = AddressRepositoryMapper.toSchema(entity);
 
     const savedAddress = await this.addressRepository.save(addressSchema);
 
-    const addressEntity = this.addressRepositoryMapper.toEntity(savedAddress);
+    const addressEntity = AddressRepositoryMapper.toEntity(savedAddress);
 
     return addressEntity;
   }
@@ -32,18 +30,18 @@ export class AddressRepositoryImpl implements AddressRepository {
 
     if (!addressSchema) return null;
 
-    const addressEntity = this.addressRepositoryMapper.toEntity(addressSchema);
+    const addressEntity = AddressRepositoryMapper.toEntity(addressSchema);
 
     return addressEntity;
   }
 
   async update(entity: AddressEntity): Promise<AddressEntity> {
 
-    const addressSchema = this.addressRepositoryMapper.toSchema(entity);
+    const addressSchema = AddressRepositoryMapper.toSchema(entity);
 
     const updateAddres = await this.addressRepository.save(addressSchema);
 
-    const addressEntity = this.addressRepositoryMapper.toEntity(updateAddres);
+    const addressEntity = AddressRepositoryMapper.toEntity(updateAddres);
 
     return addressEntity;
   }

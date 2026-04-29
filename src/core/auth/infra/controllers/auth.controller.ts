@@ -4,6 +4,7 @@ import { LoginDto } from '../dtos/login.dto';
 import { ApiBody, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { LoginUseCase } from '../../application/usecase/login.usecase';
 import { LoginPresenter } from '@/shared/infra/presenter/login/login.presenter';
+import { Public } from '@/shared/infra/decorators/permission.decorator';
 
 @ApiTags('Auth')
 @Controller('/v1/auth')
@@ -11,6 +12,7 @@ export class AuthController {
   constructor(private readonly loginUseCase: LoginUseCase) {}
 
   @Post('/login')
+  @Public()
   @ApiOperation({ summary: 'Login' })
   @ApiBody({ type: LoginDto })
   @ApiCreatedResponse({ description: 'Login realizado com sucesso', type: LoginPresenter })

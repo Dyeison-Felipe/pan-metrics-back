@@ -1,5 +1,5 @@
 import { CreateUserUseCase } from '@/core/user/application/usecase/create-user.usecase';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UserPresenter } from '@/shared/infra/presenter/user/user.presenter';
 import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
@@ -11,6 +11,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { Public } from '@/shared/infra/decorators/permission.decorator';
 
 @ApiTags('Users')
 @Controller('/v1/user')
@@ -18,6 +19,7 @@ export class UserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
   @Post()
+  @Public()
   @ApiOperation({ summary: 'Usuário' })
   @ApiBody({ type: CreateUserDto })
   @ApiCreatedResponse({ description: 'Usuário criado com sucesso', type: UserPresenter })

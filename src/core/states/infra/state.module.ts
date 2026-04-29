@@ -13,10 +13,6 @@ import { StateRepository } from '../domain/repositories/state.repository';
   controllers: [StateController],
   providers: [
     {
-      provide: PROVIDERS.STATE_MAPPER,
-      useClass: StateMapper,
-    },
-    {
       provide: PROVIDERS.STATE_REPOSITORY,
       useClass: StateRepositoryImpl,
     },
@@ -28,6 +24,6 @@ import { StateRepository } from '../domain/repositories/state.repository';
       inject: [PROVIDERS.STATE_REPOSITORY],
     },
   ],
-  exports: [PROVIDERS.STATE_MAPPER, PROVIDERS.STATE_REPOSITORY],
+  exports: [PROVIDERS.STATE_REPOSITORY],
 })
 export class StateModule {}

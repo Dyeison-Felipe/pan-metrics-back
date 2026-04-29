@@ -9,19 +9,14 @@ import { PermissionModule } from '@/core/permissions/infra/permission.module';
 import { UserModule } from '@/core/user/infra/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserPermissionSchema]), PermissionModule, UserModule],
+  imports: [TypeOrmModule.forFeature([UserPermissionSchema])],
   providers: [
-    {
-      provide: PROVIDERS.USER_PERMISSION_MAPPER,
-      useClass: UserPermissionRepositoryMapper,
-    },
     {
       provide: PROVIDERS.USER_PERMISSION_REPOSITORY,
       useClass: UserPermissionRepositoryImpl,
     },
   ],
   exports: [
-    PROVIDERS.USER_PERMISSION_MAPPER,
     PROVIDERS.USER_PERMISSION_REPOSITORY,
   ],
 })

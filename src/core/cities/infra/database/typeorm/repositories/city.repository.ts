@@ -14,7 +14,6 @@ export class CityRepositoryImpl implements CityRepository {
   constructor(
     @InjectRepository(CitySchema)
     private readonly cityRepository: Repository<CitySchema>,
-    @Inject(PROVIDERS.CITY_MAPPER) private readonly cityMapper: CityMapper,
   ) {}
 
   async search(
@@ -42,7 +41,7 @@ export class CityRepositoryImpl implements CityRepository {
     const result = await paginateQuery(queryBuilder, pagination);
 
     // Mapeia schemas para entities de domínio
-    const cities = result.items.map((city) => this.cityMapper.toEntity(city));
+    const cities = result.items.map((city) => CityMapper.toEntity(city));
 
     return {
       items: cities,
@@ -58,7 +57,7 @@ export class CityRepositoryImpl implements CityRepository {
 
     if (!citySchema) return null;
 
-    const cityEntity = this.cityMapper.toEntity(citySchema);
+    const cityEntity = CityMapper.toEntity(citySchema);
 
     return cityEntity;
   }

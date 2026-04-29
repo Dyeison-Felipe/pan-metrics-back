@@ -11,16 +11,14 @@ export class UserPermissionRepositoryImpl implements UserPermissionRepository {
   constructor(
     @InjectRepository(UserPermissionSchema)
     private readonly userPermissionRepository: Repository<UserPermissionSchema>,
-    @Inject(PROVIDERS.USER_PERMISSION_MAPPER)
-    private readonly userPermissionMapper: UserPermissionRepositoryMapper,
   ) {}
 
   async create(entity: UserPersmissionEntity): Promise<UserPersmissionEntity> {
-    const userPermissionSchema = this.userPermissionMapper.toSchema(entity);
+    const userPermissionSchema = UserPermissionRepositoryMapper.toSchema(entity);
 
     const save = await this.userPermissionRepository.save(userPermissionSchema);
 
-    const UserPersmissionEntity = this.userPermissionMapper.toEntity(save);
+    const UserPersmissionEntity = UserPermissionRepositoryMapper.toEntity(save);
 
     return UserPersmissionEntity;
   }
@@ -34,7 +32,7 @@ export class UserPermissionRepositoryImpl implements UserPermissionRepository {
     });
 
     const userPermissionEntity = userPermissions.map((userPermission) =>
-      this.userPermissionMapper.toEntity(userPermission),
+      UserPermissionRepositoryMapper.toEntity(userPermission),
     );
 
     return userPermissionEntity;

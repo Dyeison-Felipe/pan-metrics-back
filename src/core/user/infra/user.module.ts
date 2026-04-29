@@ -10,16 +10,21 @@ import { UserController } from './controllers/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserSchema } from './database/typeorm/schema/user.schema';
 import { LoggedUserService } from '@/shared/application/logged-user/logged-user.service';
+import { UserPermissionRepository } from '@/core/user-permissions/domain/repositories/user-permission.repository';
+import { PermissionRepository } from '@/core/permissions/domain/repositories/permission.repository';
+import { PermissionModule } from '@/core/permissions/infra/permission.module';
+import { UserPermissionModule } from '@/core/user-permissions/infra/user-permission.module';
 
 @Global()
 @Module({
-  imports: [TypeOrmModule.forFeature([UserSchema]), HashModule],
+  imports: [
+    TypeOrmModule.forFeature([UserSchema]),
+    HashModule,
+    PermissionModule,
+    UserPermissionModule,
+  ],
   controllers: [UserController],
   providers: [
-    {
-      provide: PROVIDERS.USER_MAPPER,
-      useClass: UserRepositoryMapper,
-    },
     {
       provide: PROVIDERS.USER_REPOSITORY,
       useClass: UserRepositoryImpl,
@@ -29,13 +34,27 @@ import { LoggedUserService } from '@/shared/application/logged-user/logged-user.
       useFactory: (
         userRepository: UserRepository,
         hashService: HashService,
-        loggedUserService: LoggedUserService
+        loggedUserService: LoggedUserService,
+        userPermissionRepository: UserPermissionRepository,
+        permissionRepository: PermissionRepository,
       ) => {
-        return new CreateUserUseCase(userRepository, hashService, loggedUserService);
+        return new CreateUserUseCase(
+          userRepository,
+          hashService,
+          loggedUserService,
+          userPermissionRepository,
+          permissionRepository,
+        );
       },
-      inject: [PROVIDERS.USER_REPOSITORY, PROVIDERS.HASH_SERVICE, PROVIDERS.LOGGED_USER_SERVICE],
+      inject: [
+        PROVIDERS.USER_REPOSITORY,
+        PROVIDERS.HASH_SERVICE,
+        PROVIDERS.LOGGED_USER_SERVICE,
+        PROVIDERS.USER_PERMISSION_REPOSITORY,
+        PROVIDERS.PERMISSION_REPOSITORY,
+      ],
     },
   ],
-  exports: [PROVIDERS.USER_MAPPER, PROVIDERS.USER_REPOSITORY],
+  exports: [PROVIDERS.USER_REPOSITORY],
 })
 export class UserModule {}

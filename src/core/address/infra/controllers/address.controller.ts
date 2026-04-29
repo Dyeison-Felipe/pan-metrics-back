@@ -14,6 +14,8 @@ import { UpdateAddressUseCase } from '../../application/usecase/update-address.u
 import { CreateAddressPresenter } from '@/shared/infra/presenter/address/create.presenter';
 import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
 import { UpdateAddressPresenter } from '@/shared/infra/presenter/address/update.presenter';
+import { Permission } from '@/shared/infra/decorators/permission.decorator';
+import { PermissionAddress } from '@/core/auth/domain/permissions-definition/address';
 
 @ApiTags('Address')
 @Controller('/addresses/v1')
@@ -23,6 +25,7 @@ export class AddressController {
     private readonly updateAddressUseCase: UpdateAddressUseCase,
   ) {}
 
+  @Permission(PermissionAddress.ADDRESS_CREATE)
   @Post()
   @ApiOperation({ summary: 'Criar endereço' })
   @ApiBody({ type: CreateAddressDto })

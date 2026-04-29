@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsEmail,
   IsString,
+  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -37,4 +39,12 @@ export class CreateUserDto {
     message: 'Formato de email inválido',
   })
   email: string;
+
+  @ApiProperty({
+    description: 'IDs das permissões do usuário',
+    type: [String],
+  })
+  @IsArray()
+  @IsUUID('4', { each: true })
+  permissionsId: string[];
 }

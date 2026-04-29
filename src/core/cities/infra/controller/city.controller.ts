@@ -12,6 +12,7 @@ import { PaginationPresenter } from '@/shared/infra/presenter/pagination/paginat
 import { CityPresenter } from '@/shared/infra/presenter/city/city.presenter';
 import { FindAllSearchCityPresenter } from '@/shared/infra/presenter/city/find-all-search-city.presenter';
 import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
+import { Public } from '@/shared/infra/decorators/permission.decorator';
 
 @ApiTags('City')
 @Controller('/v1/city')
@@ -21,6 +22,7 @@ export class CityController {
   ) {}
 
   @Get()
+  @Public()
   @ApiOperation({ summary: 'Lista todos os estados e pesquisa por nome' })
   @ApiQuery({
     name: 's',

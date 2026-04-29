@@ -7,7 +7,7 @@ export class PermissionSchema extends BaseSchema {
   @Column({ name: 'action', nullable: false })
   action: string; // 'read' | 'create' | 'update' | 'delete'
 
-  @Column({ name: 'subject', nullable: false, unique: true })
+  @Column({ name: 'subject', nullable: false})
   subject: string; // 'Product' | 'User' | etc
 
   @OneToMany(() => UserPermissionSchema, (up) => up.permission)
