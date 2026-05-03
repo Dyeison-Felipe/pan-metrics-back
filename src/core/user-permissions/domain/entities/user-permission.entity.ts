@@ -13,6 +13,11 @@ export type CreatePermissionProps = {
   permission: PermissionEntity;
 };
 
+export type updatePermissionProps = {
+  user: UserEntity;
+  permission: PermissionEntity;
+};
+
 export interface UserPersmissionEntity extends UserPermissionProps {}
 
 @Data()

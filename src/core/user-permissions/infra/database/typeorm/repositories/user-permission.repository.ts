@@ -14,7 +14,8 @@ export class UserPermissionRepositoryImpl implements UserPermissionRepository {
   ) {}
 
   async create(entity: UserPersmissionEntity): Promise<UserPersmissionEntity> {
-    const userPermissionSchema = UserPermissionRepositoryMapper.toSchema(entity);
+    const userPermissionSchema =
+      UserPermissionRepositoryMapper.toSchema(entity);
 
     const save = await this.userPermissionRepository.save(userPermissionSchema);
 
@@ -36,5 +37,9 @@ export class UserPermissionRepositoryImpl implements UserPermissionRepository {
     );
 
     return userPermissionEntity;
+  }
+
+  async softDelete(id: string): Promise<void> {
+    await this.userPermissionRepository.softDelete(id);
   }
 }

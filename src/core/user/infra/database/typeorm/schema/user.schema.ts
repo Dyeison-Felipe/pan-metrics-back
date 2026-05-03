@@ -26,6 +26,9 @@ export class UserSchema extends BaseSchema {
   @Column()
   active: boolean;
 
+  @Column({name: 'recover_password_jwt', type: 'text', nullable: true})
+  recoverPasswordJwt?: string;
+
   @JoinColumn({
     name: 'created_by',
     referencedColumnName: 'id',

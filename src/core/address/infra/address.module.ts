@@ -10,6 +10,7 @@ import { UpdateAddressUseCase } from '../application/usecase/update-address.usec
 import { CityModule } from '@/core/cities/infra/city.module';
 import { PROVIDERS } from '@/shared/application/constants/providers';
 import { CityRepository } from '@/core/cities/domain/repositories/city.repository';
+import { FindAddressByCompanyIdUseCase } from '../application/usecase/find-address-by-id.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AddressSchema]), CityModule],
@@ -38,6 +39,14 @@ import { CityRepository } from '@/core/cities/domain/repositories/city.repositor
         return new UpdateAddressUseCase(addressRepository, cityRepository);
       },
       inject: [PROVIDERS.ADDRESS_REPOSITORY, PROVIDERS.CITY_REPOSITORY],
+    },
+
+    {
+      provide: FindAddressByCompanyIdUseCase,
+      useFactory: (addressRepository: AddressRepository) => {
+        return new FindAddressByCompanyIdUseCase(addressRepository);
+      },
+      inject: [PROVIDERS.ADDRESS_REPOSITORY],
     },
   ],
   exports: [PROVIDERS.ADDRESS_REPOSITORY],

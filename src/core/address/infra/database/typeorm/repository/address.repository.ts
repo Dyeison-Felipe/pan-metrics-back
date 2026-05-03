@@ -2,10 +2,8 @@ import { Repository } from 'typeorm';
 import { AddressSchema } from '../schema/address.schema';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AddressRepositoryMapper } from './mapper/address-repository.mapper';
-import { Inject } from '@nestjs/common';
 import { AddressRepository } from '@/core/address/domain/repositories/address.repository';
 import { AddressEntity } from '@/core/address/domain/entities/address.entity';
-import { PROVIDERS } from '@/shared/application/constants/providers';
 
 export class AddressRepositoryImpl implements AddressRepository {
   constructor(
@@ -26,6 +24,7 @@ export class AddressRepositoryImpl implements AddressRepository {
   async findById(id: string): Promise<AddressEntity | null> {
     const addressSchema = await this.addressRepository.findOne({
       where: { id },
+      relations: ['city', 'city.state']
     });
 
     if (!addressSchema) return null;

@@ -41,6 +41,11 @@ export class CreateTableUsers1771290902167 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'recover_password_jwt',
+            type: 'text',
+            isNullable: true,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

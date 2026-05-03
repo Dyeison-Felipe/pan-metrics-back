@@ -14,6 +14,11 @@ import { UserPermissionRepository } from '@/core/user-permissions/domain/reposit
 import { PermissionRepository } from '@/core/permissions/domain/repositories/permission.repository';
 import { PermissionModule } from '@/core/permissions/infra/permission.module';
 import { UserPermissionModule } from '@/core/user-permissions/infra/user-permission.module';
+import { UpdateUserUseCase } from '../application/usecase/update-user.usecase';
+import { InactivateUserUseCase } from '../application/usecase/inactivate-user.usecase';
+import { UpdateUserPasswordUseCase } from '../application/usecase/update-user-password.usecase';
+import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
+import { JwtService } from '@/shared/application/jwt/jwt.service';
 
 @Global()
 @Module({
@@ -22,6 +27,7 @@ import { UserPermissionModule } from '@/core/user-permissions/infra/user-permiss
     HashModule,
     PermissionModule,
     UserPermissionModule,
+    JwtConfigModule,
   ],
   controllers: [UserController],
   providers: [
@@ -52,6 +58,69 @@ import { UserPermissionModule } from '@/core/user-permissions/infra/user-permiss
         PROVIDERS.LOGGED_USER_SERVICE,
         PROVIDERS.USER_PERMISSION_REPOSITORY,
         PROVIDERS.PERMISSION_REPOSITORY,
+      ],
+    },
+    {
+      provide: UpdateUserUseCase,
+      useFactory: (
+        userRepository: UserRepository,
+        hashService: HashService,
+        loggedUserService: LoggedUserService,
+        userPermissionRepository: UserPermissionRepository,
+        permissionRepository: PermissionRepository,
+      ) => {
+        return new UpdateUserUseCase(
+          userRepository,
+          hashService,
+          loggedUserService,
+          userPermissionRepository,
+          permissionRepository,
+        );
+      },
+      inject: [
+        PROVIDERS.USER_REPOSITORY,
+        PROVIDERS.HASH_SERVICE,
+        PROVIDERS.LOGGED_USER_SERVICE,
+        PROVIDERS.USER_PERMISSION_REPOSITORY,
+        PROVIDERS.PERMISSION_REPOSITORY,
+      ],
+    },
+    {
+      provide: InactivateUserUseCase,
+      useFactory: (
+        userRepository: UserRepository,
+        loggedUserService: LoggedUserService,
+      ) => {
+        return new InactivateUserUseCase(
+          userRepository,
+          loggedUserService,
+        );
+      },
+      inject: [
+        PROVIDERS.USER_REPOSITORY,
+        PROVIDERS.LOGGED_USER_SERVICE,
+      ],
+    },
+    {
+      provide: UpdateUserPasswordUseCase,
+      useFactory: (
+        userRepository: UserRepository,
+        loggedUserService: LoggedUserService,
+        jwtService: JwtService,
+        hashService: HashService,
+      ) => {
+        return new UpdateUserPasswordUseCase(
+          userRepository,
+          loggedUserService,
+          jwtService,
+          hashService,
+        );
+      },
+      inject: [
+        PROVIDERS.USER_REPOSITORY,
+        PROVIDERS.LOGGED_USER_SERVICE,
+        PROVIDERS.JWT_SERVICE,
+        PROVIDERS.HASH_SERVICE,
       ],
     },
   ],
