@@ -54,15 +54,6 @@ export class AddressSchema extends BaseSchema {
   @ManyToOne(() => CitySchema, (city) => city.addresses, { nullable: false })
   city: CitySchema;
 
-  @CreateDateColumn({ name: 'created_at', nullable: false, type: 'date' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at', nullable: false, type: 'date' })
-  updatedAt: Date;
-
-  @DeleteDateColumn({ name: 'deleted_at', nullable: true, type: 'date' })
-  deletedAt: Date | null;
-
   @JoinColumn({
     name: 'created_by',
     referencedColumnName: 'id',

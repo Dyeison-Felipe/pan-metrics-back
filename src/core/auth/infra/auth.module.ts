@@ -1,7 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { AuthController } from './controllers/auth.controller';
 import { LoginUseCase } from '../application/usecase/login.usecase';
-import { AuthGuard } from './guard/auth.guard';
 import { UserModule } from '@/core/user/infra/user.module';
 import { HashModule } from '@/shared/infra/hash/hash.module';
 import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
@@ -11,13 +10,16 @@ import { UserRepository } from '@/core/user/domain/repositories/user.repository'
 import { HashService } from '@/shared/application/hash/hash.service';
 import { EnvConfig } from '@/shared/application/env-config/env-config';
 import { PROVIDERS } from '@/shared/application/constants/providers';
+import { CaslAbilityService } from './service/casl-ability.service';
+import { PermissionGuard } from './guard/permission.guard';
 
 @Global()
 @Module({
   imports: [UserModule, HashModule, JwtConfigModule, EnvConfigModule],
   controllers: [AuthController],
   providers: [
-    AuthGuard,
+    PermissionGuard,
+    { provide: PROVIDERS.CASL_ABILITY_SERVICE, useClass: CaslAbilityService },
     {
       provide: LoginUseCase,
       useFactory: (
@@ -41,5 +43,6 @@ import { PROVIDERS } from '@/shared/application/constants/providers';
       ],
     },
   ],
+  exports: [PROVIDERS.CASL_ABILITY_SERVICE],
 })
 export class AuthModule {}

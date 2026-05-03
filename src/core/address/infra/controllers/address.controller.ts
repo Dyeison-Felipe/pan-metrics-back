@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { UpdateAddressDto } from '../dtos/update-address.dto';
 import { CreateAddressDto } from '../dtos/create-address.dto';
 import {
@@ -14,6 +14,10 @@ import { UpdateAddressUseCase } from '../../application/usecase/update-address.u
 import { CreateAddressPresenter } from '@/shared/infra/presenter/address/create.presenter';
 import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
 import { UpdateAddressPresenter } from '@/shared/infra/presenter/address/update.presenter';
+import { Permission } from '@/shared/infra/decorators/permission.decorator';
+import { PermissionAddress } from '@/core/auth/domain/permissions-definition/address';
+import { FindAddressByCompanyIdUseCase } from '../../application/usecase/find-address-by-id.usecase';
+import { AddressPresenter } from '@/shared/infra/presenter/address/address.preseter';
 
 @ApiTags('Address')
 @Controller('/addresses/v1')
@@ -21,8 +25,10 @@ export class AddressController {
   constructor(
     private readonly createAddressUseCase: CreateAddressUseCase,
     private readonly updateAddressUseCase: UpdateAddressUseCase,
+    private readonly findAddressByCompanyIdUseCase: FindAddressByCompanyIdUseCase,
   ) {}
 
+  @Permission(PermissionAddress.ADDRESS_CREATE)
   @Post()
   @ApiOperation({ summary: 'Criar endereço' })
   @ApiBody({ type: CreateAddressDto })
@@ -56,5 +62,13 @@ export class AddressController {
     );
 
     return output;
+  }
+
+  @ApiOperation({ summary: 'Buscar endereço por id' })
+  @ApiParam({ name: 'id', type: String })
+  @ApiOkResponse({ type: AddressPresenter })
+  @Get(':id')
+  async findAddress(@Param('id') id: string): Promise<AddressPresenter> {
+    return await this.findAddressByCompanyIdUseCase.execute({ id });
   }
 }

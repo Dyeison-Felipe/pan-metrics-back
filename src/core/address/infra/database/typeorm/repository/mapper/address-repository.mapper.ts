@@ -1,20 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AddressSchema } from '../../schema/address.schema';
-import { RepositoryMapper } from '@/shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
 import { PROVIDERS } from '@/shared/application/constants/providers';
 import { CityMapper } from '@/core/cities/infra/database/typeorm/repositories/mapper/city-mapper';
 import { AddressEntity } from '@/core/address/domain/entities/address.entity';
 import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
 
 @Injectable()
-export class AddressRepositoryMapper implements RepositoryMapper<
-  AddressSchema,
-  AddressEntity
-> {
-  constructor(
-    @Inject(PROVIDERS.CITY_MAPPER) private readonly cityMapper: CityMapper,
-  ) {}
-  toEntity(schema: AddressSchema): AddressEntity {
+export class AddressRepositoryMapper {
+  static toEntity(schema: AddressSchema): AddressEntity {
     return new AddressEntity({
       id: schema.id,
       cep: schema.cep,
@@ -24,7 +17,7 @@ export class AddressRepositoryMapper implements RepositoryMapper<
       complement: schema.complement,
       latitude: schema.latitude,
       longitude: schema.longitude,
-      city: this.cityMapper.toEntity(schema.city),
+      city: CityMapper.toEntity(schema.city),
       auditable: {
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
@@ -35,7 +28,7 @@ export class AddressRepositoryMapper implements RepositoryMapper<
       deletedBy: schema.deletedBy?.id,
     });
   }
-  toSchema(entity: AddressEntity): AddressSchema {
+  static toSchema(entity: AddressEntity): AddressSchema {
     return AddressSchema.with({
       id: entity.id,
       cep: entity.cep,
@@ -53,7 +46,7 @@ export class AddressRepositoryMapper implements RepositoryMapper<
       deletedBy: entity.deletedBy
         ? UserSchema.from({ id: entity.deletedBy })
         : null,
-      city: this.cityMapper.toSchema(entity.props.city),
+      city: CityMapper.toSchema(entity.props.city),
     });
   }
 }

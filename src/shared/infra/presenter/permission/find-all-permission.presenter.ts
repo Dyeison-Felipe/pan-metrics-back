@@ -1,10 +1,12 @@
 export class FindAllPermission {
   readonly id: string;
 
-  readonly resource: string;
+  readonly action: string;
+  readonly subject: string;
 
   constructor(props: FindAllPermission) {
     this.id = props.id;
-    this.resource = props.resource;
+    this.action = props.action;
+    this.subject = props.subject;
   }
 }

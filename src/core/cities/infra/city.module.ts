@@ -14,10 +14,6 @@ import { SearchCityPaginatedUseCase } from "../application/usecase/search-city-p
   controllers: [CityController],
   providers: [
     {
-      provide: PROVIDERS.CITY_MAPPER,
-      useClass: CityMapper
-    },
-    {
       provide: PROVIDERS.CITY_REPOSITORY,
       useClass: CityRepositoryImpl,
     },
@@ -29,6 +25,6 @@ import { SearchCityPaginatedUseCase } from "../application/usecase/search-city-p
       inject: [PROVIDERS.CITY_REPOSITORY]
     }
   ],
-  exports: [PROVIDERS.CITY_MAPPER, PROVIDERS.CITY_REPOSITORY],
+  exports: [PROVIDERS.CITY_REPOSITORY],
 })
 export class CityModule {}

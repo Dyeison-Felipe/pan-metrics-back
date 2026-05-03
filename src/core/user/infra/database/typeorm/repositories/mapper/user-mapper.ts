@@ -1,14 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { RepositoryMapper } from '@/shared/infra/database/typeorm/repositories/base-mapper/repository-mapper';
 import { UserSchema } from '../../schema/user.schema';
 import { UserEntity } from '@/core/user/domain/entities/user.entity';
+import { UserPermissionRepositoryMapper } from '@/core/user-permissions/infra/database/typeorm/repositories/mapper/user-permission-repository.mapper';
 
 @Injectable()
-export class UserRepositoryMapper implements RepositoryMapper<
-  UserSchema,
-  UserEntity
-> {
-  toEntity(schema: UserSchema): UserEntity {
+export class UserRepositoryMapper {
+  static toEntity(schema: UserSchema): UserEntity {
     return new UserEntity({
       id: schema.id,
       username: schema.username,
@@ -23,9 +20,12 @@ export class UserRepositoryMapper implements RepositoryMapper<
       createdBy: schema.createdBy?.id!,
       updatedBy: schema.updatedBy?.id!,
       deletedBy: schema.deletedBy?.id,
+      userPermissions: (schema.userPermissions ?? []).map(
+        UserPermissionRepositoryMapper.toEntity,
+      ),
     });
   }
-  toSchema(entity: UserEntity): UserSchema {
+  static toSchema(entity: UserEntity): UserSchema {
     return UserSchema.with({
       id: entity.id,
       username: entity.username,

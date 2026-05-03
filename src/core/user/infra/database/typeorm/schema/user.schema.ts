@@ -1,3 +1,5 @@
+import { PermissionSchema } from '@/core/permissions/infra/database/typeorm/schema/permission.schema';
+import { UserPermissionSchema } from '@/core/user-permissions/infra/database/typeorm/schema/user-permission.schema';
 import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
 import {
   Column,
@@ -6,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -23,14 +26,8 @@ export class UserSchema extends BaseSchema {
   @Column()
   active: boolean;
 
-  @CreateDateColumn({ name: 'created_at', nullable: false, type: 'date' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at', nullable: false, type: 'date' })
-  updatedAt: Date;
-
-  @DeleteDateColumn({ name: 'deleted_at', nullable: true, type: 'date' })
-  deletedAt: Date | null;
+  @Column({name: 'recover_password_jwt', type: 'text', nullable: true})
+  recoverPasswordJwt?: string;
 
   @JoinColumn({
     name: 'created_by',
@@ -55,4 +52,7 @@ export class UserSchema extends BaseSchema {
   })
   @ManyToOne(() => UserSchema, { nullable: true })
   deletedBy: UserSchema | null;
+
+  @OneToMany(() => UserPermissionSchema, (up) => up.user)
+  userPermissions: UserPermissionSchema[];
 }

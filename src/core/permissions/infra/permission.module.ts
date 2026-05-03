@@ -13,10 +13,6 @@ import { PermissionController } from './controllers/permission.controller';
   controllers: [PermissionController],
   providers: [
     {
-      provide: PROVIDERS.PERMISSION_MAPPER,
-      useClass: PermissionRepositoryMappper,
-    },
-    {
       provide: PROVIDERS.PERMISSION_REPOSITORY,
       useClass: PermissionRepositoryImpl,
     },
@@ -28,6 +24,6 @@ import { PermissionController } from './controllers/permission.controller';
       inject: [PROVIDERS.PERMISSION_REPOSITORY],
     },
   ],
-  exports: [PROVIDERS.PERMISSION_REPOSITORY, PROVIDERS.PERMISSION_MAPPER],
+  exports: [PROVIDERS.PERMISSION_REPOSITORY],
 })
 export class PermissionModule {}

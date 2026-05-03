@@ -10,6 +10,9 @@ import { AuthModule } from '@/core/auth/infra/auth.module';
 import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
 import { PermissionModule } from '@/core/permissions/infra/permission.module';
 import { LoggedUserModule } from '@/shared/infra/logged-user/logged-user.module';
+import { UserPermissionModule } from './core/user-permissions/infra/user-permission.module';
+import { APP_GUARD } from '@nestjs/core';
+import { PermissionGuard } from './core/auth/infra/guard/permission.guard';
 
 @Module({
   imports: [
@@ -24,8 +27,14 @@ import { LoggedUserModule } from '@/shared/infra/logged-user/logged-user.module'
     AuthModule,
     JwtConfigModule,
     PermissionModule,
+    UserPermissionModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: PermissionGuard,
+    },
+  ],
 })
 export class AppModule {}

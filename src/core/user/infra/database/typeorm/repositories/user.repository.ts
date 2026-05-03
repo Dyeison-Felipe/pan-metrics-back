@@ -11,16 +11,27 @@ export class UserRepositoryImpl implements UserRepository {
   constructor(
     @InjectRepository(UserSchema)
     private readonly userRepository: Repository<UserSchema>,
-    @Inject(PROVIDERS.USER_MAPPER)
-    private readonly userRepositoryMapper: UserRepositoryMapper,
   ) {}
 
+  async findByIdWithPermissions(id: string): Promise<UserEntity | null> {
+    const userSchema = await this.userRepository.findOne({
+      where: { id },
+      relations: ['userPermissions', 'userPermissions.permission'],
+    });
+
+    if (!userSchema) return null;
+
+    const entity = UserRepositoryMapper.toEntity(userSchema);
+
+    return entity;
+  }
+
   async save(entity: UserEntity): Promise<UserEntity> {
-    const userSchema = this.userRepositoryMapper.toSchema(entity);
+    const userSchema = UserRepositoryMapper.toSchema(entity);
 
     const saveUser = await this.userRepository.save(userSchema);
 
-    const userEntity = this.userRepositoryMapper.toEntity(saveUser);
+    const userEntity = UserRepositoryMapper.toEntity(saveUser);
 
     return userEntity;
   }
@@ -32,7 +43,7 @@ export class UserRepositoryImpl implements UserRepository {
 
     if (!userSchema) return null;
 
-    const userEntity = this.userRepositoryMapper.toEntity(userSchema);
+    const userEntity = UserRepositoryMapper.toEntity(userSchema);
 
     return userEntity;
   }
@@ -40,21 +51,22 @@ export class UserRepositoryImpl implements UserRepository {
   async findById(id: string): Promise<UserEntity | null> {
     const userSchema = await this.userRepository.findOne({
       where: { id },
+      relations: ['userPermissions', 'userPermissions.permission']
     });
 
     if (!userSchema) return null;
 
-    const userEntity = this.userRepositoryMapper.toEntity(userSchema);
+    const userEntity = UserRepositoryMapper.toEntity(userSchema);
 
     return userEntity;
   }
 
   async update(entity: UserEntity): Promise<UserEntity> {
-    const userSchema = this.userRepositoryMapper.toSchema(entity);
+    const userSchema = UserRepositoryMapper.toSchema(entity);
 
     const saveUser = await this.userRepository.save(userSchema);
 
-    const userEntity = this.userRepositoryMapper.toEntity(saveUser);
+    const userEntity = UserRepositoryMapper.toEntity(saveUser);
 
     return userEntity;
   }

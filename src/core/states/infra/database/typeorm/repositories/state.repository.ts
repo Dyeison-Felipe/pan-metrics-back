@@ -11,8 +11,6 @@ export class StateRepositoryImpl implements StateRepository {
   constructor(
     @InjectRepository(StateSchema)
     private readonly stateRepository: Repository<StateSchema>,
-    @Inject(PROVIDERS.STATE_MAPPER)
-    private readonly stateMapper: StateMapper,
   ) {}
 
   async findById(id: string): Promise<StateEntity | null> {
@@ -22,7 +20,7 @@ export class StateRepositoryImpl implements StateRepository {
 
     if (!stateSchema) return null;
 
-    const stateEntity = this.stateMapper.toEntity(stateSchema);
+    const stateEntity = StateMapper.toEntity(stateSchema);
 
     return stateEntity;
   }
@@ -45,7 +43,7 @@ export class StateRepositoryImpl implements StateRepository {
     const statesSchema = await queryBuilder.getMany();
 
     const statesEntity = statesSchema.map((state) =>
-      this.stateMapper.toEntity(state),
+      StateMapper.toEntity(state),
     );
 
     return statesEntity;

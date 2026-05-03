@@ -1,0 +1,58 @@
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsArray,
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+
+export class UpdateUserDto {
+  @IsUUID()
+  @IsNotEmpty()
+  id: string;
+
+  @ApiProperty({
+    description: 'username do usuário',
+    type: String,
+    maxLength: 255,
+  })
+  @IsString()
+  username: string;
+
+  @ApiProperty({
+    description: 'Senha do usuário',
+    type: String,
+    maxLength: 255,
+  })
+  @IsString()
+  @MaxLength(255)
+  @MinLength(8)
+  @IsOptional()
+  password?: string;
+
+  @ApiProperty({
+    description: 'E-mail do usuário',
+    type: String,
+    maxLength: 255,
+  })
+  @IsString()
+  @IsEmail({}, { message: 'Email inválido' })
+  @Matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, {
+    message: 'Formato de email inválido',
+  })
+  email: string;
+
+  @ApiProperty({
+    description: 'IDs das permissões do usuário',
+    type: [String],
+  })
+  @IsArray()
+  @IsUUID('4', { each: true })
+  permissionsId: string[];
+}

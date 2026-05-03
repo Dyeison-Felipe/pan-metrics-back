@@ -10,15 +10,12 @@ import { UpdateAddressUseCase } from '../application/usecase/update-address.usec
 import { CityModule } from '@/core/cities/infra/city.module';
 import { PROVIDERS } from '@/shared/application/constants/providers';
 import { CityRepository } from '@/core/cities/domain/repositories/city.repository';
+import { FindAddressByCompanyIdUseCase } from '../application/usecase/find-address-by-id.usecase';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AddressSchema]), CityModule],
   controllers: [AddressController],
   providers: [
-    {
-      provide: PROVIDERS.ADDRESS_MAPPER,
-      useClass: AddressRepositoryMapper,
-    },
     {
       provide: PROVIDERS.ADDRESS_REPOSITORY,
       useClass: AddressRepositoryImpl,
@@ -43,7 +40,15 @@ import { CityRepository } from '@/core/cities/domain/repositories/city.repositor
       },
       inject: [PROVIDERS.ADDRESS_REPOSITORY, PROVIDERS.CITY_REPOSITORY],
     },
+
+    {
+      provide: FindAddressByCompanyIdUseCase,
+      useFactory: (addressRepository: AddressRepository) => {
+        return new FindAddressByCompanyIdUseCase(addressRepository);
+      },
+      inject: [PROVIDERS.ADDRESS_REPOSITORY],
+    },
   ],
-  exports: [PROVIDERS.ADDRESS_MAPPER, PROVIDERS.ADDRESS_REPOSITORY],
+  exports: [PROVIDERS.ADDRESS_REPOSITORY],
 })
 export class AddressModule {}

@@ -1,6 +1,6 @@
 import { PermissionRepository } from '@/core/permissions/domain/repositories/permission.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Inject } from '@nestjs/common';
 import { PermissionRepositoryMappper } from './mapper/permission.mapper';
 import { PermissionEntity } from '@/core/permissions/domain/entity/permission.entity';
@@ -11,18 +11,28 @@ export class PermissionRepositoryImpl implements PermissionRepository {
   constructor(
     @InjectRepository(PermissionSchema)
     private readonly permissionRepository: Repository<PermissionSchema>,
-    @Inject(PROVIDERS.PERMISSION_MAPPER)
-    private readonly permissionRepositoryMapper: PermissionRepositoryMappper,
   ) {}
 
+  async findPermissionsById(ids: string[]): Promise<PermissionEntity[]> {
+    const permissionsSchema = await this.permissionRepository.find({
+      where: { id: In(ids) },
+    });
+
+    const permissionsEntity = permissionsSchema.map((permission) =>
+      PermissionRepositoryMappper.toEntity(permission),
+    );
+
+    return permissionsEntity;
+  }
+
   async save(entity: PermissionEntity): Promise<PermissionEntity> {
-    const permissionSchema = this.permissionRepositoryMapper.toSchema(entity);
+    const permissionSchema = PermissionRepositoryMappper.toSchema(entity);
 
     const savedPermission =
       await this.permissionRepository.save(permissionSchema);
 
     const permissionEntity =
-      this.permissionRepositoryMapper.toEntity(savedPermission);
+      PermissionRepositoryMappper.toEntity(savedPermission);
 
     return permissionEntity;
   }
@@ -30,12 +40,13 @@ export class PermissionRepositoryImpl implements PermissionRepository {
   async findAll(): Promise<PermissionEntity[] | null> {
     const permissionsSchema = await this.permissionRepository.find();
 
-    if(!permissionsSchema || permissionsSchema.length === 0) return null;
+    if (!permissionsSchema || permissionsSchema.length === 0) return null;
 
-    const permissionEntity = permissionsSchema.map((permission) => this.permissionRepositoryMapper.toEntity(permission));
+    const permissionEntity = permissionsSchema.map((permission) =>
+      PermissionRepositoryMappper.toEntity(permission),
+    );
 
     return permissionEntity;
-
   }
 
   async findById(id: string): Promise<PermissionEntity | null> {
@@ -46,19 +57,19 @@ export class PermissionRepositoryImpl implements PermissionRepository {
     if (!permissionSchema) return null;
 
     const permissionEntity =
-      this.permissionRepositoryMapper.toEntity(permissionSchema);
+      PermissionRepositoryMappper.toEntity(permissionSchema);
 
     return permissionEntity;
   }
 
   async update(entity: PermissionEntity): Promise<PermissionEntity> {
-    const permissionSchema = this.permissionRepositoryMapper.toSchema(entity);
+    const permissionSchema = PermissionRepositoryMappper.toSchema(entity);
 
     const savedPermission =
       await this.permissionRepository.save(permissionSchema);
 
     const permissionEntity =
-      this.permissionRepositoryMapper.toEntity(savedPermission);
+      PermissionRepositoryMappper.toEntity(savedPermission);
 
     return permissionEntity;
   }

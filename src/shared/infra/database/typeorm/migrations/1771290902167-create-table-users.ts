@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateTableUsers1771290902167 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
+    // await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
 
     await queryRunner.createTable(
       new Table({
@@ -39,6 +39,11 @@ export class CreateTableUsers1771290902167 implements MigrationInterface {
             type: 'boolean',
             default: true,
             isNullable: false,
+          },
+          {
+            name: 'recover_password_jwt',
+            type: 'text',
+            isNullable: true,
           },
           {
             name: 'created_at',

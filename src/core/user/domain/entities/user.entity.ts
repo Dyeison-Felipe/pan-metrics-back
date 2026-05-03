@@ -1,17 +1,20 @@
-import { ID_USER_DEFAULT } from "@/shared/application/constants/id-user-default";
-import { Data } from "@/shared/domain/decorators/data.decorator";
-import { BaseEntity } from "@/shared/domain/entity/baseEntity";
-import { UserValidatorFactory } from "../validators/user-validator";
-import { EntityValidationError } from "@/shared/application/errors/validation-error";
+import { UserPersmissionEntity } from '@/core/user-permissions/domain/entities/user-permission.entity';
+import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
+import { Data } from '@/shared/domain/decorators/data.decorator';
+import { BaseEntity } from '@/shared/domain/entity/baseEntity';
+import { UserValidatorFactory } from '../validators/user-validator';
+import { EntityValidationError } from '@/shared/application/errors/validation-error';
 
 export type UserProps = {
   username: string;
   password: string;
   email: string;
   active: boolean;
+  recoverPasswordJwt?: string | null;
   createdBy: string;
   updatedBy: string;
   deletedBy?: string | null;
+  userPermissions?: UserPersmissionEntity[];
 };
 
 type CreateUserProps = {
@@ -24,18 +27,15 @@ type CreateUserProps = {
 
 type UpdateUserProps = {
   username: string;
-  password: string;
   email: string;
-  active: boolean;
   updatedBy: string;
-}
+};
 
-export interface UserEntity extends UserProps { }
+export interface UserEntity extends UserProps {}
 
 @Data()
 export class UserEntity extends BaseEntity<UserProps> {
   static create(props: CreateUserProps): UserEntity {
-
     const entity = new UserEntity({
       id: crypto.randomUUID(),
       username: props.username,
@@ -49,20 +49,30 @@ export class UserEntity extends BaseEntity<UserProps> {
     return entity;
   }
 
-  update(props: UpdateUserProps): void {
-    this.username = props.username;
-    this.password = props.password;
-    this.email = props.email;
-    this.active = props.active;
-    this.updatedBy = props.updatedBy;
-
-    this.updateTimestamp();
-
-    this.validate();
-  }
-
   markAsDeletedBy(userId: string): void {
     this.deletedBy = userId;
+  }
+
+  update(props: UpdateUserProps): void {
+    this.username = props.username;
+    this.email = props.email;
+    this.updateTimestamp();
+  }
+
+  updatePassword(password: string): void {
+    this.password = password;
+  }
+
+  inativateUser(): void {
+    this.active = false;
+  }
+
+  updateRecoverPasswordJwt(jwt?: string): void {
+    if (jwt) {
+      this.recoverPasswordJwt = jwt;
+      return;
+    }
+    this.recoverPasswordJwt = null;
   }
 
   protected validate() {

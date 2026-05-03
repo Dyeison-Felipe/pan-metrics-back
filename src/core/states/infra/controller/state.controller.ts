@@ -11,6 +11,8 @@ import {
 import { PaginationPresenter } from '@/shared/infra/presenter/pagination/pagination.presenter';
 import { StatePresenter } from '@/shared/infra/presenter/state/state.presenter';
 import { ConvertPresenter } from '@/shared/infra/presenter/converter/converter.presenter';
+import { Permission, Public } from '@/shared/infra/decorators/permission.decorator';
+import { PermissionState } from '@/core/auth/domain/permissions-definition/state';
 
 @ApiTags('State')
 @Controller('/v1/state')
@@ -18,6 +20,7 @@ export class StateController {
   constructor(private readonly findAllStateUseCase: FindAllStateUseCase) {}
 
   @Get()
+  @Permission(PermissionState.STATE_RERDER)
   @ApiOperation({ summary: 'Lista todos os estados e pesquisa por nome' })
   @ApiQuery({
     name: 's',
