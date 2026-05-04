@@ -59,7 +59,6 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
     }
 
     user.update({
-      email: input.email,
       username: input.username,
       updatedBy: loggedUser?.id ?? ID_USER_DEFAULT,
     });
@@ -79,7 +78,6 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
   ): Output {
     const output: Output = {
       id: userEntity.id,
-      email: userEntity.email,
       username: userEntity.username,
       permissions: userPermissions.map((userPermission) => ({
         id: userPermission.permission.id,

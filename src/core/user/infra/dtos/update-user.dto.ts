@@ -37,18 +37,6 @@ export class UpdateUserDto {
   password?: string;
 
   @ApiProperty({
-    description: 'E-mail do usuário',
-    type: String,
-    maxLength: 255,
-  })
-  @IsString()
-  @IsEmail({}, { message: 'Email inválido' })
-  @Matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, {
-    message: 'Formato de email inválido',
-  })
-  email: string;
-
-  @ApiProperty({
     description: 'IDs das permissões do usuário',
     type: [String],
   })

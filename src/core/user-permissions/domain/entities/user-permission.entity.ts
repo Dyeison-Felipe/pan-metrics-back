@@ -22,6 +22,11 @@ export interface UserPersmissionEntity extends UserPermissionProps {}
 
 @Data()
 export class UserPersmissionEntity extends BaseEntity<UserPermissionProps> {
+
+  protected validate(): void {
+    throw new Error('Method not implemented.');
+  }
+  
   static create(props: CreatePermissionProps): UserPersmissionEntity {
     return new UserPersmissionEntity({
       id: crypto.randomUUID(),

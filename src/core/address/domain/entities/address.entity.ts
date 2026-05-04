@@ -36,6 +36,9 @@ export interface AddressEntity extends AddressProps {}
 
 @Data()
 export class AddressEntity extends BaseEntity<AddressProps> {
+  protected validate(): void {
+    throw new Error('Method not implemented.');
+  }
   static create(props: CreateAddressProps): AddressEntity {
     return new AddressEntity({
       id: crypto.randomUUID(),

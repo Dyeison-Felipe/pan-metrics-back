@@ -3,7 +3,7 @@
 COMMIT_MSG_FILE="$1"
 COMMIT_MSG=$(cat "$COMMIT_MSG_FILE" | tr -d '\n')
 
-PATTERN="^(feat|fix|chore|docs|refactor|test|style):"
+PATTERN="^(feat|fix|chore|docs|refactor|test|style|Merge branch):"
 
 if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
   echo ""

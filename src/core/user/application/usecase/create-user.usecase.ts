@@ -79,7 +79,6 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
   ): Output {
     const output: Output = {
       id: userEntity.id,
-      email: userEntity.email,
       username: userEntity.username,
       permissions: userPermissions.map((userPermission) => ({
         id: userPermission.permission.id,

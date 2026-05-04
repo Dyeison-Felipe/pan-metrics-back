@@ -15,8 +15,8 @@ export class StateMapper {
   static toSchema(entity: StateEntity): StateSchema {
     return StateSchema.with({
       id: entity.id,
-      name: entity.props.name,
-      uf: entity.props.uf,
+      name: entity.name,
+      uf: entity.uf,
     });
   }
 }

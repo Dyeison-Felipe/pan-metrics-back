@@ -6,7 +6,6 @@ import {
   IsString,
   MaxLength,
   MinLength,
-  Validate,
 } from 'class-validator';
 import { UserProps } from '../entities/user.entity';
 import { ClassValidatorFields } from '@/shared/domain/validators/class-validator-field';

@@ -17,7 +17,7 @@ export class CityMapper {
     return CitySchema.with({
       id: entity.id,
       name: entity.name,
-      state: StateMapper.toSchema(entity.props.state),
+      state: StateMapper.toSchema(entity.state),
     });
   }
 }

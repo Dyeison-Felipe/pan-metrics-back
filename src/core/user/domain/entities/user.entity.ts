@@ -8,7 +8,6 @@ import { EntityValidationError } from '@/shared/application/errors/validation-er
 export type UserProps = {
   username: string;
   password: string;
-  email: string;
   active: boolean;
   recoverPasswordJwt?: string | null;
   createdBy: string;
@@ -20,14 +19,12 @@ export type UserProps = {
 type CreateUserProps = {
   username: string;
   password: string;
-  email: string;
   createdBy: string;
   updatedBy: string;
 };
 
 type UpdateUserProps = {
   username: string;
-  email: string;
   updatedBy: string;
 };
 
@@ -39,7 +36,6 @@ export class UserEntity extends BaseEntity<UserProps> {
     const entity = new UserEntity({
       id: crypto.randomUUID(),
       username: props.username,
-      email: props.email,
       password: props.password,
       active: true,
       createdBy: props.createdBy ?? ID_USER_DEFAULT,
@@ -55,7 +51,6 @@ export class UserEntity extends BaseEntity<UserProps> {
 
   update(props: UpdateUserProps): void {
     this.username = props.username;
-    this.email = props.email;
     this.updateTimestamp();
   }
 

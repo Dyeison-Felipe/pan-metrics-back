@@ -1,12 +1,20 @@
-import { Data } from "@/shared/domain/decorators/data.decorator";
-import { BaseEntity } from "@/shared/domain/entity/baseEntity";
+import { Data } from '@/shared/domain/decorators/data.decorator';
+import { BaseEntity } from '@/shared/domain/entity/baseEntity';
 
 type StateProps = {
+  id: string;
   name: string;
   uf: string;
 };
 
-export interface StateEntity extends StateProps {}
+export class StateEntity {
+  id: string;
+  name: string;
+  uf: string;
 
-@Data()
-export class StateEntity extends BaseEntity<StateProps> {}
+  constructor(props: StateProps) {
+    this.id = crypto.randomUUID();
+    this.name = props.name;
+    this.uf = props.uf;
+  }
+}

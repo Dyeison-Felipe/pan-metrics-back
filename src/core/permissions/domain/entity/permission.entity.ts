@@ -1,18 +1,23 @@
-import { Data } from '@/shared/domain/decorators/data.decorator';
-import { BaseEntity } from '@/shared/domain/entity/baseEntity';
 
 type PermissionProps = {
+  id: string;
   action: string;
   subject: string;
 };
 
-export interface PermissionEntity extends PermissionProps {}
+export class PermissionEntity {
+  id: string;
+  action: string;
+  subject: string;
 
-@Data()
-export class PermissionEntity extends BaseEntity<PermissionProps> {
+  constructor(props: PermissionProps) {
+    this.id = crypto.randomUUID()
+    this.action = props.action;
+    this.subject = props.subject
+  }
+
   static create(props: PermissionProps): PermissionEntity {
     return new PermissionEntity({
-      id: crypto.randomUUID(),
       ...props,
     });
   }

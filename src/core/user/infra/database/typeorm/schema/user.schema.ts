@@ -3,13 +3,10 @@ import { UserPermissionSchema } from '@/core/user-permissions/infra/database/typ
 import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('users')
@@ -19,9 +16,6 @@ export class UserSchema extends BaseSchema {
 
   @Column()
   password: string;
-
-  @Column()
-  email: string;
 
   @Column()
   active: boolean;
