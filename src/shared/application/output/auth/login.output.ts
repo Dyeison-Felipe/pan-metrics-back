@@ -1,4 +1,4 @@
-import { FindByUserId } from '../users/find-user0by-id.output';
+import { FindByUserId } from '../users/find-user-by-id.output';
 
 export type LoginOutput = {
   user: FindByUserId;

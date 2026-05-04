@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsEmail,
+  IsNotEmpty,
   IsString,
   IsUUID,
   Matches,
@@ -27,6 +28,10 @@ export class CreateUserDto {
   @MaxLength(255)
   @MinLength(8)
   password: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 
   @ApiProperty({
     description: 'IDs das permissões do usuário',

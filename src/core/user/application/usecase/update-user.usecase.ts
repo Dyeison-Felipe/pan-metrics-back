@@ -34,7 +34,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
     private readonly userPermissionRepository: UserPermissionRepository,
     @Inject(PROVIDERS.PERMISSION_REPOSITORY)
     private readonly permissionRepository: PermissionRepository,
-  ) {}
+  ) { }
 
   @Transactional()
   async execute(input: Input): Promise<Output> {
@@ -55,11 +55,12 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
 
     if (input.password) {
       const hashNewPassword = await this.hashService.hash(input.password);
-      user.updatePassword(hashNewPassword);
+      user.updatePassword({ password: hashNewPassword });
     }
 
     user.update({
       username: input.username,
+      email: input.email,
       updatedBy: loggedUser?.id ?? ID_USER_DEFAULT,
     });
 
@@ -79,6 +80,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
     const output: Output = {
       id: userEntity.id,
       username: userEntity.username,
+      email: userEntity.email,
       permissions: userPermissions.map((userPermission) => ({
         id: userPermission.permission.id,
         action: userPermission.permission.action,

@@ -24,7 +24,7 @@ export class UpdateUserPasswordUseCase implements UseCase<Input, Output> {
     @Inject(PROVIDERS.JWT_SERVICE) private readonly jwtService: JwtService,
     @Inject(PROVIDERS.HASH_SERVICE)
     private readonly hashService: HashService,
-  ) {}
+  ) { }
 
   @Transactional()
   async execute({ jwt, password }: Input): Promise<Output> {
@@ -42,8 +42,8 @@ export class UpdateUserPasswordUseCase implements UseCase<Input, Output> {
 
     const hashNewPassword = await this.hashService.hash(password);
 
-    user.updatePassword(hashNewPassword);
-    user.updateRecoverPasswordJwt();
+    user.updatePassword({ password: hashNewPassword, updatedBy: user.id });
+    user.updateResetPasswordCode();
 
     await this.userRepository.update(user);
   }

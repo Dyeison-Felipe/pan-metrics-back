@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { PermissionPresenter } from "../permission/permission.presenter";
 
 export class UserPresenter {
   @ApiProperty({ description: 'Id de identidicação do usuário', type: String })
@@ -10,9 +11,12 @@ export class UserPresenter {
   @ApiProperty({ description: 'E-mail do usuário', type: String })
   readonly email: string;
 
+  readonly permissions: PermissionPresenter[]
+
   constructor(props: UserPresenter) {
     this.id = props.id;
     this.username = props.username;
     this.email = props.email;
+    this.permissions = props.permissions
   }
 }

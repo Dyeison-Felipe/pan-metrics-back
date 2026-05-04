@@ -25,6 +25,11 @@ export class UpdateUserDto {
   @IsString()
   username: string;
 
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+
   @ApiProperty({
     description: 'Senha do usuário',
     type: String,

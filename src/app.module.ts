@@ -13,6 +13,7 @@ import { LoggedUserModule } from '@/shared/infra/logged-user/logged-user.module'
 import { UserPermissionModule } from './core/user-permissions/infra/user-permission.module';
 import { APP_GUARD } from '@nestjs/core';
 import { PermissionGuard } from './core/auth/infra/guard/permission.guard';
+import { MailModule } from './shared/infra/mail/mail.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PermissionGuard } from './core/auth/infra/guard/permission.guard';
     JwtConfigModule,
     PermissionModule,
     UserPermissionModule,
+    MailModule
   ],
   controllers: [],
   providers: [

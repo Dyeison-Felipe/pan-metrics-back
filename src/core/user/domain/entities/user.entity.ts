@@ -9,7 +9,9 @@ export type UserProps = {
   username: string;
   password: string;
   active: boolean;
-  recoverPasswordJwt?: string | null;
+  passwordResetCode?: string | null;
+  passwordResetCodeExpiresAt?: Date | null;
+  email: string;
   createdBy: string;
   updatedBy: string;
   deletedBy?: string | null;
@@ -19,16 +21,23 @@ export type UserProps = {
 type CreateUserProps = {
   username: string;
   password: string;
+  email: string;
   createdBy: string;
   updatedBy: string;
 };
 
 type UpdateUserProps = {
   username: string;
+  email: string;
   updatedBy: string;
 };
 
-export interface UserEntity extends UserProps {}
+type UpdatePassword = {
+  password: string;
+  updatedBy?: string;
+}
+
+export interface UserEntity extends UserProps { }
 
 @Data()
 export class UserEntity extends BaseEntity<UserProps> {
@@ -38,6 +47,8 @@ export class UserEntity extends BaseEntity<UserProps> {
       username: props.username,
       password: props.password,
       active: true,
+      email: props.email,
+      passwordResetCodeExpiresAt: null,
       createdBy: props.createdBy ?? ID_USER_DEFAULT,
       updatedBy: props.updatedBy ?? ID_USER_DEFAULT,
     });
@@ -51,23 +62,31 @@ export class UserEntity extends BaseEntity<UserProps> {
 
   update(props: UpdateUserProps): void {
     this.username = props.username;
+    this.email = props.email;
+    this.updatedBy = props.updatedBy;
     this.updateTimestamp();
   }
 
-  updatePassword(password: string): void {
-    this.password = password;
+  updatePassword(props: UpdatePassword): void {
+    this.password = props.password;
+    if (props.updatedBy) {
+      this.updatedBy = props.updatedBy;
+      this.updateTimestamp();
+    }
   }
 
   inativateUser(): void {
     this.active = false;
   }
 
-  updateRecoverPasswordJwt(jwt?: string): void {
-    if (jwt) {
-      this.recoverPasswordJwt = jwt;
+  updateResetPasswordCode(code?: string): void {
+    if (code) {
+      this.passwordResetCode = code;
+      this.passwordResetCodeExpiresAt = new Date();
       return;
     }
-    this.recoverPasswordJwt = null;
+    this.passwordResetCodeExpiresAt = null
+    this.passwordResetCode = null;
   }
 
   protected validate() {
