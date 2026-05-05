@@ -62,11 +62,4 @@ export async function globalConfig(
     new UnauthorizedErrorFilter(),
     new EntityValidationErrorFilter(),
   );
-
-  await app.register(fastifyStatic, {
-    root: join(__dirname, '..', 'src', 'public', 'images'),
-    prefix: '/images/',
-    wildcard: false,
-    serve: true,
-  });
 }

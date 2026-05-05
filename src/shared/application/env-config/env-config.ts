@@ -1,4 +1,6 @@
 export interface EnvConfig {
+  getExpiresInSecondsForgotPassword(): number; 
+  getJwtSecretForgotPassword():string;
   getCookieSecret(): string;
   getCookieSameSite(): string;
   getCookieSecure(): boolean;

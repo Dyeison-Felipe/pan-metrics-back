@@ -1,4 +1,5 @@
 import { UserEntity } from "@/core/user/domain/entities/user.entity";
+import { JwtSignOptions } from "@nestjs/jwt";
 
 export type GenerateJwtToken = {
   token: string;
@@ -12,7 +13,7 @@ export type Options = {
 export type Payload = {
   sub: string;
   username: string;
-  email: string;
+  email?: string;
   iat: number;
   exp: number;
 };

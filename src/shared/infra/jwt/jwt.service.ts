@@ -26,7 +26,7 @@ export class JwtServiceImpl implements JwtService {
   ): Promise<GenerateJwtToken> {
     const payload = {
       sub: user.id,
-      usrname: user.username,
+      username: user.username,
       email: user.email,
     };
 

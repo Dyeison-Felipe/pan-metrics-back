@@ -9,7 +9,19 @@ export class UserRepositoryImpl implements UserRepository {
   constructor(
     @InjectRepository(UserSchema)
     private readonly userRepository: Repository<UserSchema>,
-  ) {}
+  ) { }
+
+  async findByCode(code: string, email: string): Promise<UserEntity | null> {
+    const user = await this.userRepository.findOne({
+      where: { passwordResetCode: code, email }
+    });
+
+    if (!user) return null;
+
+    const userEntity = UserRepositoryMapper.toEntity(user);
+
+    return userEntity;
+  }
 
   async findByIdWithPermissions(id: string): Promise<UserEntity | null> {
     const userSchema = await this.userRepository.findOne({

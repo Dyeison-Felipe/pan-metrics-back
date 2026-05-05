@@ -9,4 +9,5 @@ export type UserLogin = UserEntity & {
 export interface UserRepository extends BaseRepository<UserEntity> {
   findByEmail(email: string): Promise<UserEntity | null>;
   findByIdWithPermissions(id: string): Promise<UserEntity | null>;
+  findByCode(code: string, email: string): Promise<UserEntity | null>
 }
