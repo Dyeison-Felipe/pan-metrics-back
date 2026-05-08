@@ -1,6 +1,6 @@
 import { StateEntity } from '@/core/states/domain/entities/state.entity';
 import { Data } from '@/shared/domain/decorators/data.decorator';
-import { BaseEntity } from '@/shared/domain/entity/baseEntity';
+import { BaseEntity } from '@/shared/domain/entity/base-entity';
 
 type CityProps = {
   id: string;

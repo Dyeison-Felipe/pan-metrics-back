@@ -1,7 +1,7 @@
 import { UserPersmissionEntity } from '@/core/user-permissions/domain/entities/user-permission.entity';
 import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
 import { Data } from '@/shared/domain/decorators/data.decorator';
-import { BaseEntity } from '@/shared/domain/entity/baseEntity';
+import { BaseEntity } from '@/shared/domain/entity/base-entity';
 import { UserValidatorFactory } from '../validators/user-validator';
 import { EntityValidationError } from '@/shared/application/errors/validation-error';
 

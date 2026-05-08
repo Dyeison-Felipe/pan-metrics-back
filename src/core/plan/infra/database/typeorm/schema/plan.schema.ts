@@ -1,7 +1,8 @@
-import { BaseEntity, Column, Entity } from 'typeorm';
+import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
+import { Column, Entity } from 'typeorm';
 
 @Entity('plan')
-export class PlanSchema extends BaseEntity {
+export class PlanSchema extends BaseSchema {
   @Column({ name: 'name', type: 'varchar', nullable: false })
   name: string;
 
@@ -13,4 +14,8 @@ export class PlanSchema extends BaseEntity {
 
   @Column({ name: 'active', type: 'boolean', nullable: false })
   active: boolean;
+
+  @Column({ name: 'duration', type: 'varchar', nullable: false })
+  duration: string;
+
 }

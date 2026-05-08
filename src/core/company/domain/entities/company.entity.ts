@@ -1,6 +1,6 @@
 import { AddressEntity } from '@/core/address/domain/entities/address.entity';
 import { Data } from '@/shared/domain/decorators/data.decorator';
-import { BaseEntity } from '@/shared/domain/entity/baseEntity';
+import { BaseEntity } from '@/shared/domain/entity/base-entity';
 import { CompanyValidatorFactory } from '../validators/company-validator';
 import { EntityValidationError } from '@/shared/application/errors/validation-error';
 import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';

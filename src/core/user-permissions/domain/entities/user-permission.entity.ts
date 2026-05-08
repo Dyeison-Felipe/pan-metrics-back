@@ -1,7 +1,7 @@
 import { PermissionEntity } from '@/core/permissions/domain/entity/permission.entity';
 import { UserEntity } from '@/core/user/domain/entities/user.entity';
 import { Data } from '@/shared/domain/decorators/data.decorator';
-import { BaseEntity } from '@/shared/domain/entity/baseEntity';
+import { BaseEntity } from '@/shared/domain/entity/base-entity';
 
 export type UserPermissionProps = {
   id: string;

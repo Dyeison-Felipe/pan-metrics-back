@@ -1,5 +1,5 @@
 import { Data } from '@/shared/domain/decorators/data.decorator';
-import { BaseEntity } from '@/shared/domain/entity/baseEntity';
+import { BaseEntity } from '@/shared/domain/entity/base-entity';
 import { PlanValidatorFactory } from '../validators/plan-validate';
 import { EntityValidationError } from '@/shared/application/errors/validation-error';
 
@@ -8,12 +8,14 @@ export type PlanProps = {
   price: number;
   active: boolean;
   description: string;
+  duration: string;
 };
 
 type CreatePlanProps = {
   name: string;
   price: number;
   description: string;
+  duration: string;
 };
 
 type UpdatePlanProps = {
@@ -21,9 +23,10 @@ type UpdatePlanProps = {
   price: number;
   active: boolean;
   description: string;
+  duration: string;
 };
 
-export interface Plan extends PlanProps {}
+export interface Plan extends PlanProps { }
 
 @Data()
 export class Plan extends BaseEntity<PlanProps> {
@@ -32,6 +35,7 @@ export class Plan extends BaseEntity<PlanProps> {
       id: crypto.randomUUID(),
       name: props.name,
       price: props.price,
+      duration: props.duration,
       active: true,
       description: props.description,
     });

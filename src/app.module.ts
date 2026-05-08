@@ -15,6 +15,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { PermissionGuard } from './core/auth/infra/guard/permission.guard';
 import { MailModule } from './shared/infra/mail/mail.module';
 import { CompanyModule } from './core/company/infra/company.module';
+import { PlanModule } from './core/plan/infra/plan.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CompanyModule } from './core/company/infra/company.module';
     UserPermissionModule,
     MailModule,
     CompanyModule,
+    PlanModule
   ],
   controllers: [],
   providers: [
