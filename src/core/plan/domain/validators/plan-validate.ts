@@ -1,0 +1,50 @@
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+import { ClassValidatorFields } from '@/shared/domain/validators/class-validator-field';
+import { PlanProps } from '../entities/plan.entity';
+
+export class PlanRules {
+  @MaxLength(255)
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @MaxLength(255)
+  @IsString()
+  @IsEmail()
+  @IsNotEmpty()
+  description: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  price: string;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  active: boolean;
+
+  constructor(data: PlanProps) {
+    Object.assign(this, data);
+  }
+}
+
+export class PlanValidator extends ClassValidatorFields<PlanRules> {
+  validate(data: PlanProps): boolean {
+    return super.validate(new PlanRules(data ?? {}));
+  }
+}
+
+export class PlanValidatorFactory {
+  static create(): PlanValidator {
+    // Retorna a instância do PlanValidator
+    return new PlanValidator();
+  }
+}
