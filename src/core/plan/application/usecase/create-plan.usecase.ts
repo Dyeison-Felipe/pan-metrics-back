@@ -14,7 +14,7 @@ type Output = CreatePlanOutput
 export class CreatePlanUseCase implements UseCase<Input, Output> {
   constructor(@Inject(PROVIDERS.PLAN_REPOSITORY) private readonly planRepository: PlanRepository) { }
 
-  async execute(input: CreatePlanInput): Promise<CreatePlanOutput> {
+  async execute(input: Input): Promise<Output> {
     const existPlan = await this.planRepository.findByName(input.name);
 
     if (existPlan) {

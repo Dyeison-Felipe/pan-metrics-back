@@ -1,4 +1,4 @@
-export class UpdatePlanPresenter {
+export class FindAllPlanPresenter {
   readonly id: string;
   readonly name: string;
   readonly description: string;
@@ -6,7 +6,7 @@ export class UpdatePlanPresenter {
   readonly duration: string;
   readonly active: boolean
 
-  constructor(props: UpdatePlanPresenter) {
+  constructor(props: FindAllPlanPresenter) {
     this.id = props.id;
     this.name = props.name;
     this.description = props.description;

@@ -1,4 +1,4 @@
-export type UpdatePlanOutput = {
+export type PlanOutput = {
   id: string,
   name: string,
   description: string,

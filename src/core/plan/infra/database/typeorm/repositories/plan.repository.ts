@@ -8,12 +8,20 @@ import { PlanMapper } from "./mapper/plan-mapper";
 export class PlanRepositoryImpl implements PlanRepository {
   constructor(@InjectRepository(PlanSchema) private readonly planRepository: Repository<PlanSchema>) { }
 
+  async findAll(): Promise<Plan[]> {
+    const plans = await this.planRepository.find();
+
+    const plansEntity = plans.map((plan) => PlanMapper.toEntity(plan));
+
+    return plansEntity
+  }
+
   async findByName(name: string): Promise<Plan | null> {
     const planShchema = await this.planRepository.findOne({
-      where: {name}
+      where: { name }
     });
 
-    if(!planShchema) return null;
+    if (!planShchema) return null;
 
     const planEntity = PlanMapper.toEntity(planShchema);
 

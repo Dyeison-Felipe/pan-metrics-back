@@ -48,6 +48,11 @@ export class Plan extends BaseEntity<PlanProps> {
     this.active = props.active;
   }
 
+    deleted():void {
+      this.active = false
+      this.markAsDeleted()
+    }
+
   protected validate() {
     const validator = PlanValidatorFactory.create();
 
