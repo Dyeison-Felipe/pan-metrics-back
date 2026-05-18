@@ -21,8 +21,6 @@ import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
 import { JwtService } from '@/shared/application/jwt/jwt.service';
 import { RoleModule } from '@/core/role/infra/role.module';
 import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
-import { CompanyModule } from '@/core/company/infra/company.module';
-import { CompanyRepository } from '@/core/company/domain/repositories/company.repository';
 
 @Global()
 @Module({
@@ -33,7 +31,6 @@ import { CompanyRepository } from '@/core/company/domain/repositories/company.re
     UserPermissionModule,
     JwtConfigModule,
     RoleModule,
-    CompanyModule,
   ],
   controllers: [UserController],
   providers: [
@@ -50,7 +47,6 @@ import { CompanyRepository } from '@/core/company/domain/repositories/company.re
         userPermissionRepository: UserPermissionRepository,
         permissionRepository: PermissionRepository,
         roleRepository: RoleRepository,
-        companyRepository: CompanyRepository
       ) => {
         return new CreateUserUseCase(
           userRepository,
@@ -59,7 +55,6 @@ import { CompanyRepository } from '@/core/company/domain/repositories/company.re
           userPermissionRepository,
           permissionRepository,
           roleRepository,
-          companyRepository,
         );
       },
       inject: [
@@ -69,7 +64,6 @@ import { CompanyRepository } from '@/core/company/domain/repositories/company.re
         PROVIDERS.USER_PERMISSION_REPOSITORY,
         PROVIDERS.PERMISSION_REPOSITORY,
         PROVIDERS.ROLE_REPOSITORY,
-        PROVIDERS.COMPANY_REPOSITORY,
       ],
     },
     {

@@ -17,7 +17,6 @@ import { NotFoundError } from '@/shared/application/errors/not-found-error';
 import { BadRequestError } from '@/shared/application/errors/bad-request-error';
 import { Transactional } from '@/shared/infra/database/typeorm/decorators/transactional.decorator';
 import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
-import { CompanyRepository } from '@/core/company/domain/repositories/company.repository';
 
 type Input = CreateUserInput;
 
@@ -37,13 +36,13 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
     private readonly permissionRepository: PermissionRepository,
     @Inject(PROVIDERS.ROLE_REPOSITORY)
     private readonly roleRepository: RoleRepository,
-    @Inject(PROVIDERS.COMPANY_REPOSITORY)
-    private readonly companyRepository: CompanyRepository,
   ) {}
 
   @Transactional()
   async execute(input: Input): Promise<Output> {
     const loggedUser = this.loggedUserService.getLoggedUser();
+
+    
 
     const existUser = await this.userRepository.findByEmail(input.email);
 
@@ -55,12 +54,6 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
 
     if (!role) {
       throw new NotFoundError(`Cargo não encontrado`);
-    }
-
-    const company = await this.companyRepository.findById(input.company);
-
-    if (!company) {
-      throw new NotFoundError(`Empresa não encontrado`);
     }
 
     const permissions = await this.permissionRepository.findPermissionsById(
@@ -75,7 +68,7 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
     const userEntity = UserEntity.create({
       ...input,
       role,
-      company,
+      company: loggedUser.company,
       password: hashedPassword,
       createdBy: loggedUser?.id ?? ID_USER_DEFAULT,
       updatedBy: loggedUser?.id ?? ID_USER_DEFAULT,

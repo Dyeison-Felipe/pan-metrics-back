@@ -3,6 +3,5 @@ export type CreateUserInput = {
   password: string;
   email: string;
   role: string
-  company: string;
   permissionsId: string[]
 }

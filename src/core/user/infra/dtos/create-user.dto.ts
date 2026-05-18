@@ -22,9 +22,6 @@ export class CreateUserDto {
   @IsUUID()
   role: string;
 
-  @IsUUID()
-  company: string;
-
   @ApiProperty({
     description: 'Senha do usuário',
     type: String,

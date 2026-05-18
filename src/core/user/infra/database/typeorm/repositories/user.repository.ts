@@ -26,7 +26,7 @@ export class UserRepositoryImpl implements UserRepository {
   async findByIdWithPermissions(id: string): Promise<UserEntity | null> {
     const userSchema = await this.userRepository.findOne({
       where: { id },
-      relations: ['userPermissions', 'userPermissions.permission'],
+      relations: ['userPermissions', 'userPermissions.permission', 'company'],
     });
 
     if (!userSchema) return null;
