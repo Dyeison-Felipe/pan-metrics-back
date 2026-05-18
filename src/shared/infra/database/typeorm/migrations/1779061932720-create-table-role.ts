@@ -1,12 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableUsers1771290902167 implements MigrationInterface {
+export class CreateTableRole1779061932720 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
-
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'roles',
         columns: [
           {
             name: 'id',
@@ -14,41 +12,18 @@ export class CreateTableUsers1771290902167 implements MigrationInterface {
             isPrimary: true,
             isGenerated: true,
             generationStrategy: 'uuid',
-           default: "public.uuid_generate_v4()"
+            default: 'public.uuid_generate_v4()',
           },
           {
-            name: 'username',
+            name: 'name',
             type: 'varchar',
             length: '255',
             isNullable: false,
           },
           {
-            name: 'email',
-            type: 'varchar',
-            length: '255',
+            name: 'company',
+            type: 'uuid',
             isNullable: false,
-          },
-          {
-            name: 'password',
-            type: 'varchar',
-            length: '255',
-            isNullable: false,
-          },
-          {
-            name: 'active',
-            type: 'boolean',
-            default: true,
-            isNullable: false,
-          },
-          {
-            name: 'password_reset_code',
-            type: 'text',
-            isNullable: true,
-          },
-          {
-            name: 'expired_at_code',
-            type: 'timestamp',
-            isNullable: true,
           },
           {
             name: 'created_at',
@@ -81,26 +56,29 @@ export class CreateTableUsers1771290902167 implements MigrationInterface {
             isNullable: true,
           },
         ],
+        foreignKeys: [
+          {
+            name: 'fk_role_company',
+            columnNames: ['company'],
+            referencedTableName: 'companies',
+            referencedColumnNames: ['id'],
+          },
+        ],
       }),
     );
-
-    const systemUserId = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-
     await queryRunner.query(`
-    INSERT INTO users (id, username, email, password, active, created_at, updated_at)
-    VALUES (
-      '${systemUserId}',
-      'system',
-      'system@system.com',
-      'system',
-      true,
-      now(),
-      now()
-    )
-  `);
+      INSERT INTO roles (id, name, company, created_by, updated_by, created_at, updated_at)
+      VALUES (
+        'e4eebc99-9c0b-4ef8-bb6d-6bb9bd380a55',
+        'Super Admin',
+        'd3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44',
+        'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+        'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+        now(),
+        now()
+      )
+    `);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
-  }
+  public async down(queryRunner: QueryRunner): Promise<void> {}
 }

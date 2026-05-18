@@ -7,7 +7,7 @@ import { CityRepository } from "@/core/cities/domain/repositories/city.repositor
 import { Inject } from "@nestjs/common";
 import { Transactional } from "@/shared/infra/database/typeorm/decorators/transactional.decorator";
 import { NotFoundError } from "@/shared/application/errors/not-found-error";
-import { AddressEntity } from "../../domain/entities/address.entity";
+import { Address } from "../../domain/entities/address.entity";
 import { CityEntity } from "@/core/cities/domain/entities/city.entity";
 
 type Input = UpdateAddressInput;
@@ -47,10 +47,10 @@ export class UpdateAddressUseCase implements UseCase<Input, Output> {
   }
 
   updateAddress(
-    address: AddressEntity,
+    address: Address,
     updateProps: Input,
     city: CityEntity,
-  ): AddressEntity {
+  ): Address {
     address.cep = updateProps.cep;
     address.neighborhood = updateProps.neighborhood;
     address.street = updateProps.street;
@@ -62,7 +62,7 @@ export class UpdateAddressUseCase implements UseCase<Input, Output> {
     return address;
   }
 
-  outputAddress(address: AddressEntity): Output {
+  outputAddress(address: Address): Output {
     return {
       id: address.id,
       cep: address.cep,

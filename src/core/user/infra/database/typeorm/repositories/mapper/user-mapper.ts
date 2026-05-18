@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { UserSchema } from '../../schema/user.schema';
 import { UserEntity } from '@/core/user/domain/entities/user.entity';
 import { UserPermissionRepositoryMapper } from '@/core/user-permissions/infra/database/typeorm/repositories/mapper/user-permission-repository.mapper';
+import { RoleRepositoryMapper } from '@/core/role/infra/database/typeorm/repository/role.mapper';
+import { CompanyRepositoryMapper } from '@/core/company/infra/database/typeorm/repository/company-repository.mapper';
 
 @Injectable()
 export class UserRepositoryMapper {
@@ -14,6 +16,8 @@ export class UserRepositoryMapper {
       email: schema.email,
       expiredAtCode: schema.expiredAtCode,
       passwordResetCode: schema.passwordResetCode,
+      role: RoleRepositoryMapper.toEntity(schema.role),
+      company: CompanyRepositoryMapper.toEntity(schema.company),
       auditable: {
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,
@@ -36,6 +40,8 @@ export class UserRepositoryMapper {
       email: entity.email,
       expiredAtCode: entity.expiredAtCode,
       passwordResetCode: entity.passwordResetCode ?? null,
+      role: RoleRepositoryMapper.toSchema(entity.role),
+      company: CompanyRepositoryMapper.toSchema(entity.company),
       createdAt: entity.auditable?.createdAt,
       updatedAt: entity.auditable?.updatedAt,
       deletedAt: entity.auditable?.deletedAt,

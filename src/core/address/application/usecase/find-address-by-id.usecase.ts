@@ -4,7 +4,7 @@ import { UseCase } from '@/shared/application/usecase/usecase';
 import { AddressRepository } from '../../domain/repositories/address.repository';
 import { Inject } from '@nestjs/common';
 import { NotFoundError } from '@/shared/application/errors/not-found-error';
-import { AddressEntity } from '../../domain/entities/address.entity';
+import { Address } from '../../domain/entities/address.entity';
 
 type Input = {
   id: string;
@@ -29,7 +29,7 @@ export class FindAddressByCompanyIdUseCase implements UseCase<Input, Output> {
     return output;
   }
 
-  outputAddress(address: AddressEntity): Output {
+  outputAddress(address: Address): Output {
     return {
       id: address.id,
       cep: address.cep,

@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableCompany1778061169390 implements MigrationInterface {
+export class CreateTableUsers1779064419090 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'company',
+        name: 'users',
         columns: [
           {
             name: 'id',
@@ -15,21 +15,9 @@ export class CreateTableCompany1778061169390 implements MigrationInterface {
             default: 'public.uuid_generate_v4()',
           },
           {
-            name: 'fantasy_name',
+            name: 'username',
             type: 'varchar',
             length: '255',
-            isNullable: false,
-          },
-          {
-            name: 'social_reazon',
-            type: 'varchar',
-            length: '255',
-            isNullable: false,
-          },
-          {
-            name: 'cnpj',
-            type: 'varchar',
-            length: '14',
             isNullable: false,
           },
           {
@@ -39,21 +27,35 @@ export class CreateTableCompany1778061169390 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'phone_number',
-            type: 'varchar',
-            length: '13',
-            isNullable: true,
-          },
-          {
-            name: 'logotipo',
+            name: 'password',
             type: 'varchar',
             length: '255',
-            isNullable: true,
+            isNullable: false,
           },
           {
             name: 'active',
             type: 'boolean',
             default: true,
+            isNullable: false,
+          },
+          {
+            name: 'password_reset_code',
+            type: 'text',
+            isNullable: true,
+          },
+          {
+            name: 'expired_at_code',
+            type: 'timestamp',
+            isNullable: true,
+          },
+          {
+            name: 'role',
+            type: 'uuid',
+            isNullable: false,
+          },
+          {
+            name: 'company',
+            type: 'uuid',
             isNullable: false,
           },
           {
@@ -87,8 +89,41 @@ export class CreateTableCompany1778061169390 implements MigrationInterface {
             isNullable: true,
           },
         ],
+        foreignKeys: [
+          {
+            name: 'fk_user_role',
+            columnNames: ['role'],
+            referencedTableName: 'roles',
+            referencedColumnNames: ['id'],
+            onDelete: 'RESTRICT',
+          },
+          {
+            name: 'fk_user_company',
+            columnNames: ['company'],
+            referencedTableName: 'companies',
+            referencedColumnNames: ['id'],
+            onDelete: 'RESTRICT',
+          },
+        ],
       }),
     );
+
+    const systemUserId = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+
+    await queryRunner.query(`
+      INSERT INTO users (id, username, email, password, active, role, company, created_at, updated_at)
+      VALUES (
+        '${systemUserId}',
+        'system',
+        'system@system.com',
+        'system',
+        true,
+        'e4eebc99-9c0b-4ef8-bb6d-6bb9bd380a55',
+        'd3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44',
+        now(),
+        now()
+      )
+    `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {}

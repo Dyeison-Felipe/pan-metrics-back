@@ -1,10 +1,18 @@
 import { AddressSchema } from '@/core/address/infra/database/typeorm/schema/address.schema';
 import { PlanSchema } from '@/core/plan/infra/database/typeorm/schema/plan.schema';
+import { RoleSchema } from '@/core/role/infra/database/typeorm/schema/role.schema';
 import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
 import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 
-@Entity('company')
+@Entity('companies')
 export class CompanySchema extends BaseSchema {
   @Column({
     name: 'fantasy_name',
@@ -100,4 +108,9 @@ export class CompanySchema extends BaseSchema {
   @ManyToOne(() => PlanSchema, (plan) => plan.company)
   plan: PlanSchema;
 
+  @OneToMany(() => RoleSchema, (role) => role.company)
+  role: RoleSchema[];
+
+  @OneToMany(() => UserSchema, (user) => user.company)
+  user: UserSchema[];
 }

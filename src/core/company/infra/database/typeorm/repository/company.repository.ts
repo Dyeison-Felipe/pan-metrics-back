@@ -3,7 +3,7 @@ import { PROVIDERS } from '@/shared/application/constants/providers';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CompanySchema } from '../schema/company.schema';
 import { Repository } from 'typeorm';
-import { CompanyEntity } from '@/core/company/domain/entities/company.entity';
+import { Company } from '@/core/company/domain/entities/company.entity';
 import { CompanyRepositoryMapper } from './company-repository.mapper';
 
 export class CompanyRepositoryImpl implements CompanyRepository {
@@ -12,7 +12,20 @@ export class CompanyRepositoryImpl implements CompanyRepository {
     private readonly companyRepository: Repository<CompanySchema>,
   ) {}
 
-  async save(entity: CompanyEntity): Promise<CompanyEntity> {
+  async findByCnpj(cnpj: string): Promise<Company | null> {
+    const schema = await this.companyRepository.findOne({
+      where: {cnpj},
+      relations: ['plan', 'address']
+    })
+
+    if(!schema) return null;
+
+    const entity = CompanyRepositoryMapper.toEntity(schema);
+
+    return entity;
+  }
+
+  async save(entity: Company): Promise<Company> {
     const schema = CompanyRepositoryMapper.toSchema(entity);
 
     const save = await this.companyRepository.save(schema);
@@ -22,7 +35,7 @@ export class CompanyRepositoryImpl implements CompanyRepository {
     return companyEntity;
   }
 
-  async findById(id: string): Promise<CompanyEntity | null> {
+  async findById(id: string): Promise<Company | null> {
     const companySchema = await this.companyRepository.findOne({
       where: { id },
       relations: ['address'],
@@ -35,7 +48,7 @@ export class CompanyRepositoryImpl implements CompanyRepository {
     return companyEntity;
   }
 
-  async update(entity: CompanyEntity): Promise<CompanyEntity> {
+  async update(entity: Company): Promise<Company> {
     const schema = CompanyRepositoryMapper.toSchema(entity);
 
     const save = await this.companyRepository.save(schema);

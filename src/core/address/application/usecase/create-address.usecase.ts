@@ -7,7 +7,7 @@ import { AddressRepository } from '../../domain/repositories/address.repository'
 import { CityRepository } from '@/core/cities/domain/repositories/city.repository';
 import { Transactional } from '@/shared/infra/database/typeorm/decorators/transactional.decorator';
 import { NotFoundError } from '@/shared/application/errors/not-found-error';
-import { AddressEntity } from '../../domain/entities/address.entity';
+import { Address } from '../../domain/entities/address.entity';
 import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
 
 type Input = CreateAddressInput;
@@ -30,7 +30,7 @@ export class CreateAddressUseCase implements UseCase<Input, Output> {
       throw new NotFoundError(`Cidade não encontrada`);
     }
 
-    const address = AddressEntity.create({
+    const address = Address.create({
       cep: input.cep,
       neighborhood: input.neighborhood,
       street: input.street,

@@ -1,4 +1,4 @@
-import { CompanyEntity } from '@/core/company/domain/entities/company.entity';
+import { Company } from '@/core/company/domain/entities/company.entity';
 import { CompanySchema } from '../schema/company.schema';
 import { AddressRepositoryMapper } from '@/core/address/infra/database/typeorm/repository/mapper/address-repository.mapper';
 import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
@@ -7,8 +7,8 @@ import { PlanMapper } from '@/core/plan/infra/database/typeorm/repositories/mapp
 
 @Injectable()
 export class CompanyRepositoryMapper {
-  static toEntity(schema: CompanySchema): CompanyEntity {
-    const entity = new CompanyEntity({
+  static toEntity(schema: CompanySchema): Company {
+    const entity = new Company({
       id: schema.id,
       fantasyName: schema.fantasyName,
       socialReazon: schema.socialReazon,
@@ -32,7 +32,7 @@ export class CompanyRepositoryMapper {
     return entity;
   }
 
-  static toSchema(entity: CompanyEntity): CompanySchema {
+  static toSchema(entity: Company): CompanySchema {
     const schema = CompanySchema.with({
       id: entity.id,
       fantasyName: entity.fantasyName,

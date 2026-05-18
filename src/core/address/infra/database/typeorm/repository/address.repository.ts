@@ -3,7 +3,7 @@ import { AddressSchema } from '../schema/address.schema';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AddressRepositoryMapper } from './mapper/address-repository.mapper';
 import { AddressRepository } from '@/core/address/domain/repositories/address.repository';
-import { AddressEntity } from '@/core/address/domain/entities/address.entity';
+import { Address } from '@/core/address/domain/entities/address.entity';
 
 export class AddressRepositoryImpl implements AddressRepository {
   constructor(
@@ -11,7 +11,7 @@ export class AddressRepositoryImpl implements AddressRepository {
     private readonly addressRepository: Repository<AddressSchema>,
   ) {}
 
-  async save(entity: AddressEntity): Promise<AddressEntity> {
+  async save(entity: Address): Promise<Address> {
     const addressSchema = AddressRepositoryMapper.toSchema(entity);
 
     const savedAddress = await this.addressRepository.save(addressSchema);
@@ -21,7 +21,7 @@ export class AddressRepositoryImpl implements AddressRepository {
     return addressEntity;
   }
 
-  async findById(id: string): Promise<AddressEntity | null> {
+  async findById(id: string): Promise<Address | null> {
     const addressSchema = await this.addressRepository.findOne({
       where: { id },
       relations: ['city', 'city.state']
@@ -34,7 +34,7 @@ export class AddressRepositoryImpl implements AddressRepository {
     return addressEntity;
   }
 
-  async update(entity: AddressEntity): Promise<AddressEntity> {
+  async update(entity: Address): Promise<Address> {
 
     const addressSchema = AddressRepositoryMapper.toSchema(entity);
 

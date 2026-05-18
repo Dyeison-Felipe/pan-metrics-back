@@ -4,6 +4,8 @@ import { Data } from '@/shared/domain/decorators/data.decorator';
 import { BaseEntity } from '@/shared/domain/entity/base-entity';
 import { UserValidatorFactory } from '../validators/user-validator';
 import { EntityValidationError } from '@/shared/application/errors/validation-error';
+import { Role } from '@/core/role/domain/entities/role.entity';
+import { Company } from '@/core/company/domain/entities/company.entity';
 
 export type UserProps = {
   username: string;
@@ -12,6 +14,8 @@ export type UserProps = {
   passwordResetCode?: string | null;
   expiredAtCode?: Date | null;
   email: string;
+  role: Role;
+  company: Company;
   createdBy: string;
   updatedBy: string;
   deletedBy?: string | null;
@@ -22,6 +26,8 @@ type CreateUserProps = {
   username: string;
   password: string;
   email: string;
+  role: Role;
+  company: Company;
   createdBy: string;
   updatedBy: string;
 };
@@ -29,6 +35,7 @@ type CreateUserProps = {
 type UpdateUserProps = {
   username: string;
   email: string;
+  role: Role;
   updatedBy: string;
 };
 
@@ -49,6 +56,8 @@ export class UserEntity extends BaseEntity<UserProps> {
       active: true,
       email: props.email,
       expiredAtCode: null,
+      role: props.role,
+      company: props.company,
       createdBy: props.createdBy ?? ID_USER_DEFAULT,
       updatedBy: props.updatedBy ?? ID_USER_DEFAULT,
     });
@@ -63,6 +72,7 @@ export class UserEntity extends BaseEntity<UserProps> {
   update(props: UpdateUserProps): void {
     this.username = props.username;
     this.email = props.email;
+    this.role = props.role;
     this.updatedBy = props.updatedBy;
     this.updateTimestamp();
   }

@@ -34,12 +34,12 @@ type CreateAddressProps = {
 
 type UpdateAddressProps = Partial<AddressProps>;
 
-export interface AddressEntity extends AddressProps {}
+export interface Address extends AddressProps {}
 
 @Data()
-export class AddressEntity extends BaseEntity<AddressProps> {
-  static create(props: CreateAddressProps): AddressEntity {
-    return new AddressEntity({
+export class Address extends BaseEntity<AddressProps> {
+  static create(props: CreateAddressProps): Address {
+    return new Address({
       id: crypto.randomUUID(),
       cep: props.cep,
       neighborhood: props.neighborhood,

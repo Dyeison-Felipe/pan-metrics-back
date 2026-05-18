@@ -1,68 +1,70 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTableAddresses1770560255393 implements MigrationInterface {
+export class CreateTablePlan1778247383889 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // habilita extensão uuid
-    // await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
-
     await queryRunner.createTable(
       new Table({
-        name: 'addresses',
+        name: 'companies',
         columns: [
           {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'uuid',
             default: 'public.uuid_generate_v4()',
           },
           {
-            name: 'cep',
-            type: 'varchar',
-            length: '8',
-            isNullable: false,
-          },
-          {
-            name: 'neighborhood',
+            name: 'fantasy_name',
             type: 'varchar',
             length: '255',
             isNullable: false,
           },
           {
-            name: 'street',
+            name: 'social_reazon',
             type: 'varchar',
             length: '255',
             isNullable: false,
           },
           {
-            name: 'number',
+            name: 'cnpj',
             type: 'varchar',
-            length: '10',
+            length: '14',
             isNullable: false,
           },
           {
-            name: 'complement',
+            name: 'email',
+            type: 'varchar',
+            length: '255',
+            isNullable: false,
+          },
+          {
+            name: 'phone_number',
+            type: 'varchar',
+            length: '13',
+            isNullable: true,
+          },
+          {
+            name: 'logotipo',
             type: 'varchar',
             length: '255',
             isNullable: true,
           },
           {
-            name: 'latitude',
-            type: 'decimal',
-            precision: 10,
-            scale: 7,
-            isNullable: true,
+            name: 'active',
+            type: 'boolean',
+            default: true,
+            isNullable: false,
           },
           {
-            name: 'longitude',
-            type: 'decimal',
-            precision: 10,
-            scale: 7,
-            isNullable: true,
+            name: 'plan',
+            type: 'uuid',
+            isNullable: false,
+          },
+          {
+            name: 'address',
+            type: 'uuid',
+            isNullable: false,
           },
           {
             name: 'created_at',
@@ -81,7 +83,7 @@ export class CreateTableAddresses1770560255393 implements MigrationInterface {
           },
           {
             name: 'created_by',
-            type: 'varchar',
+            type: 'uuid',
             isNullable: true,
           },
           {
@@ -94,34 +96,37 @@ export class CreateTableAddresses1770560255393 implements MigrationInterface {
             type: 'uuid',
             isNullable: true,
           },
-          {
-            name: 'city',
-            type: 'uuid',
-            isNullable: false,
-          },
         ],
         foreignKeys: [
           {
-            name: 'fk_addresses_city_id',
-            columnNames: ['city'],
-            referencedTableName: 'cities',
+            name: 'fk_company_plan',
+            columnNames: ['plan'],
+            referencedTableName: 'plan',
             referencedColumnNames: ['id'],
-            onDelete: 'RESTRICT',
-            onUpdate: 'CASCADE',
+          },
+          {
+            name: 'fk_company_address',
+            columnNames: ['address'],
+            referencedTableName: 'addresses',
+            referencedColumnNames: ['id'],
           },
         ],
-        comment: 'Endereços dos usuários e empresas',
       }),
     );
+
     await queryRunner.query(`
-      INSERT INTO addresses (id, cep, neighborhood, street, number, city, created_by, created_at, updated_at)
+      INSERT INTO companies (id, fantasy_name, social_reazon, cnpj, email, phone_number, active, plan, address, created_by, updated_by, created_at, updated_at)
       VALUES (
+        'd3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44',
+        'CodeForge',
+        'Dyeison Felipe Kreuz',
+        '00000000000000',
+        'dyeisonfc@gmail.com.br',
+        '00000000000',
+        true,
+        'b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
         'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33',
-        '85070620',
-        'Santana',
-        'Rua Nova Londrina',
-        '247',
-        (SELECT id FROM cities WHERE city = 'Guarapuava' LIMIT 1),
+        'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         now(),
         now()

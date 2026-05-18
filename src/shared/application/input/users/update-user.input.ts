@@ -3,5 +3,6 @@ export type UpdateUserInput = {
   username: string;
   email: string;
   password?: string;
+  role: string;
   permissionsId: string[]
 }

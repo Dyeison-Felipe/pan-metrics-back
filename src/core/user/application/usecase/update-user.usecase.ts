@@ -17,6 +17,7 @@ import { BadRequestError } from '@/shared/application/errors/bad-request-error';
 import { Transactional } from '@/shared/infra/database/typeorm/decorators/transactional.decorator';
 import { UpdateUserInput } from '@/shared/application/input/users/update-user.input';
 import { UpdateUserOutput } from '@/shared/application/output/users/update-user.output';
+import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
 
 type Input = UpdateUserInput;
 
@@ -34,6 +35,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
     private readonly userPermissionRepository: UserPermissionRepository,
     @Inject(PROVIDERS.PERMISSION_REPOSITORY)
     private readonly permissionRepository: PermissionRepository,
+    @Inject(PROVIDERS.ROLE_REPOSITORY) private readonly roleRepository: RoleRepository
   ) { }
 
   @Transactional()
@@ -44,6 +46,12 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
 
     if (!user) {
       throw new NotFoundError(`Usuário não encontrado`);
+    }
+
+    const role = await this.roleRepository.findById(input.role);
+
+    if(!role) {
+      throw new NotFoundError(`Cargo não encontrado`);
     }
 
     const permissions = await this.permissionRepository.findPermissionsById(
@@ -61,6 +69,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
     user.update({
       username: input.username,
       email: input.email,
+      role,
       updatedBy: loggedUser?.id ?? ID_USER_DEFAULT,
     });
 
@@ -81,6 +90,8 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
       id: userEntity.id,
       username: userEntity.username,
       email: userEntity.email,
+      role: userEntity.role,
+      company: userEntity.company,
       permissions: userPermissions.map((userPermission) => ({
         id: userPermission.permission.id,
         action: userPermission.permission.action,

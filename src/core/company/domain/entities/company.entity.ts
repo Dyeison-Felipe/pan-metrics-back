@@ -1,4 +1,4 @@
-import { AddressEntity } from '@/core/address/domain/entities/address.entity';
+import { Address } from '@/core/address/domain/entities/address.entity';
 import { Data } from '@/shared/domain/decorators/data.decorator';
 import { BaseEntity } from '@/shared/domain/entity/base-entity';
 import { CompanyValidatorFactory } from '../validators/company-validator';
@@ -14,7 +14,7 @@ export type CompanyProps = {
   phoneNumber: string;
   logotipo: string;
   active: boolean;
-  address: AddressEntity;
+  address: Address;
   plan: Plan;
   createdBy: string;
   updatedBy: string;
@@ -27,7 +27,7 @@ type CreateCompanyProps = {
   cnpj: string;
   email: string;
   phoneNumber: string;
-  address: AddressEntity;
+  address: Address;
   plan: Plan;
   createdBy: string;
   updatedBy: string;
@@ -40,16 +40,16 @@ type UpdateCompanyProps = {
   email: string;
   plan: Plan;
   phoneNumber: string;
-  address: AddressEntity;
+  address: Address;
   updatedBy: string;
 };
 
-export interface CompanyEntity extends CompanyProps { }
+export interface Company extends CompanyProps { }
 
 @Data()
-export class CompanyEntity extends BaseEntity<CompanyProps> {
-  static create(props: CreateCompanyProps): CompanyEntity {
-    return new CompanyEntity({
+export class Company extends BaseEntity<CompanyProps> {
+  static create(props: CreateCompanyProps): Company {
+    return new Company({
       id: crypto.randomUUID(),
       fantasyName: props.fantasyName,
       socialReazon: props.socialReazon,

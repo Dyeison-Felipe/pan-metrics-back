@@ -1,14 +1,18 @@
 import {
   IsBoolean,
+  IsDate,
   IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import { UserProps } from '../entities/user.entity';
 import { ClassValidatorFields } from '@/shared/domain/validators/class-validator-field';
+import { Type } from 'class-transformer';
+import { RoleRules } from '@/core/role/domain/validators/role-validators';
 
 export class UserRules {
   @MaxLength(255)
@@ -31,6 +35,19 @@ export class UserRules {
   @IsBoolean()
   @IsNotEmpty()
   active: boolean;
+
+  @IsString()
+  @IsOptional()
+  passwordResetCode?: string | null;
+
+  @IsDate()
+  @IsOptional()
+  expiredAtCode?: Date | null;
+
+  @ValidateNested()
+  @Type(() => RoleRules)
+  @IsNotEmpty()
+  role: RoleRules;
 
   @IsString()
   @IsNotEmpty()

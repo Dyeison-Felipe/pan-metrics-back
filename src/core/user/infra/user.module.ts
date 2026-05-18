@@ -19,6 +19,10 @@ import { InactivateUserUseCase } from '../application/usecase/inactivate-user.us
 import { UpdateUserPasswordUseCase } from '../application/usecase/update-user-password.usecase';
 import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
 import { JwtService } from '@/shared/application/jwt/jwt.service';
+import { RoleModule } from '@/core/role/infra/role.module';
+import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
+import { CompanyModule } from '@/core/company/infra/company.module';
+import { CompanyRepository } from '@/core/company/domain/repositories/company.repository';
 
 @Global()
 @Module({
@@ -28,6 +32,8 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
     PermissionModule,
     UserPermissionModule,
     JwtConfigModule,
+    RoleModule,
+    CompanyModule,
   ],
   controllers: [UserController],
   providers: [
@@ -43,6 +49,8 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
         loggedUserService: LoggedUserService,
         userPermissionRepository: UserPermissionRepository,
         permissionRepository: PermissionRepository,
+        roleRepository: RoleRepository,
+        companyRepository: CompanyRepository
       ) => {
         return new CreateUserUseCase(
           userRepository,
@@ -50,6 +58,8 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
           loggedUserService,
           userPermissionRepository,
           permissionRepository,
+          roleRepository,
+          companyRepository,
         );
       },
       inject: [
@@ -58,6 +68,8 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
         PROVIDERS.LOGGED_USER_SERVICE,
         PROVIDERS.USER_PERMISSION_REPOSITORY,
         PROVIDERS.PERMISSION_REPOSITORY,
+        PROVIDERS.ROLE_REPOSITORY,
+        PROVIDERS.COMPANY_REPOSITORY,
       ],
     },
     {
@@ -68,6 +80,7 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
         loggedUserService: LoggedUserService,
         userPermissionRepository: UserPermissionRepository,
         permissionRepository: PermissionRepository,
+        roleRepository: RoleRepository,
       ) => {
         return new UpdateUserUseCase(
           userRepository,
@@ -75,6 +88,7 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
           loggedUserService,
           userPermissionRepository,
           permissionRepository,
+          roleRepository,
         );
       },
       inject: [
@@ -83,6 +97,7 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
         PROVIDERS.LOGGED_USER_SERVICE,
         PROVIDERS.USER_PERMISSION_REPOSITORY,
         PROVIDERS.PERMISSION_REPOSITORY,
+        PROVIDERS.ROLE_REPOSITORY,
       ],
     },
     {
@@ -91,15 +106,9 @@ import { JwtService } from '@/shared/application/jwt/jwt.service';
         userRepository: UserRepository,
         loggedUserService: LoggedUserService,
       ) => {
-        return new InactivateUserUseCase(
-          userRepository,
-          loggedUserService,
-        );
+        return new InactivateUserUseCase(userRepository, loggedUserService);
       },
-      inject: [
-        PROVIDERS.USER_REPOSITORY,
-        PROVIDERS.LOGGED_USER_SERVICE,
-      ],
+      inject: [PROVIDERS.USER_REPOSITORY, PROVIDERS.LOGGED_USER_SERVICE],
     },
     {
       provide: UpdateUserPasswordUseCase,

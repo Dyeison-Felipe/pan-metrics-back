@@ -28,6 +28,8 @@ export class UpdateUserDto {
   @IsNotEmpty()
   email: string;
 
+  @IsUUID()
+  role: string;
 
   @ApiProperty({
     description: 'Senha do usuário',

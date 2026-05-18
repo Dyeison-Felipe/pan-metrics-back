@@ -2,13 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import { AddressSchema } from '../../schema/address.schema';
 import { PROVIDERS } from '@/shared/application/constants/providers';
 import { CityMapper } from '@/core/cities/infra/database/typeorm/repositories/mapper/city-mapper';
-import { AddressEntity } from '@/core/address/domain/entities/address.entity';
+import { Address } from '@/core/address/domain/entities/address.entity';
 import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
 
 @Injectable()
 export class AddressRepositoryMapper {
-  static toEntity(schema: AddressSchema): AddressEntity {
-    return new AddressEntity({
+  static toEntity(schema: AddressSchema): Address {
+    return new Address({
       id: schema.id,
       cep: schema.cep,
       neighborhood: schema.neighborhood,
@@ -28,7 +28,7 @@ export class AddressRepositoryMapper {
       deletedBy: schema.deletedBy?.id,
     });
   }
-  static toSchema(entity: AddressEntity): AddressSchema {
+  static toSchema(entity: Address): AddressSchema {
     return AddressSchema.with({
       id: entity.id,
       cep: entity.cep,

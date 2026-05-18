@@ -16,6 +16,7 @@ import { PermissionGuard } from './core/auth/infra/guard/permission.guard';
 import { MailModule } from './shared/infra/mail/mail.module';
 import { CompanyModule } from './core/company/infra/company.module';
 import { PlanModule } from './core/plan/infra/plan.module';
+import { RoleModule } from './core/role/infra/role.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { PlanModule } from './core/plan/infra/plan.module';
     UserPermissionModule,
     MailModule,
     CompanyModule,
-    PlanModule
+    PlanModule,
+    RoleModule
   ],
   controllers: [],
   providers: [
