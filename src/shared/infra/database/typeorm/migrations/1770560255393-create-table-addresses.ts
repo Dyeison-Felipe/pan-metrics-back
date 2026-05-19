@@ -24,7 +24,7 @@ export class CreateTableAddresses1770560255393 implements MigrationInterface {
             name: 'cep',
             type: 'varchar',
             length: '8',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'neighborhood',
@@ -121,7 +121,7 @@ export class CreateTableAddresses1770560255393 implements MigrationInterface {
         'Santana',
         'Rua Nova Londrina',
         '247',
-        (SELECT id FROM cities WHERE city = 'Guarapuava' LIMIT 1),
+        (SELECT id FROM cities WHERE name = 'Guarapuava' LIMIT 1),
         'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         now(),
         now()

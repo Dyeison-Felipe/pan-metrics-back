@@ -1,6 +1,6 @@
-import { CityOutput } from '../city/city.output';
+import { CityOutput } from "../city/city.output";
 
-export type UpdateAddressOutput = {
+export type AddressOutput = {
   id: string;
   cep?: string | null;
   neighborhood: string;
@@ -10,4 +10,4 @@ export type UpdateAddressOutput = {
   latitude?: number | null;
   longitude?: number | null;
   city: CityOutput;
-};
+}

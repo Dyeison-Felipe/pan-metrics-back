@@ -8,5 +8,5 @@ export type FindByUserId = {
   id: string;
   role: RoleOutput;
   company:CompanyOutput
-  permissions: PermissionsOutput[]
+  permissions?: PermissionsOutput[]
 }

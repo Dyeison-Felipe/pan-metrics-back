@@ -1,5 +1,5 @@
 export type CreateAddressInput = {
-  cep: string;
+  cep?: string;
   street: string;
   neighborhood: string;
   number: string;

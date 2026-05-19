@@ -22,21 +22,25 @@ export class CityRepositoryImpl implements CityRepository {
     search?: string,
   ): Promise<Pagination<CityEntity>> {
     const queryBuilder = this.cityRepository
-      .createQueryBuilder('city')
-      .leftJoinAndSelect('city.state', 'state')
-      .where('state.uf = :state', { state: state });
+      .createQueryBuilder('cities')
+      .leftJoinAndSelect('cities.state', 'state')
+      .where('state.uf = :state OR state.name ILIKE :stateName', {
+        state: state,
+        stateName: `%${state}%`,
+      });
 
     if (search) {
       queryBuilder
-        .andWhere('city.name ILIKE :name', { name: `%${search}%` })
+        .andWhere('cities.name ILIKE :name', { name: `%${search}%` })
         .addSelect(
-          `CASE WHEN city.name ILIKE :startsWith THEN 0 ELSE 1 END`,
+          `CASE WHEN cities.name ILIKE :startsWith THEN 0 ELSE 1 END`,
           'priority',
         )
         .setParameter('startsWith', `${search}%`)
         .orderBy('priority', 'ASC')
-        .addOrderBy('city.name', 'ASC');
+        .addOrderBy('cities.name', 'ASC');
     }
+
 
     const result = await paginateQuery(queryBuilder, pagination);
 

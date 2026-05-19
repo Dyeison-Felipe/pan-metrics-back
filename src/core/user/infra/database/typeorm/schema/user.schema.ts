@@ -71,6 +71,6 @@ export class UserSchema extends BaseSchema {
   company: CompanySchema;
 
   @OneToMany(() => UserPermissionSchema, (up) => up.user)
-  userPermissions: UserPermissionSchema[];
+  userPermissions?: UserPermissionSchema[];
 
 }

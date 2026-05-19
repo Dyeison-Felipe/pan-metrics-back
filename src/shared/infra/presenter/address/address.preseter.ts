@@ -6,7 +6,7 @@ export class AddressPresenter {
   readonly id: string;
 
   @ApiProperty({ description: 'Cep do endereço' })
-  readonly cep: string;
+  readonly cep?: string | null;
 
   @ApiProperty({ description: 'bairro do endereço' })
   readonly neighborhood: string;

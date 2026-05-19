@@ -3,7 +3,7 @@ import { PermissionPresenter } from '../permission/permission.presenter';
 import { PlanPresenter } from '../plan/plan.presenter';
 import { AddressPresenter } from '../address/address.preseter';
 
-export class CompanyPresenter {
+export class CreateCompanyPresenter {
   @ApiProperty({ description: 'Id de identidicação da empresa', type: String })
   readonly id: string;
 
@@ -34,7 +34,7 @@ export class CompanyPresenter {
   @ApiProperty({ description: 'Plano da empresa', type: String })
   plan: PlanPresenter;
 
-  constructor(props: CompanyPresenter) {
+  constructor(props: CreateCompanyPresenter) {
     this.id = props.id;
     this.active = props.active;
     this.email = props.email;

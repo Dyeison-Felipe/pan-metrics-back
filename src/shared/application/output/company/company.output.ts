@@ -1,3 +1,4 @@
+import { AddressOutput } from "../address/address.output";
 import { PlanOutput } from "../plan/plan.output";
 
 export type CompanyOutput = {
@@ -9,6 +10,7 @@ export type CompanyOutput = {
   phoneNumber: string;
   logotipo: string;
   plan: PlanOutput;
+  address: AddressOutput;
   active: boolean;
   createdBy: string;
   updatedBy: string;

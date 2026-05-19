@@ -1,7 +1,9 @@
 import { Company } from '@/core/company/domain/entities/company.entity';
 import { ID_USER_DEFAULT } from '@/shared/application/constants/id-user-default';
+import { EntityValidationError } from '@/shared/application/errors/validation-error';
 import { Data } from '@/shared/domain/decorators/data.decorator';
 import { BaseEntity } from '@/shared/domain/entity/base-entity';
+import { RoleValidatorFactory } from '../validators/role-validators';
 
 export type RoleProps = {
   name: string;
@@ -37,6 +39,11 @@ export class Role extends BaseEntity<RoleProps> {
   }
 
   protected validate(): void {
-    throw new Error('Method not implemented.');
+    const validator = RoleValidatorFactory.create();
+
+    const isValid = validator.validate(this.props);
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors);
+    }
   }
 }

@@ -14,7 +14,7 @@ export class UserPresenter {
   readonly email: string;
 
   @ApiProperty({ description: 'Permissões do usuário', type: String })
-  readonly permissions: PermissionPresenter[];
+  readonly permissions?: PermissionPresenter[];
 
   @ApiProperty({ description: 'Cargo do usuário', type: String })
   role: RolePresenter;

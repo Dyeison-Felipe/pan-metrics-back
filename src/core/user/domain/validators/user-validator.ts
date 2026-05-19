@@ -13,6 +13,7 @@ import { UserProps } from '../entities/user.entity';
 import { ClassValidatorFields } from '@/shared/domain/validators/class-validator-field';
 import { Type } from 'class-transformer';
 import { RoleRules } from '@/core/role/domain/validators/role-validators';
+import { CompanyRules } from '@/core/company/domain/validators/company-validator';
 
 export class UserRules {
   @MaxLength(255)
@@ -44,10 +45,13 @@ export class UserRules {
   @IsOptional()
   expiredAtCode?: Date | null;
 
-  @ValidateNested()
   @Type(() => RoleRules)
   @IsNotEmpty()
   role: RoleRules;
+
+  @Type(() => CompanyRules)
+  @IsNotEmpty()
+  company: CompanyRules;
 
   @IsString()
   @IsNotEmpty()

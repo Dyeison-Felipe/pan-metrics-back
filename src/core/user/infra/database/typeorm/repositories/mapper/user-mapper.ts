@@ -26,7 +26,7 @@ export class UserRepositoryMapper {
       createdBy: schema.createdBy?.id!,
       updatedBy: schema.updatedBy?.id!,
       deletedBy: schema.deletedBy?.id,
-      userPermissions: (schema.userPermissions ?? []).map(
+      userPermissions: (schema?.userPermissions ?? []).map(
         UserPermissionRepositoryMapper.toEntity,
       ),
     });

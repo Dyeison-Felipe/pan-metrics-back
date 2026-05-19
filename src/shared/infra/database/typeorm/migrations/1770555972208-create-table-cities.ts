@@ -17,7 +17,7 @@ export class CreateTableCities1770555972208 implements MigrationInterface {
            default: "public.uuid_generate_v4()"
           },
           {
-            name: "city",
+            name: "name",
             type: "varchar",
             length: "120",
             isNullable: false,
@@ -75,7 +75,7 @@ export class CreateTableCities1770555972208 implements MigrationInterface {
     );
 
     await queryRunner.query(`
-  INSERT INTO cities (city, state) VALUES
+  INSERT INTO cities (name, state) VALUES
   ('Afonso Cláudio', 'c441596d-2b12-4b8d-a86c-b86654c3bf2c'),
 ('Água Doce do Norte', 'c441596d-2b12-4b8d-a86c-b86654c3bf2c'),
 ('Águia Branca', 'c441596d-2b12-4b8d-a86c-b86654c3bf2c'),
@@ -1596,7 +1596,7 @@ export class CreateTableCities1770555972208 implements MigrationInterface {
 `);
 
     await queryRunner.query(`
-INSERT INTO cities (city, state) VALUES
+INSERT INTO cities (name, state) VALUES
 ('Fátima do Sul', 'bb1c2dd1-4b02-4854-9be4-702d62be71d4'),
 ('Figueirão', 'bb1c2dd1-4b02-4854-9be4-702d62be71d4'),
 ('Glória de Dourados', 'bb1c2dd1-4b02-4854-9be4-702d62be71d4'),
@@ -3041,7 +3041,7 @@ INSERT INTO cities (city, state) VALUES
 `);
 
     await queryRunner.query(`
-INSERT INTO cities (city, state) VALUES
+INSERT INTO cities (name, state) VALUES
 ('Jesuítas', 'd5c1ed3b-47f9-4be5-a16f-1b4c1c352597'),
 ('Joaquim Távora', 'd5c1ed3b-47f9-4be5-a16f-1b4c1c352597'),
 ('Jundiaí do Sul', 'd5c1ed3b-47f9-4be5-a16f-1b4c1c352597'),
@@ -4462,7 +4462,7 @@ INSERT INTO cities (city, state) VALUES
 ('Pimenta Bueno', 'd50f5445-f9ae-47a9-ae9a-3984c3590bbf');
 `);
     await queryRunner.query(`
-INSERT INTO cities (city, state) VALUES
+INSERT INTO cities (name, state) VALUES
 ('Pimenteiras do Oeste', 'd50f5445-f9ae-47a9-ae9a-3984c3590bbf'),
 ('Porto Velho', 'd50f5445-f9ae-47a9-ae9a-3984c3590bbf'),
 ('Presidente Médici', 'd50f5445-f9ae-47a9-ae9a-3984c3590bbf'),

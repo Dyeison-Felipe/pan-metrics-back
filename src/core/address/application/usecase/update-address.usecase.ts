@@ -69,9 +69,9 @@ export class UpdateAddressUseCase implements UseCase<Input, Output> {
       neighborhood: address.neighborhood,
       street: address.street,
       number: address.number,
-      complement: address.complement,
-      latitude: address.latitude,
-      longitude: address.longitude,
+      complement: address?.complement,
+      latitude: address?.latitude,
+      longitude: address?.longitude,
       city: { 
         id: address.city.id,
         name: address.city.name,

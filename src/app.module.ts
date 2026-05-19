@@ -35,7 +35,7 @@ import { RoleModule } from './core/role/infra/role.module';
     MailModule,
     CompanyModule,
     PlanModule,
-    RoleModule
+    RoleModule,
   ],
   controllers: [],
   providers: [

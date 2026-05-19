@@ -6,13 +6,13 @@ import { AddressValidatorFactory } from '../validators/address-validator';
 import { EntityValidationError } from '@/shared/application/errors/validation-error';
 
 export type AddressProps = {
-  cep: string;
+  cep?: string | null;
   neighborhood: string;
   street: string;
   number: string;
-  complement?: string;
-  latitude?: number;
-  longitude?: number;
+  complement?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
   city: CityEntity;
   createdBy: string;
   updatedBy: string;
@@ -20,13 +20,13 @@ export type AddressProps = {
 };
 
 type CreateAddressProps = {
-  cep: string;
+  cep?: string | null;
   neighborhood: string;
   street: string;
   number: string;
-  complement?: string;
-  latitude?: number;
-  longitude?: number;
+  complement?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
   city: CityEntity;
   createdBy: string;
   updatedBy: string;
@@ -41,7 +41,7 @@ export class Address extends BaseEntity<AddressProps> {
   static create(props: CreateAddressProps): Address {
     return new Address({
       id: crypto.randomUUID(),
-      cep: props.cep,
+      cep: props?.cep,
       neighborhood: props.neighborhood,
       street: props.street,
       number: props.number,

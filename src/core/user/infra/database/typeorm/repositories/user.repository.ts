@@ -9,11 +9,11 @@ export class UserRepositoryImpl implements UserRepository {
   constructor(
     @InjectRepository(UserSchema)
     private readonly userRepository: Repository<UserSchema>,
-  ) { }
+  ) {}
 
   async findByCode(code: string, email: string): Promise<UserEntity | null> {
     const user = await this.userRepository.findOne({
-      where: { passwordResetCode: code, email }
+      where: { passwordResetCode: code, email },
     });
 
     if (!user) return null;
@@ -26,7 +26,12 @@ export class UserRepositoryImpl implements UserRepository {
   async findByIdWithPermissions(id: string): Promise<UserEntity | null> {
     const userSchema = await this.userRepository.findOne({
       where: { id },
-      relations: ['userPermissions', 'userPermissions.permission', 'company'],
+      relations: [
+        'userPermissions',
+        'userPermissions.permission',
+        'role',
+        'company',
+      ],
     });
 
     if (!userSchema) return null;
@@ -49,7 +54,21 @@ export class UserRepositoryImpl implements UserRepository {
   async findByEmail(email: string): Promise<UserEntity | null> {
     const userSchema = await this.userRepository.findOne({
       where: { email },
-      relations: ['userPermissions', 'userPermissions.permission']
+      relations: [
+        'userPermissions',
+        'userPermissions.permission',
+        'role',
+        'role.company',
+        'role.company.address',
+        'role.company.plan',
+        'role.createdBy',
+        'role.updatedBy',
+        'company',
+        'company.plan',
+        'company.address',
+        'company.createdBy',
+        'company.updatedBy',
+      ],
     });
 
     if (!userSchema) return null;
@@ -62,7 +81,12 @@ export class UserRepositoryImpl implements UserRepository {
   async findById(id: string): Promise<UserEntity | null> {
     const userSchema = await this.userRepository.findOne({
       where: { id },
-      relations: ['userPermissions', 'userPermissions.permission', 'role', 'company']
+      relations: [
+        'userPermissions',
+        'userPermissions.permission',
+        'role',
+        'company',
+      ],
     });
 
     if (!userSchema) return null;

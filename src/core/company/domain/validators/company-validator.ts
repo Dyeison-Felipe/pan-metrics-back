@@ -48,12 +48,10 @@ export class CompanyRules {
   @IsNotEmpty()
   active: boolean;
 
-  @ValidateNested()
   @Type(() => AddressRules)
   @IsNotEmpty()
   address: AddressRules;
 
-  @ValidateNested()
   @Type(() => PlanRules)
   @IsNotEmpty()
   plan: PlanRules;

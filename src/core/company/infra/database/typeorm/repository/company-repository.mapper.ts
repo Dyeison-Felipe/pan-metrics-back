@@ -50,8 +50,8 @@ export class CompanyRepositoryMapper {
       deletedBy: entity.deletedBy
         ? UserSchema.from({ id: entity.deletedBy })
         : null,
-      address: AddressRepositoryMapper.toSchema(entity.address),
-      plan: PlanMapper.toSchema(entity.plan)
+      address: AddressRepositoryMapper.toSchema(entity.address!),
+      plan: PlanMapper.toSchema(entity.plan!)
     });
 
     return schema;

@@ -10,9 +10,9 @@ import {
 export class CreateAddressDto {
   @ApiProperty({ description: 'Cep da rua', maxLength: 8 })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MaxLength(8)
-  cep: string;
+  cep?: string;
 
   @ApiProperty({ description: 'Nome do bairro', maxLength: 255 })
   @IsString()

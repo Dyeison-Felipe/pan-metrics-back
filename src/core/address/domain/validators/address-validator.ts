@@ -12,8 +12,8 @@ import { AddressProps } from '../entities/address.entity';
 export class AddressRules {
   @MaxLength(8)
   @IsString()
-  @IsNotEmpty()
-  cep: string;
+  @IsOptional()
+  cep?: string ;
 
   @MaxLength(255)
   @IsString()

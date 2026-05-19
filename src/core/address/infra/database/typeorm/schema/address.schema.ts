@@ -15,8 +15,8 @@ import {
 
 @Entity('addresses')
 export class AddressSchema extends BaseSchema {
-  @Column({ name: 'cep', type: 'varchar', nullable: false, length: 8 })
-  cep: string;
+  @Column({ name: 'cep', type: 'varchar', nullable: true, length: 8 })
+  cep: string | null;
 
   @Column({ name: 'neighborhood', nullable: false, length: 255 })
   neighborhood: string;
@@ -27,8 +27,8 @@ export class AddressSchema extends BaseSchema {
   @Column({ name: 'number', nullable: false, length: 10 })
   number: string;
 
-  @Column({ name: 'complement', nullable: true, length: 255 })
-  complement: string;
+  @Column({ name: 'complement', type: 'varchar', nullable: true, length: 255 })
+  complement: string | null;
 
   @Column({
     name: 'latitude',
@@ -37,7 +37,7 @@ export class AddressSchema extends BaseSchema {
     precision: 10,
     scale: 7,
   })
-  latitude: number;
+  latitude: number | null;
 
   @Column({
     name: 'longitude',
@@ -46,7 +46,7 @@ export class AddressSchema extends BaseSchema {
     precision: 10,
     scale: 7,
   })
-  longitude: number;
+  longitude: number | null;
 
   @JoinColumn({
     name: 'city',
@@ -81,5 +81,5 @@ export class AddressSchema extends BaseSchema {
   deletedBy: UserSchema | null;
 
   @OneToOne(() => CompanySchema, (company) => company.address)
-  company: CompanySchema
+  company: CompanySchema;
 }

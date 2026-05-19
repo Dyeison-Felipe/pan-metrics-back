@@ -4,14 +4,67 @@ import { CompanyRepositoryImpl } from './database/typeorm/repository/company.rep
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompanySchema } from './database/typeorm/schema/company.schema';
 import { AddressModule } from '@/core/address/infra/address.module';
+import { UserModule } from '@/core/user/infra/user.module';
+import { HashModule } from '@/shared/infra/hash/hash.module';
+import { RoleModule } from '@/core/role/infra/role.module';
+import { PlanModule } from '@/core/plan/infra/plan.module';
+import { CityModule } from '@/core/cities/infra/city.module';
+import { CreateCompanyUseCase } from '../application/usecase/create-company.usecase';
+import { CompanyRepository } from '../domain/repositories/company.repository';
+import { PlanRepository } from '@/core/plan/domain/repositories/plan.repository';
+import { AddressRepository } from '@/core/address/domain/repositories/address.repository';
+import { UserRepository } from '@/core/user/domain/repositories/user.repository';
+import { CityRepository } from '@/core/cities/domain/repositories/city.repository';
+import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
+import { HashService } from '@/shared/application/hash/hash.service';
+import { CompanyController } from './controllers/company.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CompanySchema]), AddressModule],
-  controllers: [],
+  imports: [
+    TypeOrmModule.forFeature([CompanySchema]),
+    AddressModule,
+    UserModule,
+    HashModule,
+    RoleModule,
+    PlanModule,
+    CityModule,
+  ],
+  controllers: [CompanyController],
   providers: [
     {
       provide: PROVIDERS.COMPANY_REPOSITORY,
       useClass: CompanyRepositoryImpl,
+    },
+    {
+      provide: CreateCompanyUseCase,
+      useFactory: (
+        companyRepository: CompanyRepository,
+        planRepository: PlanRepository,
+        addressRepository: AddressRepository,
+        userRepository: UserRepository,
+        cityRepository: CityRepository,
+        roleRepository: RoleRepository,
+        hashService: HashService,
+      ) => {
+        return new CreateCompanyUseCase(
+          companyRepository,
+          planRepository,
+          addressRepository,
+          userRepository,
+          cityRepository,
+          roleRepository,
+          hashService,
+        );
+      },
+      inject: [
+        PROVIDERS.COMPANY_REPOSITORY,
+        PROVIDERS.PLAN_REPOSITORY,
+        PROVIDERS.ADDRESS_REPOSITORY,
+        PROVIDERS.USER_REPOSITORY,
+        PROVIDERS.CITY_REPOSITORY,
+        PROVIDERS.ROLE_REPOSITORY,
+        PROVIDERS.HASH_SERVICE,
+      ],
     },
   ],
   exports: [PROVIDERS.COMPANY_REPOSITORY],

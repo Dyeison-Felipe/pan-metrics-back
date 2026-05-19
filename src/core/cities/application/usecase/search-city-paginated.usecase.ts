@@ -1,6 +1,6 @@
 import { PROVIDERS } from '@/shared/application/constants/providers';
 import { UseCase } from '@/shared/application/usecase/usecase';
-import { Inject } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import { CityRepository } from '../../domain/repositories/city.repository';
 import { PaginationDto } from '@/shared/infra/dto/pagination.dto';
 import { CityOutput } from '@/shared/application/output/city/city.output';
@@ -21,7 +21,13 @@ export class SearchCityPaginatedUseCase implements UseCase<Input, Output> {
     @Inject(PROVIDERS.CITY_REPOSITORY)
     private readonly cityRepository: CityRepository,
   ) {}
+
+  private logger = new Logger(SearchCityPaginatedUseCase.name)
+
   async execute({ pagination, state, search }: Input): Promise<Output> {
+
+    this.logger.debug(`Iniciando pesquisa de cidade ${search}`)
+
     const cities = await this.cityRepository.search(state, pagination, search);
 
     if (cities.meta.totalItems === 0) {

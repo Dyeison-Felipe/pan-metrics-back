@@ -12,7 +12,7 @@ import {
 @Entity('cities')
 export class CitySchema extends BaseSchema {
 
-  @Column({ name: 'city', type: 'varchar', length: 255, nullable: false })
+  @Column({ name: 'name', type: 'varchar', length: 255, nullable: false })
   name: string;
 
   @ManyToOne(() => StateSchema, (state) => state.cities, { nullable: false })

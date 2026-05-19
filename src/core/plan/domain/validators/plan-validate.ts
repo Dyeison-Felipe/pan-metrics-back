@@ -19,7 +19,6 @@ export class PlanRules {
 
   @MaxLength(255)
   @IsString()
-  @IsEmail()
   @IsNotEmpty()
   description: string;
 

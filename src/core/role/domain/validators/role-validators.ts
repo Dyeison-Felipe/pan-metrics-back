@@ -18,7 +18,6 @@ export class RoleRules {
   @IsNotEmpty()
   name: string;
 
-  @ValidateNested()
   @Type(() => CompanyRules)
   @IsNotEmpty()
   company: CompanyRules;
@@ -45,7 +44,7 @@ export class RoleValidator extends ClassValidatorFields<RoleRules> {
   }
 }
 
-export class CompanyValidatorFactory {
+export class RoleValidatorFactory {
   static create(): RoleValidator {
     // Retorna a instância do CompanyValidator
     return new RoleValidator();
