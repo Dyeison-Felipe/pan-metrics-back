@@ -49,11 +49,18 @@ export class VerifyCodeUseCase implements UseCase<Input, Output> {
 
     await this.userRepository.update(user);
     try {
-
-      const { token } = await this.jwtService.generateJwt(user, {
-        secret: this.envConfigService.getJwtSecretForgotPassword(),
-        expiresIn: this.envConfigService.getExpiresInSecondsForgotPassword(),
-      });
+      const { token } = await this.jwtService.generateJwt(
+        {
+          sub: user.id,
+          email: user.email,
+          role: user.role.name,
+          username: user.username,
+        },
+        {
+          secret: this.envConfigService.getJwtSecretForgotPassword(),
+          expiresIn: this.envConfigService.getExpiresInSecondsForgotPassword(),
+        },
+      );
 
       const jwtExpiresInSeconds =
         this.envConfigService.getJwtExpiresInSeconds();

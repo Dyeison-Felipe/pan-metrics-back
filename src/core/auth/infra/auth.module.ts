@@ -16,6 +16,7 @@ import { ForgotPasswordUseCase } from '../application/usecase/forgot-password.us
 import { MailService } from '@/shared/application/mail/mail.service';
 import { VerifyCodeUseCase } from '../application/usecase/verify-code.usecase';
 import { UpdatePasswordUseCase } from '../application/usecase/update-password.usecase';
+import { UserQuery } from '@/core/user/application/queries/user.query';
 
 @Global()
 @Module({
@@ -28,20 +29,20 @@ import { UpdatePasswordUseCase } from '../application/usecase/update-password.us
       provide: LoginUseCase,
       useFactory: (
         jwtService: JwtService,
-        userRepository: UserRepository,
+        userQuery: UserQuery,
         hasService: HashService,
         envConfigService: EnvConfig,
       ) => {
         return new LoginUseCase(
           jwtService,
-          userRepository,
+          userQuery,
           hasService,
           envConfigService,
         );
       },
       inject: [
         PROVIDERS.JWT_SERVICE,
-        PROVIDERS.USER_REPOSITORY,
+        PROVIDERS.USER_QUERY,
         PROVIDERS.HASH_SERVICE,
         PROVIDERS.ENV_CONFIG_SERVICE,
       ],

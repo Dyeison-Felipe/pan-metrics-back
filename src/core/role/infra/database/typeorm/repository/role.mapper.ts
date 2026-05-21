@@ -10,10 +10,10 @@ export class RoleRepositoryMapper {
     const role = new Role({
       id: schema.id,
       name: schema.name,
-      company:CompanyRepositoryMapper.toEntity(schema.company),
-      createdBy: schema.createdBy?.id,
-      updatedBy: schema.updatedBy?.id,
-      deletedBy: schema.deletedBy?.id,
+      company: CompanyRepositoryMapper.toEntity(schema.company),
+      createdBy: schema.createdById,
+      updatedBy: schema.updatedById,
+      deletedBy: schema.deletedById,
       auditable: {
         createdAt: schema.createdAt,
         updatedAt: schema.updatedAt,

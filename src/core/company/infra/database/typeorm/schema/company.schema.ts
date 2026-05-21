@@ -77,6 +77,9 @@ export class CompanySchema extends BaseSchema {
   @ManyToOne(() => UserSchema, { nullable: false })
   createdBy: UserSchema;
 
+  @Column({ name: 'created_by', type: 'uuid', insert: false, update: false })
+  createdById: string;
+
   @JoinColumn({
     name: 'updated_by',
     referencedColumnName: 'id',
@@ -85,6 +88,9 @@ export class CompanySchema extends BaseSchema {
   @ManyToOne(() => UserSchema, { nullable: false })
   updatedBy: UserSchema;
 
+  @Column({ name: 'updated_by', type: 'uuid', insert: false, update: false })
+  updatedById: string;
+
   @JoinColumn({
     name: 'deleted_by',
     referencedColumnName: 'id',
@@ -92,6 +98,15 @@ export class CompanySchema extends BaseSchema {
   })
   @ManyToOne(() => UserSchema, { nullable: true })
   deletedBy: UserSchema | null;
+
+  @Column({
+    name: 'deleted_by',
+    type: 'uuid',
+    nullable: true,
+    insert: false,
+    update: false,
+  })
+  deletedById: string | null;
 
   @JoinColumn({
     name: 'address',

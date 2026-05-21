@@ -1,15 +1,16 @@
-import { UserRepository } from "@/core/user/domain/repositories/user.repository";
-import { AuthConstants } from "@/shared/application/constants/auth-constants";
-import { PROVIDERS } from "@/shared/application/constants/providers";
-import { CookieOptions } from "@/shared/application/cookies/cookies";
-import { EnvConfig } from "@/shared/application/env-config/env-config";
-import { UnauthorizedError } from "@/shared/application/errors/unauthorized-error";
-import { HashService } from "@/shared/application/hash/hash.service";
-import { LoginInput } from "@/shared/application/input/auth/login.input";
-import { JwtService } from "@/shared/application/jwt/jwt.service";
-import { LoginOutput } from "@/shared/application/output/auth/login.output";
-import { UseCase } from "@/shared/application/usecase/usecase";
-import { Inject } from "@nestjs/common";
+import { UserQuery } from '@/core/user/application/queries/user.query';
+import { UserRepository } from '@/core/user/domain/repositories/user.repository';
+import { AuthConstants } from '@/shared/application/constants/auth-constants';
+import { PROVIDERS } from '@/shared/application/constants/providers';
+import { CookieOptions } from '@/shared/application/cookies/cookies';
+import { EnvConfig } from '@/shared/application/env-config/env-config';
+import { UnauthorizedError } from '@/shared/application/errors/unauthorized-error';
+import { HashService } from '@/shared/application/hash/hash.service';
+import { LoginInput } from '@/shared/application/input/auth/login.input';
+import { JwtService } from '@/shared/application/jwt/jwt.service';
+import { LoginOutput } from '@/shared/application/output/auth/login.output';
+import { UseCase } from '@/shared/application/usecase/usecase';
+import { Inject } from '@nestjs/common';
 
 type Input = LoginInput;
 
@@ -18,8 +19,8 @@ type Output = LoginOutput;
 export class LoginUseCase implements UseCase<Input, Output> {
   constructor(
     @Inject(PROVIDERS.JWT_SERVICE) private readonly jwtService: JwtService,
-    @Inject(PROVIDERS.USER_REPOSITORY)
-    private readonly userRepository: UserRepository,
+    @Inject(PROVIDERS.USER_QUERY)
+    private readonly useQuery: UserQuery,
     @Inject(PROVIDERS.HASH_SERVICE) private readonly hashService: HashService,
     @Inject(PROVIDERS.ENV_CONFIG_SERVICE)
     private readonly envConfigService: EnvConfig,
@@ -30,7 +31,7 @@ export class LoginUseCase implements UseCase<Input, Output> {
     password,
     setCookie,
   }: LoginInput): Promise<LoginOutput> {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.useQuery.findUserByEmail(email);
 
     if (!user || !user.active) {
       throw new UnauthorizedError(`Usuário ou senha invalido`);
@@ -45,7 +46,12 @@ export class LoginUseCase implements UseCase<Input, Output> {
       throw new UnauthorizedError(`Usuário ou senha invalido`);
     }
 
-    const { token } = await this.jwtService.generateJwt(user);
+    const { token } = await this.jwtService.generateJwt({
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+      username: user.username,
+    });
 
     const jwtExpiresInSeconds = this.envConfigService.getJwtExpiresInSeconds();
 
@@ -63,15 +69,12 @@ export class LoginUseCase implements UseCase<Input, Output> {
     const output: Output = {
       user: {
         id: user.id,
-        email: user.email,
-        username: user.username,
         role: user.role,
-        company: user.company,
-        permissions: (user?.userPermissions ?? []).map((up) =>({
-          id: up.permission.id,
-          action: up.permission.action,
-          subject: up.permission.subject,
-        }))
+        permissions: (user?.permissions ?? []).map((permission) => ({
+          id: permission.id,
+          action: permission.action,
+          subject: permission.subject,
+        })),
       },
       token: token,
     };

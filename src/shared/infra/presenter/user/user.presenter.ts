@@ -17,15 +17,17 @@ export class UserPresenter {
   readonly permissions?: PermissionPresenter[];
 
   @ApiProperty({ description: 'Cargo do usuário', type: String })
-  role: RolePresenter;
+  readonly role: RolePresenter;
 
   @ApiProperty({ description: 'Empresa pertencente ao usuário', type: String })
-  company: CompanyPresenter;
+  readonly company: CompanyPresenter;
 
   constructor(props: UserPresenter) {
     this.id = props.id;
     this.username = props.username;
     this.email = props.email;
     this.permissions = props.permissions;
+    this.company = props.company;
+    this.role = props.role
   }
 }

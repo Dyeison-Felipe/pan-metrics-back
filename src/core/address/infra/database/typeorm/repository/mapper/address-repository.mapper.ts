@@ -23,9 +23,9 @@ export class AddressRepositoryMapper {
         updatedAt: schema.updatedAt,
         deletedAt: schema.deletedAt,
       },
-      createdBy: schema.createdBy?.id,
-      updatedBy: schema.updatedBy?.id,
-      deletedBy: schema.deletedBy?.id,
+      createdBy: schema.createdById,
+      updatedBy: schema.createdById,
+      deletedBy: schema.createdById,
     });
   }
   static toSchema(entity: Address): AddressSchema {

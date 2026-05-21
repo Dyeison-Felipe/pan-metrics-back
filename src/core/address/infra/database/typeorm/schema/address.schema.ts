@@ -59,26 +59,41 @@ export class AddressSchema extends BaseSchema {
   @JoinColumn({
     name: 'created_by',
     referencedColumnName: 'id',
-    foreignKeyConstraintName: 'fk_addresses_created_by',
+    foreignKeyConstraintName: 'fk_company_created_by',
   })
   @ManyToOne(() => UserSchema, { nullable: false })
   createdBy: UserSchema;
 
+  @Column({ name: 'created_by', type: 'uuid', insert: false, update: false })
+  createdById: string;
+
   @JoinColumn({
     name: 'updated_by',
     referencedColumnName: 'id',
-    foreignKeyConstraintName: 'fk_addresses_updated_by',
+    foreignKeyConstraintName: 'fk_company_updated_by',
   })
   @ManyToOne(() => UserSchema, { nullable: false })
   updatedBy: UserSchema;
 
+  @Column({ name: 'updated_by', type: 'uuid', insert: false, update: false })
+  updatedById: string;
+
   @JoinColumn({
     name: 'deleted_by',
     referencedColumnName: 'id',
-    foreignKeyConstraintName: 'fk_addresses_deleted_by',
+    foreignKeyConstraintName: 'fk_company_deleted_by',
   })
   @ManyToOne(() => UserSchema, { nullable: true })
   deletedBy: UserSchema | null;
+
+  @Column({
+    name: 'deleted_by',
+    type: 'uuid',
+    nullable: true,
+    insert: false,
+    update: false,
+  })
+  deletedById: string | null;
 
   @OneToOne(() => CompanySchema, (company) => company.address)
   company: CompanySchema;

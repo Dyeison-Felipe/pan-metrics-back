@@ -21,6 +21,7 @@ import { JwtConfigModule } from '@/shared/infra/jwt/jwt.module';
 import { JwtService } from '@/shared/application/jwt/jwt.service';
 import { RoleModule } from '@/core/role/infra/role.module';
 import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
+import { UserQueryImpl } from './database/queries/user.query';
 
 @Global()
 @Module({
@@ -37,6 +38,10 @@ import { RoleRepository } from '@/core/role/domain/repositories/role.repository'
     {
       provide: PROVIDERS.USER_REPOSITORY,
       useClass: UserRepositoryImpl,
+    },
+    {
+      provide: PROVIDERS.USER_QUERY,
+      useClass: UserQueryImpl,
     },
     {
       provide: CreateUserUseCase,
@@ -127,6 +132,6 @@ import { RoleRepository } from '@/core/role/domain/repositories/role.repository'
       ],
     },
   ],
-  exports: [PROVIDERS.USER_REPOSITORY],
+  exports: [PROVIDERS.USER_REPOSITORY, PROVIDERS.USER_QUERY],
 })
 export class UserModule {}

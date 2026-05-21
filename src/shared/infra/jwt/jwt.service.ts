@@ -1,7 +1,7 @@
 
 import { JwtService as NestJwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
-import { GenerateJwtToken, JwtService, Options, Payload } from '@/shared/application/jwt/jwt.service';
+import { GenerateJwtToken, JwtService, Options, Payload, UserGenerateToken } from '@/shared/application/jwt/jwt.service';
 import { UserEntity } from '@/core/user/domain/entities/user.entity';
 
 @Injectable()
@@ -21,11 +21,11 @@ export class JwtServiceImpl implements JwtService {
   }
 
   async generateJwt(
-    user: UserEntity,
+    user: UserGenerateToken,
     options : Options,
   ): Promise<GenerateJwtToken> {
     const payload = {
-      sub: user.id,
+      sub: user.sub,
       username: user.username,
       email: user.email,
     };

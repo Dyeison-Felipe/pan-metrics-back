@@ -1,9 +1,12 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { UserPresenter } from "../user/user.presenter";
+import { ApiProperty } from '@nestjs/swagger';
+import { UserLoginPresenter } from '../user/user-login.presenter';
 
 export class LoginPresenter {
+
+  readonly user: UserLoginPresenter
+
   @ApiProperty({
-    description: 'Informações do usuário que realizou a autenticação',
+    description: 'Token da autenticação',
   })
-  user: UserPresenter;
+  readonly token: string;
 }

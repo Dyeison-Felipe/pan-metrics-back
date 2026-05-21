@@ -24,9 +24,9 @@ export class CompanyRepositoryMapper {
         updatedAt: schema.updatedAt,
         deletedAt: schema.deletedAt,
       },
-      createdBy: schema.createdBy?.id,
-      updatedBy: schema.updatedBy?.id,
-      deletedBy: schema.deletedBy?.id,
+      createdBy: schema.createdById,
+      updatedBy: schema.updatedById,
+      deletedBy: schema.deletedById,
     });
 
     return entity;
@@ -51,7 +51,7 @@ export class CompanyRepositoryMapper {
         ? UserSchema.from({ id: entity.deletedBy })
         : null,
       address: AddressRepositoryMapper.toSchema(entity.address!),
-      plan: PlanMapper.toSchema(entity.plan!)
+      plan: PlanMapper.toSchema(entity.plan!),
     });
 
     return schema;

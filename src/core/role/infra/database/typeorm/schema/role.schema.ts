@@ -16,13 +16,16 @@ export class RoleSchema extends BaseSchema {
   @ManyToOne(() => CompanySchema, (company) => company.role)
   company: CompanySchema;
 
-  @JoinColumn({
+    @JoinColumn({
     name: 'created_by',
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'fk_company_created_by',
   })
   @ManyToOne(() => UserSchema, { nullable: false })
   createdBy: UserSchema;
+
+  @Column({ name: 'created_by', type: 'uuid', insert: false, update: false })
+  createdById: string;
 
   @JoinColumn({
     name: 'updated_by',
@@ -32,6 +35,9 @@ export class RoleSchema extends BaseSchema {
   @ManyToOne(() => UserSchema, { nullable: false })
   updatedBy: UserSchema;
 
+  @Column({ name: 'updated_by', type: 'uuid', insert: false, update: false })
+  updatedById: string;
+
   @JoinColumn({
     name: 'deleted_by',
     referencedColumnName: 'id',
@@ -39,6 +45,15 @@ export class RoleSchema extends BaseSchema {
   })
   @ManyToOne(() => UserSchema, { nullable: true })
   deletedBy: UserSchema | null;
+
+  @Column({
+    name: 'deleted_by',
+    type: 'uuid',
+    nullable: true,
+    insert: false,
+    update: false,
+  })
+  deletedById: string | null;
 
   @OneToMany(() => UserSchema, (user) => user.role)
   user: UserSchema[];

@@ -54,11 +54,13 @@ export class UserRules {
   company: CompanyRules;
 
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
+  @IsOptional()
   createdBy: string;
 
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
+  @IsOptional()
   updatedBy: string;
 
   @IsOptional()

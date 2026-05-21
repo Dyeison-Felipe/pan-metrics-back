@@ -1,5 +1,10 @@
-import { UserEntity } from "@/core/user/domain/entities/user.entity";
-import { JwtSignOptions } from "@nestjs/jwt";
+
+export type UserGenerateToken = {
+  sub: string;
+  username: string;
+  email: string;
+  role: string;
+};
 
 export type GenerateJwtToken = {
   token: string;
@@ -19,7 +24,7 @@ export type Payload = {
 };
 
 export interface JwtService {
-  generateJwt(user: UserEntity, options?: Options): Promise<GenerateJwtToken>;
+  generateJwt(user: UserGenerateToken, options?: Options): Promise<GenerateJwtToken>;
   decodeJwt(jwt: string): Payload;
   verifyJwt(jwt: string): Promise<Payload | null>;
 }
