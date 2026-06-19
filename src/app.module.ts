@@ -17,6 +17,7 @@ import { MailModule } from './shared/infra/mail/mail.module';
 import { CompanyModule } from './core/company/infra/company.module';
 import { PlanModule } from './core/plan/infra/plan.module';
 import { RoleModule } from './core/role/infra/role.module';
+import { PlanOptionModule } from './core/plan-options/infra/plan-option.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { RoleModule } from './core/role/infra/role.module';
     CompanyModule,
     PlanModule,
     RoleModule,
+    PlanOptionModule,
   ],
   controllers: [],
   providers: [

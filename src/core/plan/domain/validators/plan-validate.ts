@@ -1,12 +1,9 @@
 import {
   IsBoolean,
-  IsEmail,
   IsNotEmpty,
   IsNumber,
-  IsOptional,
   IsString,
   MaxLength,
-  MinLength,
 } from 'class-validator';
 import { ClassValidatorFields } from '@/shared/domain/validators/class-validator-field';
 import { PlanProps } from '../entities/plan.entity';

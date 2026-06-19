@@ -5,7 +5,6 @@ import {
   IsOptional,
   IsString,
   MaxLength,
-  ValidateNested,
 } from 'class-validator';
 import { CompanyProps } from '../entities/company.entity';
 import { AddressRules } from '@/core/address/domain/validators/address-validator';

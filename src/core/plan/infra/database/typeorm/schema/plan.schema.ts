@@ -1,4 +1,5 @@
 import { CompanySchema } from '@/core/company/infra/database/typeorm/schema/company.schema';
+import { PlanOptionSchema } from '@/core/plan-options/infra/database/typeorm/schema/plan-option.schema';
 import { BaseSchema } from '@/shared/infra/database/typeorm/schema/baseSchema/baseSchema';
 import { Column, Entity, OneToMany } from 'typeorm';
 
@@ -21,5 +22,8 @@ export class PlanSchema extends BaseSchema {
 
   @OneToMany(() => CompanySchema, (company) => company.plan)
   company: CompanySchema[]
+
+  @OneToMany(() => PlanOptionSchema, (planOption) => planOption.plan)
+  planOption: PlanOptionSchema;
 
 }
