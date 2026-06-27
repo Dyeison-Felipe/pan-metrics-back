@@ -1,7 +1,7 @@
-import { UserPersmissionEntity } from "../entities/user-permission.entity";
+import { UserPermissionEntity } from "../entities/user-permission.entity";
 
 export interface UserPermissionRepository {
-  create(entity: UserPersmissionEntity):Promise<UserPersmissionEntity>;
-  findAllPermissionByUser(userId: string): Promise<UserPersmissionEntity[]>;
+  create(entity: UserPermissionEntity):Promise<UserPermissionEntity>;
+  findAllPermissionByUser(userId: string): Promise<UserPermissionEntity[]>;
   softDelete(id: string): Promise<void>;
 }

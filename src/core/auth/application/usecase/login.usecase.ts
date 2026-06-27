@@ -74,6 +74,7 @@ export class LoginUseCase implements UseCase<Input, Output> {
           id: permission.id,
           action: permission.action,
           subject: permission.subject,
+          description: permission.description
         })),
       },
       token: token,

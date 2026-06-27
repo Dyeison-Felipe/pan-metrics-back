@@ -17,7 +17,7 @@ export type updatePermissionProps = {
   permission: Permission;
 };
 
-export class UserPersmissionEntity {
+export class UserPermissionEntity {
   id: string;
   user: UserEntity;
   permission: Permission;
@@ -27,8 +27,8 @@ export class UserPersmissionEntity {
     this.user = props.user;
   }
 
-  static create(props: CreatePermissionProps): UserPersmissionEntity {
-    return new UserPersmissionEntity({
+  static create(props: CreatePermissionProps): UserPermissionEntity {
+    return new UserPermissionEntity({
       id: crypto.randomUUID(),
       user: props.user,
       permission: props.permission,

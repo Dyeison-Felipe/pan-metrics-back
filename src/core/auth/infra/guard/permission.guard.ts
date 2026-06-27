@@ -13,11 +13,11 @@ import { UserRepository } from '@/core/user/domain/repositories/user.repository'
 import { LoggedUserService } from '@/shared/application/logged-user/logged-user.service';
 import { UnauthorizedError } from '@/shared/application/errors/unauthorized-error';
 import { CaslAbilityService } from '../service/casl-ability.service';
-import { PermissionRef } from '@/core/auth/domain/permissions-definition/persmissions';
 import {
   IS_PUBLIC_KEY,
   PERMISSIONS_KEY,
 } from '@/shared/infra/decorators/permission.decorator';
+import { PermissionRef } from '../../domain/permissions-definition/permissions';
 
 @Injectable({ scope: Scope.REQUEST })
 export class PermissionGuard implements CanActivate {
@@ -64,7 +64,7 @@ export class PermissionGuard implements CanActivate {
       request.user = user;
       this.loggedUserService.setLoggedUser(user);
 
-      if(user.role.name === 'Admin') {
+      if (user.role.name === 'Admin' || user.role.name === 'Super Admin') {
         return true;
       }
 

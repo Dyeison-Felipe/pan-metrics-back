@@ -2,10 +2,11 @@ import { Role } from "@/core/role/domain/entities/role.entity";
 import { UserEntity } from "../../domain/entities/user.entity";
 import { Company } from "@/core/company/domain/entities/company.entity";
 
-type PermissionUser = {
+export type PermissionUser = {
     id: string;
     action: string;
     subject: string;
+    description: string;
   }
 
 export type UserByLogin = {

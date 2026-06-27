@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export class CreatePlanDto {
   @IsString()
@@ -16,4 +23,9 @@ export class CreatePlanDto {
   @IsString()
   @IsNotEmpty()
   duration: string;
+
+  @IsArray()
+  @IsUUID('4', { each: true })
+  @IsNotEmpty()
+  permissionIds: string[];
 }

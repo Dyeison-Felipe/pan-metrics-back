@@ -11,6 +11,29 @@ export class PlanPermissionRepositoryImpl implements PlanPermissionRepository {
     private readonly planPermissionRepository: Repository<PlanPermissionSchema>,
   ) {}
 
+  async findAllPlansAndPermissions(): Promise<PlanPermission[]> {
+    const plansPermissions = await this.planPermissionRepository.find({
+      where: { plan: { active: true } },
+      relations: ['plan', 'permission']
+    });
+
+    const entities = plansPermissions.map((planPermission) => PlanPermissionMapper.toEntity(planPermission));
+
+    return entities
+  }
+
+  async saveMany(entities: PlanPermission[]): Promise<PlanPermission[]> {
+    const schemas = entities.map((entity) =>
+      PlanPermissionMapper.toSchema(entity),
+    );
+
+    const save = await this.planPermissionRepository.save(schemas);
+
+    return save.map((planPermissionSchema) =>
+      PlanPermissionMapper.toEntity(planPermissionSchema),
+    );
+  }
+
   async save(entity: PlanPermission): Promise<PlanPermission> {
     const schema = PlanPermissionMapper.toSchema(entity);
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { SearchCityPaginatedUseCase } from '../../application/usecase/search-city-paginated.usecase';
 import {
   ApiInternalServerErrorResponse,
@@ -21,7 +21,7 @@ export class CityController {
     private readonly searchCityPaginatedUseCase: SearchCityPaginatedUseCase,
   ) {}
 
-  @Get()
+  @Get('state/:state')
   @Public()
   @ApiOperation({ summary: 'Lista todos os estados e pesquisa por nome' })
   @ApiQuery({
@@ -58,7 +58,7 @@ export class CityController {
   @ApiInternalServerErrorResponse({ description: 'Erro interno do servidor' })
   async search(
     @Query('s') search: string = '',
-    @Query('state') state: string,
+    @Param('state') state: string,
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 100,
   ): Promise<PaginationPresenter<FindAllSearchCityPresenter>> {

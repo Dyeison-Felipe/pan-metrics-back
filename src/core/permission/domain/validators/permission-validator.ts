@@ -19,7 +19,7 @@ export class PermissionRules {
   @IsNotEmpty()
   description: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   subject: string;
 

@@ -46,6 +46,7 @@ export class UserQueryImpl implements UserQuery {
           id: up.permission.id,
           action: up.permission.action,
           subject: up.permission.subject,
+          description: up.permission.description
         })) ?? [],
     };
 

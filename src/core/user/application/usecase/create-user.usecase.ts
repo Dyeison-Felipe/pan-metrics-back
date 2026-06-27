@@ -15,7 +15,7 @@ import { Transactional } from '@/shared/infra/database/typeorm/decorators/transa
 import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
 import { UserPermissionRepository } from '@/core/user-permission/domain/repositories/user-permission.repository';
 import { PermissionRepository } from '@/core/permission/domain/repositories/permission.repository';
-import { UserPersmissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
+import { UserPermissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
 import { Permission } from '@/core/permission/domain/entity/permission.entity';
 
 type Input = CreateUserInput;
@@ -88,7 +88,7 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
 
   outputUser(
     userEntity: UserEntity,
-    userPermissions: UserPersmissionEntity[],
+    userPermissions: UserPermissionEntity[],
   ): Output {
     const output: Output = {
       id: userEntity.id,
@@ -100,6 +100,7 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
         id: userPermission.permission.id,
         action: userPermission.permission.action,
         subject: userPermission.permission.subject,
+        description: userPermission.permission.description
       })),
     };
 
@@ -109,11 +110,11 @@ export class CreateUserUseCase implements UseCase<Input, Output> {
   async createUserPermission(
     permissions: Permission[],
     user: UserEntity,
-  ): Promise<UserPersmissionEntity[]> {
+  ): Promise<UserPermissionEntity[]> {
     try {
       return await Promise.all(
         permissions.map((permission) => {
-          const entity = UserPersmissionEntity.create({ user, permission });
+          const entity = UserPermissionEntity.create({ user, permission });
           return this.userPermissionRepository.create(entity);
         }),
       );

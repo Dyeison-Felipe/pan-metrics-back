@@ -6,10 +6,8 @@ import {
 import { UserLogin } from '@/core/user/domain/repositories/user.repository';
 import { AbilityBuilder, PureAbility } from '@casl/ability';
 import { UserEntity } from '@/core/user/domain/entities/user.entity';
-import {
-  PermissionActions,
-  PermissionResources,
-} from '../../domain/permissions-definition/persmissions';
+import { PermissionActions, PermissionResources } from '../../domain/permissions-definition/permissions';
+
 
 @Injectable({ scope: Scope.REQUEST })
 export class CaslAbilityService implements AbilityService {

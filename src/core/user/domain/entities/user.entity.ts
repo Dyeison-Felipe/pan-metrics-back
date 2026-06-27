@@ -5,7 +5,7 @@ import { UserValidatorFactory } from '../validators/user-validator';
 import { EntityValidationError } from '@/shared/application/errors/validation-error';
 import { Role } from '@/core/role/domain/entities/role.entity';
 import { Company } from '@/core/company/domain/entities/company.entity';
-import { UserPersmissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
+import { UserPermissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
 
 export type UserProps = {
   username: string;
@@ -19,7 +19,7 @@ export type UserProps = {
   createdBy: string;
   updatedBy: string;
   deletedBy?: string | null;
-  userPermissions?: UserPersmissionEntity[];
+  userPermissions?: UserPermissionEntity[];
 };
 
 type CreateUserProps = {

@@ -24,10 +24,10 @@ export class CityRepositoryImpl implements CityRepository {
     const queryBuilder = this.cityRepository
       .createQueryBuilder('cities')
       .leftJoinAndSelect('cities.state', 'state')
-      .where('state.uf = :state OR state.name ILIKE :stateName', {
+      .where('state.id = :state', {
         state: state,
-        stateName: `%${state}%`,
-      });
+      })
+      .orderBy('cities.name', 'ASC');
 
     if (search) {
       queryBuilder

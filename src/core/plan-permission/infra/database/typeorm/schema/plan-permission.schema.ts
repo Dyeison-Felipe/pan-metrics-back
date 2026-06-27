@@ -10,6 +10,6 @@ export class PlanPermissionSchema extends BaseSchema {
   plan: PlanSchema;
 
   @ManyToOne(() => PermissionSchema, (permission) => permission.planPermission)
-  @JoinColumn({ name: 'plan' })
-  persmission: PermissionSchema;
+  @JoinColumn({ name: 'permission' })
+  permission: PermissionSchema;
 }

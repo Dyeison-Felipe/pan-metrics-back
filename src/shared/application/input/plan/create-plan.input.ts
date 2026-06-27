@@ -3,4 +3,5 @@ export type CreatePlanInput= {
   description: string;
   price: number;
   duration: string;
+  permissionIds: string[]
 }

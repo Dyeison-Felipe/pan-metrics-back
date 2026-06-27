@@ -106,7 +106,7 @@ export class UserRepositoryImpl implements UserRepository {
         },
         plan: {
           planPermission: {
-            persmission: true
+            permission: true
           }
         },
       },

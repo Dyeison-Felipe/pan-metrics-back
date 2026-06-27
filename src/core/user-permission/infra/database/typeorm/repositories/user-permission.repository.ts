@@ -3,7 +3,7 @@ import { UserPermissionSchema } from '../schema/user-permission.schema';
 import { Repository } from 'typeorm';
 import { UserPermissionRepositoryMapper } from './mapper/user-permission-repository.mapper';
 import { UserPermissionRepository } from '@/core/user-permission/domain/repositories/user-permission.repository';
-import { UserPersmissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
+import { UserPermissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
 
 export class UserPermissionRepositoryImpl implements UserPermissionRepository {
   constructor(
@@ -11,20 +11,20 @@ export class UserPermissionRepositoryImpl implements UserPermissionRepository {
     private readonly userPermissionRepository: Repository<UserPermissionSchema>,
   ) {}
 
-  async create(entity: UserPersmissionEntity): Promise<UserPersmissionEntity> {
+  async create(entity: UserPermissionEntity): Promise<UserPermissionEntity> {
     const userPermissionSchema =
       UserPermissionRepositoryMapper.toSchema(entity);
 
     const save = await this.userPermissionRepository.save(userPermissionSchema);
 
-    const UserPersmissionEntity = UserPermissionRepositoryMapper.toEntity(save);
+    const userPermissionEntity = UserPermissionRepositoryMapper.toEntity(save);
 
-    return UserPersmissionEntity;
+    return userPermissionEntity;
   }
 
   async findAllPermissionByUser(
     userId: string,
-  ): Promise<UserPersmissionEntity[]> {
+  ): Promise<UserPermissionEntity[]> {
     const userPermissions = await this.userPermissionRepository.find({
       where: { user: { id: userId } },
       relations: ['user', 'permission'],

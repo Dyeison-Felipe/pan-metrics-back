@@ -17,6 +17,6 @@ export class PermissionSchema extends BaseSchema {
   @OneToMany(() => UserPermissionSchema, (up) => up.permission)
   userPermissions: UserPermissionSchema[];
 
-  @OneToMany(() => PlanPermissionSchema, (planPermission) => planPermission.persmission)
+  @OneToMany(() => PlanPermissionSchema, (planPermission) => planPermission.permission)
   planPermission: PlanPermissionSchema[]
 }

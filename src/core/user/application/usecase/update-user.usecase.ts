@@ -14,7 +14,7 @@ import { UpdateUserOutput } from '@/shared/application/output/users/update-user.
 import { RoleRepository } from '@/core/role/domain/repositories/role.repository';
 import { UserPermissionRepository } from '@/core/user-permission/domain/repositories/user-permission.repository';
 import { PermissionRepository } from '@/core/permission/domain/repositories/permission.repository';
-import { UserPersmissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
+import { UserPermissionEntity } from '@/core/user-permission/domain/entities/user-permission.entity';
 import { Permission } from '@/core/permission/domain/entity/permission.entity';
 
 type Input = UpdateUserInput;
@@ -82,7 +82,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
 
   outputUser(
     userEntity: UserEntity,
-    userPermissions: UserPersmissionEntity[],
+    userPermissions: UserPermissionEntity[],
   ): Output {
     const output: Output = {
       id: userEntity.id,
@@ -94,6 +94,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
         id: userPermission.permission.id,
         action: userPermission.permission.action,
         subject: userPermission.permission.subject,
+        description: userPermission.permission.description
       })),
     };
 
@@ -103,7 +104,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
   async updateUserPermission(
     permissions: Permission[],
     user: UserEntity,
-  ): Promise<UserPersmissionEntity[]> {
+  ): Promise<UserPermissionEntity[]> {
     try {
       // permissões atuais
       const currentPermissions = user.userPermissions ?? [];
@@ -134,7 +135,7 @@ export class UpdateUserUseCase implements UseCase<Input, Output> {
 
       const added = await Promise.all(
         toAdd.map((permission) => {
-          const entity = UserPersmissionEntity.create({ user, permission });
+          const entity = UserPermissionEntity.create({ user, permission });
           return this.userPermissionRepository.create(entity);
         }),
       );

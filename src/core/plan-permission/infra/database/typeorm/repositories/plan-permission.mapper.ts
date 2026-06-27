@@ -7,7 +7,7 @@ export class PlanPermissionMapper {
   static toEntity(schema: PlanPermissionSchema): PlanPermission {
     return new PlanPermission({
       id: schema.id,
-      permission: PermissionMappper.toEntity(schema.persmission),
+      permission: PermissionMappper.toEntity(schema.permission),
       plan: PlanMapper.toEntity(schema.plan),
       auditable: {
         createdAt: schema.createdAt,
@@ -20,7 +20,7 @@ export class PlanPermissionMapper {
   static toSchema(entity: PlanPermission): PlanPermissionSchema {
     return PlanPermissionSchema.with({
       id: entity.id,
-      persmission: PermissionMappper.toSchema(entity.permission),
+      permission: PermissionMappper.toSchema(entity.permission),
       plan: PlanMapper.toSchema(entity.plan),
       createdAt: entity.auditable?.createdAt,
       updatedAt: entity.auditable?.updatedAt,

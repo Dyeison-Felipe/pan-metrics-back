@@ -1,4 +1,4 @@
-import { PermissionRef } from '@/core/auth/domain/permissions-definition/persmissions';
+import { PermissionRef } from '@/core/auth/domain/permissions-definition/permissions';
 import { SetMetadata } from '@nestjs/common';
 
 export const PERMISSIONS_KEY = 'PERMISSIONS';

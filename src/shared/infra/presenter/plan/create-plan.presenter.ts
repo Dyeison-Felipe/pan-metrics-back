@@ -1,7 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
+import { PermissionPresenter } from '../permission/permission.presenter';
 
 export class CreatePlanPresenter {
-
   @ApiProperty({ description: 'Id do plano' })
   readonly id: string;
   @ApiProperty({ description: 'Nome do plano' })
@@ -12,6 +12,8 @@ export class CreatePlanPresenter {
   readonly price: number;
   @ApiProperty({ description: 'Duração do plano' })
   readonly duration: string;
+  @ApiProperty({ description: 'Permissões do plano' })
+  readonly permissions: PermissionPresenter[];
 
   constructor(props: CreatePlanPresenter) {
     this.id = props.id;
@@ -19,5 +21,6 @@ export class CreatePlanPresenter {
     this.description = props.description;
     this.price = props.price;
     this.duration = props.duration;
+    this.permissions = props.permissions;
   }
 }
