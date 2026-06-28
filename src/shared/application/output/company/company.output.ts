@@ -8,7 +8,7 @@ export type CompanyOutput = {
   cnpj: string;
   email: string;
   phoneNumber: string;
-  logotipo: string;
+  stateRegistration: string
   plan: PlanOutput;
   address: AddressOutput;
   active: boolean;

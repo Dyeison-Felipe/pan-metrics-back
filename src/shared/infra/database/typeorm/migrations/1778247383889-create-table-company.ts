@@ -46,10 +46,10 @@ export class CreateTableCompany1778247383889 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'logotipo',
+            name: 'state_registration',
             type: 'varchar',
-            length: '255',
-            isNullable: true,
+            length: '14',
+            isNullable: false,
           },
           {
             name: 'active',
@@ -116,7 +116,7 @@ export class CreateTableCompany1778247383889 implements MigrationInterface {
     );
 
     await queryRunner.query(`
-      INSERT INTO company (id, fantasy_name, social_reazon, cnpj, email, phone_number, active, plan, address, created_at, updated_at, created_by, updated_by)
+      INSERT INTO company (id, fantasy_name, social_reazon, cnpj, email, phone_number, state_registration, active, plan, address, created_at, updated_at, created_by, updated_by)
       VALUES (
         'd3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44',
         'CodeForge',
@@ -124,6 +124,7 @@ export class CreateTableCompany1778247383889 implements MigrationInterface {
         '00000000000000',
         'dyeisonfc@gmail.com.br',
         '00000000000',
+        '12345678910',
         true,
         'b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22',
         'c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33',

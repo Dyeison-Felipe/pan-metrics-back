@@ -12,8 +12,9 @@ export type CompanyProps = {
   cnpj: string;
   email: string;
   phoneNumber: string;
-  logotipo: string;
+  logotipo?: string;
   active: boolean;
+  stateRegistration: string;
   address: Address;
   plan: Plan;
   createdBy: string;
@@ -27,6 +28,7 @@ type CreateCompanyProps = {
   cnpj: string;
   email: string;
   phoneNumber: string;
+  stateRegistration: string;
   address: Address;
   plan: Plan;
   createdBy: string;
@@ -40,6 +42,7 @@ type UpdateCompanyProps = {
   email: string;
   plan: Plan;
   phoneNumber: string;
+  stateRegistration: string;
   address: Address;
   updatedBy: string;
 };
@@ -56,8 +59,8 @@ export class Company extends BaseEntity<CompanyProps> {
       cnpj: props.cnpj,
       email: props.email,
       active: true,
-      logotipo: 'teste',
       phoneNumber: props.phoneNumber,
+      stateRegistration: props.stateRegistration,
       address: props.address,
       plan: props.plan,
       createdBy: props.createdBy ?? ID_USER_DEFAULT,
@@ -71,6 +74,7 @@ export class Company extends BaseEntity<CompanyProps> {
     this.cnpj = props.cnpj;
     this.email = props.email;
     this.phoneNumber = props.phoneNumber;
+    this.stateRegistration = props.stateRegistration;
     this.updatedBy = props.updatedBy;
     this.plan = props.plan;
     this.updateTimestamp();

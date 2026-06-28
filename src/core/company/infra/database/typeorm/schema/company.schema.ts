@@ -55,19 +55,19 @@ export class CompanySchema extends BaseSchema {
   phoneNumber: string;
 
   @Column({
-    name: 'logotipo',
-    type: 'varchar',
-    length: 255,
-    nullable: false,
-  })
-  logotipo: string;
-
-  @Column({
     name: 'active',
     type: 'boolean',
     nullable: false,
   })
   active: boolean;
+
+  @Column({
+    name: 'state_registration',
+    type: 'varchar',
+    length: 14,
+    nullable: false,
+  })
+  stateRegistration: string;
 
   @Column({ name: 'created_by', type: 'uuid', nullable: false })
   createdBy: string;

@@ -9,12 +9,10 @@ import { FindAllSearchCityOutput } from '@/shared/application/output/city/find-a
 import { NotFoundError } from '@/shared/application/errors/not-found-error';
 
 type Input = {
-  pagination: PaginationDto;
   state: string;
-  search?: string;
 };
 
-type Output = Pagination<FindAllSearchCityOutput>;
+type Output = FindAllSearchCityOutput[];
 
 export class SearchCityPaginatedUseCase implements UseCase<Input, Output> {
   constructor(
@@ -24,24 +22,19 @@ export class SearchCityPaginatedUseCase implements UseCase<Input, Output> {
 
   private logger = new Logger(SearchCityPaginatedUseCase.name)
 
-  async execute({ pagination, state, search }: Input): Promise<Output> {
+  async execute({ state }: Input): Promise<Output> {
 
-    this.logger.debug(`Iniciando pesquisa de cidade ${search}`)
+    const cities = await this.cityRepository.search(state);
 
-    const cities = await this.cityRepository.search(state, pagination, search);
-
-    if (cities.meta.totalItems === 0) {
+    if (!cities.length) {
       throw new NotFoundError(`Nenhuma cidade encontrada`);
     }
 
-    const cityOutput = cities.items.map((city) => ({
+    const cityOutput = cities.map((city) => ({
       id: city.id,
       name: city.name,
     }));
 
-    return {
-      items: cityOutput,
-      meta: cities.meta,
-    };
+    return cityOutput;
   }
 }

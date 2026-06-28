@@ -24,14 +24,16 @@ import { CityRepository } from '@/core/city/domain/repositories/city.repository'
 type UserInput = {
   username: string;
   password: string;
+  email: string;
 };
 
 type Input = {
+  cnpj: string;
+  stateRegistration: string;
   fantasyName: string;
   socialReazon: string;
-  cnpj: string;
-  email: string;
   phoneNumber: string;
+  email: string;
   address: CreateAddressInput;
   plan: string;
   user: UserInput;
@@ -99,6 +101,7 @@ export class CreateCompanyUseCase implements UseCase<Input, Output> {
       cnpj: input.cnpj,
       email: input.email,
       phoneNumber: input.phoneNumber,
+      stateRegistration: input.stateRegistration,
       address: savedAddress,
       plan,
       createdBy: ID_USER_DEFAULT,
@@ -114,7 +117,7 @@ export class CreateCompanyUseCase implements UseCase<Input, Output> {
     return this.output(savedCompany);
   }
 
-  output(company: Company): Output {
+  private output(company: Company): Output {
     const output: Output = {
       id: company.id,
       fantasyName: company.fantasyName,
@@ -123,7 +126,7 @@ export class CreateCompanyUseCase implements UseCase<Input, Output> {
       email: company.email,
       phoneNumber: company.phoneNumber,
       active: company.active, 
-      logotipo: company.logotipo,
+      stateRegistration: company.stateRegistration,
       plan: company.plan!,
       address: company.address!,
       createdBy: company.createdBy,
@@ -134,7 +137,7 @@ export class CreateCompanyUseCase implements UseCase<Input, Output> {
     return output;
   }
 
-  async createRole(company: Company): Promise<Role> {
+  private async createRole(company: Company): Promise<Role> {
     try {
       const role = Role.create({
         name: 'Admin',
@@ -155,7 +158,7 @@ export class CreateCompanyUseCase implements UseCase<Input, Output> {
     }
   }
 
-  async createUser(
+  private async createUser(
     userInput: UserInput,
     company: Company,
     role: Role,
@@ -164,7 +167,7 @@ export class CreateCompanyUseCase implements UseCase<Input, Output> {
       const passwordHased = await this.hashService.hash(userInput.password);
 
       const user = UserEntity.create({
-        email: company.email,
+        email: userInput.email,
         username: userInput.username,
         password: passwordHased,
         role,

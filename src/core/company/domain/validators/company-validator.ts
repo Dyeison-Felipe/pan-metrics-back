@@ -39,9 +39,9 @@ export class CompanyRules {
   phoneNumber: string;
 
   @IsString()
-  @MaxLength(255)
-  @IsOptional()
-  logotipo: string;
+  @MaxLength(14)
+  @IsNotEmpty()
+  stateRegistration: string;
 
   @IsBoolean()
   @IsNotEmpty()

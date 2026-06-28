@@ -57,22 +57,8 @@ export class CityController {
   @ApiNotFoundResponse({ description: 'Nenhuma cidade encontrado' })
   @ApiInternalServerErrorResponse({ description: 'Erro interno do servidor' })
   async search(
-    @Query('s') search: string = '',
     @Param('state') state: string,
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 100,
-  ): Promise<PaginationPresenter<FindAllSearchCityPresenter>> {
-    const pagination = await this.searchCityPaginatedUseCase.execute({
-      pagination: { page, limit },
-      state: state,
-      search: search,
-    });
-
-    const output = ConvertPresenter.toPaginationPresenter(
-      pagination,
-      FindAllSearchCityPresenter,
-    );
-
-    return output;
+  ): Promise<FindAllSearchCityPresenter[]> {
+    return await this.searchCityPaginatedUseCase.execute({ state });
   }
 }

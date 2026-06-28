@@ -16,7 +16,7 @@ export class CompanyRepositoryMapper {
       phoneNumber: schema.phoneNumber,
       active: schema.active,
       email: schema.email,
-      logotipo: schema.logotipo,
+      stateRegistration: schema.stateRegistration,
       address: AddressRepositoryMapper.toEntity(schema.address),
       plan: PlanMapper.toEntity(schema.plan),
       auditable: {
@@ -41,7 +41,7 @@ export class CompanyRepositoryMapper {
       phoneNumber: entity.phoneNumber,
       active: entity.active,
       email: entity.email,
-      logotipo: entity.logotipo,
+      stateRegistration: entity.stateRegistration,
       createdAt: entity.auditable?.createdAt,
       updatedAt: entity.auditable?.updatedAt,
       deletedAt: entity.auditable?.deletedAt,

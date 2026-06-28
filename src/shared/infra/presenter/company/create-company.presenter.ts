@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PermissionPresenter } from '../permission/permission.presenter';
 import { PlanPresenter } from '../plan/plan.presenter';
 import { AddressPresenter } from '../address/address.preseter';
 
@@ -23,15 +22,15 @@ export class CreateCompanyPresenter {
   readonly phoneNumber: string;
 
   @ApiProperty({ description: 'Imagem da logo da empresa', type: String })
-  readonly logotipo: string;
+  readonly stateRegistration: string;
 
   @ApiProperty({ description: 'Status da empresa', type: String })
   readonly active: boolean;
 
-  @ApiProperty({ description: 'Enderço da empresa', type: String })
+  @ApiProperty({ description: 'Enderço da empresa', type: AddressPresenter })
   address: AddressPresenter;
 
-  @ApiProperty({ description: 'Plano da empresa', type: String })
+  @ApiProperty({ description: 'Plano da empresa', type: PlanPresenter })
   plan: PlanPresenter;
 
   constructor(props: CreateCompanyPresenter) {
@@ -41,7 +40,7 @@ export class CreateCompanyPresenter {
     this.fantasyName = props.fantasyName;
     this.socialReazon = props.socialReazon;
     this.cnpj = props.cnpj;
-    this.logotipo = props.logotipo;
+    this.stateRegistration = props.stateRegistration;
     this.phoneNumber = props.phoneNumber;
     this.address = props.address;
     this.plan = props.plan;

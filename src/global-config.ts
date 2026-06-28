@@ -22,13 +22,25 @@ export async function globalConfig(
 
   // SWAGGER
   const config = new DocumentBuilder()
-    .setTitle('Pan-Metrics')
-    .setDescription('Api Pan-Metrics')
+    .setTitle(`Baker's Bill`)
+    .setDescription(`Api Baker's Bill`)
     .setVersion('1.0')
-    .addTag('Panificação, Padaria, Panificadora, Metricas, Pan-Metrics')
+    .addTag(`Panificação, Padaria, Panificadora, Metricas, Baker's Bill`)
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, documentFactory);
+  SwaggerModule.setup('api/docs', app, documentFactory, {
+    customCss: `
+    .required-label::after {
+      content: " *";
+      color: red;
+    }
+    /* marca campos required no schema */
+    td.required div::after {
+      content: " *";
+      color: red;
+    }
+  `,
+  });
 
   //  CORS
   const origins = envConfig.getAllowedOrigins();

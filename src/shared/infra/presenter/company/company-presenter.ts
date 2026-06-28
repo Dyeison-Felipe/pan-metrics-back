@@ -23,7 +23,7 @@ export class CompanyPresenter {
   readonly phoneNumber: string;
 
   @ApiProperty({ description: 'Imagem da logo da empresa', type: String })
-  readonly logotipo: string;
+  readonly stateRegistration: string;
 
   @ApiProperty({ description: 'Status da empresa', type: String })
   readonly active: boolean;
@@ -41,7 +41,7 @@ export class CompanyPresenter {
     this.fantasyName = props.fantasyName;
     this.socialReazon = props.socialReazon;
     this.cnpj = props.cnpj;
-    this.logotipo = props.logotipo;
+    this.stateRegistration = props.stateRegistration;
     this.phoneNumber = props.phoneNumber;
     this.address = props.address;
     this.plan = props.plan;
