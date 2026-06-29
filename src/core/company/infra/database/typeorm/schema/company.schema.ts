@@ -1,4 +1,5 @@
 import { AddressSchema } from '@/core/address/infra/database/typeorm/schema/address.schema';
+import { CategorySchema } from '@/core/category/infra/database/typeorm/schema/category.schema';
 import { PlanSchema } from '@/core/plan/infra/database/typeorm/schema/plan.schema';
 import { RoleSchema } from '@/core/role/infra/database/typeorm/schema/role.schema';
 import { UserSchema } from '@/core/user/infra/database/typeorm/schema/user.schema';
@@ -102,4 +103,7 @@ export class CompanySchema extends BaseSchema {
 
   @OneToMany(() => UserSchema, (user) => user.company)
   user: UserSchema[];
+
+  @OneToMany(() => CategorySchema, (category) => category.company)
+  category: CategorySchema[];
 }
