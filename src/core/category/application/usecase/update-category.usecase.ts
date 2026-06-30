@@ -41,7 +41,7 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
 
     let parent: Category | null = existCategory?.parent ? existCategory.parent : null;
 
-    if (parent && parentId) {
+    if (parent) {
       if (parentId === id) {
         throw new BadRequestError(
           `Uma categoria não pode ser atribuida a ela mesma`,
@@ -59,7 +59,7 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
       }
 
       parent = parentCategory;
-    } 
+    }
 
     existCategory.update({
       name: name,
