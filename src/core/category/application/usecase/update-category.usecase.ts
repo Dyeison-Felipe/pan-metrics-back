@@ -11,12 +11,12 @@ import { Category } from '../../domain/entities/category.entity';
 type Input = {
   id: string;
   name: string;
-  parentId?: string | null;
+  parentId?: string;
 };
 
 type Output = CategoryOutput;
 
-export class CreateCategoryUseCase implements UseCase<Input, Output> {
+export class UpdateCategoryByCompanyUseCase implements UseCase<Input, Output> {
   constructor(
     @Inject(PROVIDERS.CATEGORY_REPOSITORY)
     private readonly categoryRepository: CategoryRepository,
@@ -41,7 +41,7 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
 
     let parent: Category | null = existCategory?.parent ? existCategory.parent : null;
 
-    if (parent) {
+    if (parent && parentId) {
       if (parentId === id) {
         throw new BadRequestError(
           `Uma categoria não pode ser atribuida a ela mesma`,

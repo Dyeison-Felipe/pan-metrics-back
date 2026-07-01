@@ -26,7 +26,7 @@ export class CategoryMapper {
     return CategorySchema.with({
       id: entity.id,
       name: entity.name,
-      company: CompanyRepositoryMapper.toSchema(entity.company),
+      company: CompanyRepositoryMapper.toSchema(entity.company!),
       parent: entity.parent ? CategoryMapper.toSchema(entity.parent) : null,
       createdBy: entity.createdBy,
       updatedBy: entity.updatedBy,

@@ -12,7 +12,7 @@ type Input = void;
 
 type Output = CategoryOutput[];
 
-export class CreateCategoryUseCase implements UseCase<Input, Output> {
+export class FindAllCategoriesByCompanyUseCase implements UseCase<Input, Output> {
   constructor(
     @Inject(PROVIDERS.CATEGORY_REPOSITORY)
     private readonly categoryRepository: CategoryRepository,
@@ -29,9 +29,9 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
       this.loggedUser.company.id,
     );
 
-    if (!categories.length) {
-      throw new NotFoundError(`Nenhuma categoria encontrada`);
-    }
+    // if (!categories.length) {
+    //   throw new NotFoundError(`Nenhuma categoria encontrada`);
+    // }
 
     const output = this.mapToOutput(categories);
 

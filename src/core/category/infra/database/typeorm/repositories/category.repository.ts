@@ -66,7 +66,7 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   async findById(id: string): Promise<Category | null> {
     const categorySchema = await this.categoryRepository.findOne({
       where: { id },
-      relations: ['company'],
+      relations: ['company', 'company.address', 'company.plan'],
     });
 
     if (!categorySchema) return null;

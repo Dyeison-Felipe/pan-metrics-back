@@ -23,6 +23,7 @@ import { CategoryModule } from './core/category/infra/category.module';
 @Module({
   imports: [
     CategoryModule,
+    CategoryModule,
     PlanPermissionModule,
     LoggedUserModule,
     EnvConfigModule,

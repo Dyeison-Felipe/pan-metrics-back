@@ -60,12 +60,7 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
     const output: Output = {
       id: saveCategory.id,
       name: saveCategory.name,
-      parent: saveCategory.parent
-        ? {
-            id: saveCategory.parent.id,
-            name: saveCategory.parent.name,
-          }
-        : null,
+      parentId: saveCategory.parent ? saveCategory.parent.id : null,
     };
 
     return output;
